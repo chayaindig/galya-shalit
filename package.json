@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "GH_PAGES=1 vite build && touch dist/.nojekyll && cd dist && git init -q -b gh-pages && git add -A && git commit -qm deploy && git push -f https://github.com/chayaindig/galya-shalit.git gh-pages && rm -rf .git"
   },
   "dependencies": {
     "gsap": "^3.15.0",
