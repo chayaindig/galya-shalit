@@ -9,7 +9,7 @@ export default function Icon({ name, className, flip }: { name: Name; className?
     <span
       aria-hidden="true"
       className={cn('icon', flip && '-scale-x-100', className)}
-      style={{ '--icon': `url(icons/${name}.svg)` } as CSSProperties}
+      style={{ '--icon': `url(${import.meta.env.BASE_URL}icons/${name}.svg)` } as CSSProperties}
     />
   )
 }
