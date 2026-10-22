@@ -71,7 +71,7 @@ export default function Hero() {
         const cy = m.top + m.height / 2 - st.top
         const far = Math.max(Math.hypot(cx, cy), Math.hypot(st.width - cx, cy), Math.hypot(cx, st.height - cy), Math.hypot(st.width - cx, st.height - cy))
         gsap.set(flood.current, { left: cx - 50, top: cy - 50 })
-        return (far / 42) * 1.12
+        return (far / 42) * 1.15
       }
       let cover = placeFlood()
       ScrollTrigger.addEventListener('refreshInit', () => { cover = placeFlood() })
@@ -139,22 +139,10 @@ export default function Hero() {
           <circle className="tip-marker" cx={TIP.x} cy={TIP.y} r="2" fill="none" />
         </svg>
 
-        {/* The blue blot that floods the page: a wet watercolour edge, darker at the rim */}
+        {/* The blue blot that floods the page. A pre-rendered image, not an SVG filter:
+            iOS Safari drops filtered layers once they are scaled this large. */}
         <div ref={flood} aria-hidden="true" className="pointer-events-none invisible absolute size-[100px]">
-          <svg viewBox="0 0 100 100" className="size-full overflow-visible">
-            <defs>
-              <filter id="wet" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed="7" />
-                <feDisplacementMap in="SourceGraphic" scale="9" />
-              </filter>
-              <radialGradient id="wet-fill">
-                <stop offset="0.7" stopColor="#3d8cb5" />
-                <stop offset="0.93" stopColor="#367fa6" />
-                <stop offset="1" stopColor="#2f7299" />
-              </radialGradient>
-            </defs>
-            <circle cx="50" cy="50" r="42" fill="url(#wet-fill)" filter="url(#wet)" />
-          </svg>
+          <img src="hero/flood-blot.webp" alt="" className="size-full" decoding="async" />
         </div>
 
         <div
