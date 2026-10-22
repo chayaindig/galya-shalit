@@ -34,9 +34,6 @@ export default function About() {
           <h2 className="mt-3 font-display text-section font-extrabold">אני גליה.</h2>
           <BlurHighlight
             className="mt-8 max-w-2xl text-sub"
-            highlightedBits={['שוודיה', 'בישראל', 'שני העולמות']}
-            highlightColor="color-mix(in srgb, var(--color-blue) 26%, transparent)"
-            highlightDirection="right"
             viewportOptions={{ once: true, amount: 0.4 }}
           >
             אמנית, מאיירת ומצלמת. גדלתי בשוודיה ואני חיה בישראל, ומה שהכי מעניין אותי זה מה שקורה כששני העולמות נפגשים על דף אחד. אני אוהבת חיות, צמחים ופרטים קטנים שמתגלים רק למי שמסתכל מקרוב.
