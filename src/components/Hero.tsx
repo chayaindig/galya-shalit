@@ -149,12 +149,18 @@ export default function Hero() {
           ref={copy}
           className="absolute inset-x-4 top-[17svh] max-w-xl sm:inset-x-8 lg:top-auto lg:right-[6vw] lg:bottom-[13vh] lg:left-auto lg:w-[min(36rem,40vw)]"
         >
-          <p className="mb-4 text-note font-medium tracking-wide text-ink-soft">
-            איור · צבעי עפרון · דיגיטל · לוגואים
-          </p>
           <h1 className="font-display text-hero font-extralight tracking-tight">גליה שליט</h1>
-          <p className="mt-5 max-w-md text-sub text-ink-soft">
-            קו נקי, צבע מתפרץ. אני מאיירת בצבעי עפרון ובכלים דיגיטליים, ומדפיסה את האיורים על חולצות, תיקים, קירות ומה שרק תרצו.
+          {/* the tagline, underlined by a single pen stroke that bursts into colour at its end */}
+          <p className="hero-tag relative mt-4 w-fit font-display text-sub font-bold whitespace-nowrap md:text-[2rem]">
+            קו נקי, <span className="text-blue-deep">צבע מתפרץ.</span>
+            <svg aria-hidden="true" viewBox="0 0 300 20" preserveAspectRatio="none" className="absolute inset-x-0 -bottom-2 h-3 w-full overflow-visible">
+              <path d="M298 12 C 220 4, 150 18, 80 10 S 14 9, 2 13" fill="none" stroke="var(--color-ink)" strokeWidth="2.2" strokeLinecap="round" pathLength={1} className="hero-tag-line" />
+              <circle cx="4" cy="12" r="6" fill="#d6246e" className="hero-tag-dot" />
+              <circle cx="16" cy="4" r="3.5" fill="#f2c918" className="hero-tag-dot" />
+            </svg>
+          </p>
+          <p className="mt-6 max-w-md text-sub text-ink-soft">
+            אני מאיירת בצבעי עפרון ובכלים דיגיטליים, ומדפיסה את האיורים על חולצות, תיקים, קירות ומה שרק תרצו.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a

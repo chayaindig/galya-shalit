@@ -1,7 +1,7 @@
 import { printsOn, waLink } from '../data'
 import { cn } from '../lib/cn'
 import Icon from './Icon'
-import Squirrel from './Squirrel'
+import SectionDots from './SectionDots'
 
 const dots = ['#d6246e', '#f2c918', '#2f9a6a', '#3d8cb5', '#f08a24', '#7b4fa8']
 
@@ -9,12 +9,8 @@ export default function Prints() {
   const row = [...printsOn, ...printsOn]
   return (
     <section id="prints" className="relative overflow-x-clip py-24 md:py-32" aria-labelledby="prints-title">
-      {/* the squirrel dives in head first, right onto the list of products */}
-      <Squirrel pose="dive" className="absolute top-10 left-[6%] w-20 md:top-14 md:left-[10%] md:w-28" />
+      <SectionDots tone="pink" />
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <p className="text-note font-medium tracking-wide text-ink-soft">
-          <span dir="ltr" className="tabular-nums">06</span> · מהדף אל העולם
-        </p>
         <h2 id="prints-title" className="mt-3 max-w-3xl font-display text-section font-bold">
           אין גבול למה שאפשר להדפיס
         </h2>

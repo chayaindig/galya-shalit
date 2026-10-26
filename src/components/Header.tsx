@@ -74,10 +74,9 @@ export default function Header() {
 
       <nav id="mobile-nav" aria-label="ניווט ראשי" className={cn('lg:hidden', open ? 'block' : 'hidden')}>
         <ul className="mx-4 mb-4 divide-y divide-line border-t border-line">
-          {nav.map((n, i) => (
+          {nav.map(n => (
             <li key={n.href}>
               <a href={n.href} onClick={() => setOpen(false)} className="flex items-baseline gap-4 py-4 text-sub">
-                <span className="text-note text-ink-soft tabular-nums" dir="ltr">0{i + 1}</span>
                 {n.label}
               </a>
             </li>

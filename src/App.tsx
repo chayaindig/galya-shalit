@@ -6,10 +6,12 @@ import Hero from './components/Hero'
 import Story from './components/Story'
 import Credo from './components/Credo'
 import Categories from './components/Categories'
+import SquirrelRun from './components/SquirrelRun'
 import Gallery from './components/Gallery'
 import About from './components/About'
 import Prints from './components/Prints'
-import { Contact, Footer, Shop, WhatsAppFloat } from './components/Closing'
+import Shop from './components/Shop'
+import { Contact, Footer, WhatsAppFloat } from './components/Closing'
 
 export default function App() {
   const [filter, setFilter] = useState<CatId>('inspiration')
@@ -27,6 +29,7 @@ export default function App() {
         <Story />
         <Credo />
         <Categories onPick={setFilter} />
+        <SquirrelRun />
         <Gallery filter={filter} setFilter={setFilter} />
         <About />
         <Prints />

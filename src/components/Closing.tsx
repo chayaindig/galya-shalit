@@ -2,60 +2,14 @@ import { contact, waLink } from '../data'
 import Icon from './Icon'
 import Signature from './Signature'
 import Squirrel from './Squirrel'
+import SectionDots from './SectionDots'
 
-const shirts = [
-  { src: 'art/time-model.webp', alt: 'האיור "זמן" מודפס על חולצה', r: '-rotate-6 translate-y-4' },
-  { src: 'art/gseahorse-model.webp', alt: 'סוסון הים הגיאומטרי מודפס על חולצה', r: 'rotate-0 z-10' },
-  { src: 'art/whale-model.webp', alt: 'זנב הלוויתן מודפס על חולצה', r: 'rotate-6 translate-y-4' },
-]
-
-export function Shop() {
-  return (
-    <section id="shop" className="scroll-mt-20 py-24 md:py-32">
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 md:px-8 lg:grid-cols-2">
-        <div>
-          <p className="text-note font-medium tracking-wide text-ink-soft">
-            <span dir="ltr" className="tabular-nums">07</span> · איפה קונים
-          </p>
-          <h2 className="mt-3 font-display text-section font-bold">רוצים ללבוש את זה?</h2>
-          <p className="mt-6 max-w-lg text-sub text-ink-soft">
-            החולצות שלי נמכרות ב״{contact.shopName}״, חנות של אמנים ישראלים. בוחרים איור, בוחרים חולצה, והוא מגיע אליכם הביתה. על תיקים, מדבקות קיר ומוצרים אחרים, פשוט כתבו לי.
-          </p>
-          <a
-            href={contact.shopUrl}
-            target="_blank"
-            rel="noopener"
-            className="mt-8 inline-flex items-center gap-2.5 rounded-full bg-blue-deep px-6 py-3.5 font-medium text-paper transition-transform hover:-translate-y-0.5"
-          >
-            לחנות שלי ב״{contact.shopName}״
-            <Icon name="arrow" flip />
-          </a>
-        </div>
-
-        <a href={contact.shopUrl} target="_blank" rel="noopener" className="group flex justify-center" aria-label={`לחנות של גליה ב${contact.shopName}`}>
-          {shirts.map(s => (
-            <img
-              key={s.src}
-              src={s.src}
-              alt={s.alt}
-              loading="lazy"
-              className={`-mx-6 w-[38%] max-w-56 rounded-2xl object-cover shadow-[0_24px_50px_-28px_rgba(35,32,29,0.6)] transition-transform duration-500 group-hover:translate-y-0 group-hover:rotate-0 ${s.r}`}
-            />
-          ))}
-        </a>
-      </div>
-    </section>
-  )
-}
 
 export function Contact() {
   return (
     <section id="contact" className="relative scroll-mt-20 overflow-x-clip bg-paper-2 py-24 md:py-32">
-      <Squirrel pose="stretch" className="absolute top-16 left-4 w-32 md:top-24 md:left-[8%] md:w-48" />
+      <SectionDots tone="green" />
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <p className="text-note font-medium tracking-wide text-ink-soft">
-          <span dir="ltr" className="tabular-nums">08</span> · צרו קשר
-        </p>
         <h2 className="mt-3 max-w-3xl font-display text-section font-bold">בואו נצייר משהו ביחד.</h2>
         <p className="mt-6 max-w-xl text-sub text-ink-soft">
           איור אישי, מתנה, שיתוף פעולה או סתם שאלה. הכי מהר לתפוס אותי בוואטסאפ.

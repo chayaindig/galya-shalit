@@ -1,3 +1,4 @@
+import SectionDots from './SectionDots'
 // Picks up exactly where the blue blot flooded the hero, then washes back to paper.
 export default function Story() {
   return (
@@ -9,11 +10,9 @@ export default function Story() {
           'linear-gradient(to bottom, var(--color-blue) 0%, var(--color-blue-night) 38%, var(--color-blue-night) 72%, var(--color-paper) 100%)',
       }}
     >
+      <SectionDots tone="pink" />
       <div className="mx-auto grid max-w-7xl gap-10 px-4 pt-[22svh] md:px-8 lg:grid-cols-12">
-        <p className="text-note font-medium tracking-wide text-paper/75 lg:col-span-3">
-          <span dir="ltr" className="tabular-nums">01</span> · ככה זה מתחיל
-        </p>
-        <div className="lg:col-span-9">
+        <div className="lg:col-span-9 lg:col-start-4">
           <h2 className="font-display text-section font-bold">
             כל איור מתחיל
             <br />

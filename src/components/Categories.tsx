@@ -2,6 +2,7 @@ import { categories, works, type CatId } from '../data'
 import { cn } from '../lib/cn'
 import Icon from './Icon'
 import Squirrel from './Squirrel'
+import SectionDots from './SectionDots'
 
 // Five doors into Galya's world. Each door shows a drawing from inside it.
 export default function Categories({ onPick }: { onPick: (c: CatId) => void }) {
@@ -11,14 +12,12 @@ export default function Categories({ onPick }: { onPick: (c: CatId) => void }) {
   }
 
   return (
-    <section id="series" className="relative scroll-mt-20 bg-paper-2 py-24 md:py-32">
+    <section id="series" className="relative scroll-mt-20 overflow-x-clip bg-paper-2 py-24 md:py-32">
+      <SectionDots tone="orange" />
       {/* The squirrel hangs off the top of the section by its tail */}
       <Squirrel pose="hang" className="absolute -top-2 left-[8%] w-14 md:left-[12%] md:w-20" />
 
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <p className="text-note font-medium tracking-wide text-ink-soft">
-          <span dir="ltr" className="tabular-nums">03</span> · מה תמצאו כאן
-        </p>
         <h2 className="mt-3 max-w-3xl font-display text-section font-bold">חמש דלתות לעולם שלי</h2>
 
         <ol className="mt-12 grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-5 lg:gap-5">
@@ -50,9 +49,6 @@ export default function Categories({ onPick }: { onPick: (c: CatId) => void }) {
                         )}
                       />
                     )}
-                    <span className="absolute top-3 right-3 rounded-full bg-paper/90 px-2.5 py-1 text-note font-medium tabular-nums" dir="ltr">
-                      0{i + 1}
-                    </span>
                   </div>
                   <div className="mt-4 flex items-center gap-2">
                     <span className="size-2.5 rounded-full" style={{ background: c.color }} />

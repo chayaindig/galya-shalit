@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SectionDots from './SectionDots'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -42,10 +43,8 @@ export default function Credo() {
 
   return (
     <section ref={root} className="relative overflow-x-clip py-24 md:py-36" aria-labelledby="credo-title">
+      <SectionDots tone="green" />
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <p className="text-note font-medium tracking-wide text-ink-soft">
-          <span dir="ltr" className="tabular-nums">02</span> · במשפט אחד
-        </p>
 
         <h2 id="credo-title" className="credo mt-8 font-display leading-[0.95]">
           <span className="credo-line relative block w-fit font-extralight whitespace-nowrap">
