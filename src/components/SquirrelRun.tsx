@@ -86,7 +86,7 @@ export default function SquirrelRun() {
   }, [])
 
   return (
-    <div ref={band} className="relative h-[60svh] overflow-x-clip md:h-[80vh]" aria-hidden="true" style={{ '--sr-w': 'clamp(230px, 42vw, 640px)' } as CSSProperties}>
+    <div ref={band} className="relative h-[36svh] overflow-x-clip md:h-[80vh]" aria-hidden="true" style={{ '--sr-w': 'clamp(230px, 42vw, 640px)' } as CSSProperties}>
       <p className="sr-phrase absolute inset-x-0 top-1/2 mx-auto w-fit -translate-y-1/2 font-display text-[clamp(2.4rem,10vw,10rem)] leading-none font-bold whitespace-nowrap">
         {phrase.split(' ').map((word, w) => (
           <span key={w} className="inline-block whitespace-nowrap">

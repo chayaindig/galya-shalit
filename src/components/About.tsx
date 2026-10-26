@@ -1,13 +1,14 @@
 import BlurHighlight from './BlurHighlight'
 import Signature from './Signature'
 import TiltedCard from './TiltedCard'
+import ScrollStack, { ScrollStackItem } from './ScrollStack'
 import Icon from './Icon'
 import SectionDots from './SectionDots'
 
 const crafts = [
   { name: 'צבעי עפרון', line: 'שכבה על שכבה, בכל פעם בטכניקה אחרת.', img: 'art2/ins-apples.webp', color: '#d6246e' },
   { name: 'איור דיגיטלי', line: 'המקום שבו קו נקי פוגש צבע בלי גבולות.', img: 'art2/dig-fox.webp', color: '#e8762b' },
-  { name: 'לוגו ומיתוג', line: 'סימן אחד קטן שמספר את כל העסק.', img: 'art2/logo-barakbees.webp', color: '#d4a017' },
+  { name: 'לוגו ומיתוג', line: 'סימן אחד קטן שמספר את כל העסק.', img: 'art2/logo-hamerchav.webp', color: '#d4a017' },
   { name: 'צילום', line: 'העין שמחפשת את הפרט הקטן לפני שהוא נעלם.', img: 'art2/paper.webp', color: '#3d8cb5', camera: true },
 ]
 
@@ -54,7 +55,7 @@ export default function About() {
         </div>
       </div>
       {/* four ways she works, as cards that tilt toward the cursor (React Bits "Tilted Card") */}
-      <ul className="mx-auto mt-20 grid max-w-7xl grid-cols-2 gap-x-4 gap-y-10 px-4 md:grid-cols-4 md:gap-x-8 md:px-8">
+      <ul className="mx-auto mt-20 hidden max-w-7xl grid-cols-4 gap-x-8 px-8 md:grid">
         {crafts.map(c => (
           <li key={c.name} className="min-w-0">
             <div className="aspect-[4/5] w-full">
@@ -82,6 +83,24 @@ export default function About() {
           </li>
         ))}
       </ul>
+      {/* phone: the four crafts stack on each other as you scroll (React Bits "Scroll Stack") */}
+      <div className="mt-16 px-4 md:hidden">
+        <ScrollStack useWindowScroll smoothScroll={false} stackPosition="14%" itemDistance={36} itemStackDistance={16} itemScale={0.04} baseScale={0.86} dimAmount={0.12} holdDistance={40}>
+          {crafts.map(c => (
+            <ScrollStackItem key={c.name} itemClassName="p-3 pb-5">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-paper">
+                <img src={c.img} alt={c.name} loading="lazy" className={c.camera ? 'hidden' : 'absolute inset-0 size-full object-cover'} />
+                {c.camera && <Icon name="camera" className="absolute inset-0 m-auto size-12 text-ink-soft" />}
+              </div>
+              <div className="mt-4 flex items-center gap-2 px-1">
+                <span className="size-2.5 rounded-full" style={{ background: c.color }} />
+                <h3 className="text-sub font-medium">{c.name}</h3>
+              </div>
+              <p className="mt-1 px-1 text-note text-ink-soft">{c.line}</p>
+            </ScrollStackItem>
+          ))}
+        </ScrollStack>
+      </div>
     </section>
   )
 }

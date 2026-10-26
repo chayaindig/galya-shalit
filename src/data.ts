@@ -17,9 +17,9 @@ export type CatId = 'inspiration' | 'products' | 'digital' | 'logos' | 'photos'
 
 // Five doors into Galya's world. Each category shows a drawing from inside it.
 export const categories: { id: CatId; name: string; en: string; line: string; cover: string; color: string }[] = [
+  { id: 'digital', name: 'דיגיטלי', en: 'Digital', line: 'כרטיסיות הרגשות, השועל הכתום ועוד איורים שנולדו על המסך.', cover: 'art2/emo-calm.webp', color: '#3d8cb5' },
   { id: 'inspiration', name: 'השראה', en: 'Sketchbook', line: 'איורים מהיומן ורישומים מהירים בעיפרון. מכאן הכל מתחיל.', cover: 'art2/ins-journal-frogs.webp', color: '#2f9a6a' },
   { id: 'products', name: 'מוצרים', en: 'Prints', line: 'חולצות, תיקים, מדבקות קיר. איורים שאפשר ללבוש ולקחת הביתה.', cover: 'art2/prod-fox-shirt.webp', color: '#e8762b' },
-  { id: 'digital', name: 'דיגיטלי', en: 'Digital', line: 'כרטיסיות הרגשות, השועל הכתום ועוד איורים שנולדו על המסך.', cover: 'art2/emo-calm.webp', color: '#3d8cb5' },
   { id: 'logos', name: 'לוגואים', en: 'Logos', line: 'סימן אחד קטן שמספר את כל הסיפור של עסק.', cover: 'art2/logo-barakbees.webp', color: '#d4a017' },
   { id: 'photos', name: 'צילומים', en: 'Photography', line: 'העין שמחפשת את הפרט הקטן.', cover: '', color: '#5e5850' },
 ]

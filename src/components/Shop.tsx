@@ -21,9 +21,18 @@ export default function Shop() {
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const ctx = gsap.context(() => {
-      const track = root.current!.querySelector<HTMLElement>('.cl-track')!
-      const swing = gsap.utils.toArray<HTMLElement>('.cl-pola')
+    const track = root.current!.querySelector<HTMLElement>('.cl-track')!
+    const rail = root.current!.querySelector<HTMLElement>('.cl-rail')!
+    const swing = gsap.utils.toArray<HTMLElement>('.cl-pola', root.current)
+    const sway = (v: number) => {
+      if (reduce) return
+      gsap.to(swing, { rotate: (i: number) => v * (0.7 + (i % 3) * 0.2), duration: 0.4, ease: 'power2.out', overwrite: true, stagger: 0.015 })
+      gsap.to(swing, { rotate: 0, duration: 1.6, ease: 'elastic.out(1, 0.35)', delay: 0.45, overwrite: false })
+    }
+
+    const mm = gsap.matchMedia()
+    // desktop: scrolling the page pulls the polaroids along the line
+    mm.add('(min-width: 768px)', () => {
       if (reduce) return
       // RTL: the row starts on the right and overflows to the left, so it slides right
       gsap.fromTo(track, { x: () => -window.innerWidth * 0.15 }, {
@@ -35,15 +44,22 @@ export default function Shop() {
           end: 'bottom top',
           scrub: 0.6,
           invalidateOnRefresh: true,
-          onUpdate: self => {
-            const v = gsap.utils.clamp(-14, 14, self.getVelocity() / 140)
-            gsap.to(swing, { rotate: (i: number) => v * (0.7 + (i % 3) * 0.2), duration: 0.4, ease: 'power2.out', overwrite: true, stagger: 0.015 })
-            gsap.to(swing, { rotate: 0, duration: 1.6, ease: 'elastic.out(1, 0.35)', delay: 0.45, overwrite: false })
-          },
+          onUpdate: self => sway(gsap.utils.clamp(-14, 14, self.getVelocity() / 140)),
         },
       })
-    }, root)
-    return () => ctx.revert()
+    })
+    // phone: drag the line with a finger; the polaroids swing with the swipe
+    mm.add('(max-width: 767px)', () => {
+      let last = rail.scrollLeft
+      const onScroll = () => {
+        const d = rail.scrollLeft - last
+        last = rail.scrollLeft
+        sway(gsap.utils.clamp(-12, 12, d * 0.6))
+      }
+      rail.addEventListener('scroll', onScroll, { passive: true })
+      return () => rail.removeEventListener('scroll', onScroll)
+    })
+    return () => mm.revert()
   }, [])
 
   return (
@@ -76,9 +92,10 @@ export default function Shop() {
         <svg aria-hidden="true" viewBox="0 0 1000 40" preserveAspectRatio="none" className="absolute inset-x-0 top-0 h-6 w-full">
           <path d="M-10 6 Q 500 34 1010 6" fill="none" stroke="var(--color-ink)" strokeWidth="1.6" vectorEffect="non-scaling-stroke" />
         </svg>
+        <div className="cl-rail snap-x snap-mandatory overflow-x-auto overscroll-x-contain pb-6 [scrollbar-width:none] md:snap-none md:overflow-visible md:pb-0 [&::-webkit-scrollbar]:hidden">
         <ul className="cl-track flex w-max gap-6 px-6 pt-3 md:gap-10">
           {shirts.map((s, i) => (
-            <li key={s.src} className="cl-pola shrink-0" style={{ transformOrigin: '50% 0%', marginTop: `${Math.sin(i * 1.7) * 6 + 6}px` }}>
+            <li key={s.src} className="cl-pola shrink-0 snap-center" style={{ transformOrigin: '50% 0%', marginTop: `${Math.sin(i * 1.7) * 6 + 6}px` }}>
               {/* clothes peg */}
               <span aria-hidden="true" className="mx-auto mb-[-10px] block h-7 w-3.5 rounded-sm bg-[#c9a77a] shadow-[inset_0_-6px_0_rgba(0,0,0,0.12)]" />
               <a
@@ -94,6 +111,8 @@ export default function Shop() {
             </li>
           ))}
         </ul>
+        </div>
+        <p className="mt-2 text-center text-note text-ink-soft md:hidden">החליקו הצידה כדי לראות עוד חולצות</p>
       </div>
     </section>
   )

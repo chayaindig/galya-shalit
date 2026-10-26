@@ -6,6 +6,7 @@ import { cn } from '../lib/cn'
 import CardSpread from './CardSpread'
 import Icon from './Icon'
 import SectionDots from './SectionDots'
+import SwipeCarousel from './SwipeCarousel'
 
 /*
   Works by category. A card opens a full-window viewer: the art large, the story and buttons below,
@@ -91,7 +92,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
             ))}
           </ul>
         ) : (
-          <ul className="mt-12 grid grid-flow-dense grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-3 md:gap-x-6 xl:grid-cols-4">
+          <ul className="mt-12 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 md:grid xl:grid-cols-4">
             <AnimatePresence mode="popLayout">
               {shown.map((w, i) => (
                 <motion.li
@@ -121,15 +122,36 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                         )}
                       />
                     </div>
-                    <div className="mt-3 flex items-baseline justify-between gap-3">
-                      <span className="font-medium">{w.title}</span>
-                      {w.en && <span className="truncate text-note text-ink-soft" dir="auto">{w.en}</span>}
-                    </div>
+                    <p className="mt-3 font-medium text-balance">{w.title}</p>
+                    {w.en && <p className="truncate text-note text-ink-soft" dir="auto">{w.en}</p>}
                   </button>
                 </motion.li>
               ))}
             </AnimatePresence>
           </ul>
+        )}
+
+        {filter !== 'photos' && (
+          <SwipeCarousel
+            key={filter}
+            className="mt-10 md:hidden"
+            items={shown}
+            getKey={w => w.id}
+            render={(w, i) => (
+              <button type="button" onClick={() => setOpen({ list: shown, index: i })} className="block w-full text-right" aria-label={`לפתוח את ${w.title}`}>
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-24px_rgba(35,32,29,0.5)]">
+                  <img
+                    src={w.cover || w.art}
+                    alt={w.title}
+                    loading="lazy"
+                    decoding="async"
+                    className={cn('absolute inset-0 size-full', isPhoto(w) ? 'object-cover' : 'object-contain p-[7%] mix-blend-multiply')}
+                  />
+                </div>
+                <p className="mt-3 font-medium text-balance">{w.title}</p>
+              </button>
+            )}
+          />
         )}
 
         {filter === 'products' && (

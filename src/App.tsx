@@ -14,7 +14,7 @@ import Shop from './components/Shop'
 import { Contact, Footer, WhatsAppFloat } from './components/Closing'
 
 export default function App() {
-  const [filter, setFilter] = useState<CatId>('inspiration')
+  const [filter, setFilter] = useState<CatId>('digital')
 
   useEffect(() => watchOrphans(), [])
 
