@@ -244,3 +244,18 @@ body::before {
   clip-path: polygon(3% 0, 97% 4%, 100% 22%, 96% 46%, 100% 70%, 97% 100%, 2% 96%, 0 74%, 4% 50%, 0 26%);
 }
 .zzz-2 { animation-delay: 1.5s; }
+
+/* Floating WhatsApp: a soft pulse every few seconds */
+.wa-float::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 2px solid #1fa855;
+  animation: wa-pulse 3.2s ease-out infinite;
+}
+@keyframes wa-pulse {
+  0% { transform: scale(1); opacity: 0.7; }
+  60%, 100% { transform: scale(1.55); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .wa-float::after { animation: none; opacity: 0; } }

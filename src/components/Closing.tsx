@@ -82,15 +82,17 @@ export function Footer() {
 }
 
 export function WhatsAppFloat() {
+  // Floating WhatsApp, bottom right on every screen. WhatsApp green with a paper ring,
+  // so it stays visible on light paper and on the dark footer alike.
   return (
     <a
       href={waLink()}
       target="_blank"
       rel="noopener"
       aria-label="לכתוב לגליה בוואטסאפ"
-      className="fixed right-4 bottom-4 z-40 grid size-14 place-items-center rounded-full bg-blue-deep text-paper shadow-[0_12px_30px_-10px_var(--color-blue-deep)] transition-transform hover:scale-105 md:right-6 md:bottom-6"
+      className="wa-float fixed right-4 bottom-4 z-40 grid size-14 place-items-center rounded-full bg-[#1fa855] text-white ring-4 ring-paper shadow-[0_12px_30px_-8px_rgba(0,0,0,0.45)] transition-transform hover:scale-105 md:right-6 md:bottom-6 md:size-16"
     >
-      <Icon name="whatsapp" className="size-6" />
+      <Icon name="whatsapp" className="size-7 md:size-8" />
     </a>
   )
 }
