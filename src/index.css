@@ -259,3 +259,16 @@ body::before {
   60%, 100% { transform: scale(1.55); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .wa-float::after { animation: none; opacity: 0; } }
+
+/* Squirrel run letters: grey until the squirrel reaches them, then filled with Galya's colour */
+.sr-letter {
+  color: #9a948c;
+  background-image: url("/hero/watercolor-texture.webp");
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: color 0.6s ease;
+}
+.sr-letter.is-wet {
+  color: transparent;
+}
