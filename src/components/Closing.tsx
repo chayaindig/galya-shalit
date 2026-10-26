@@ -7,7 +7,7 @@ import SectionDots from './SectionDots'
 
 export function Contact() {
   return (
-    <section id="contact" className="relative scroll-mt-20 overflow-x-clip bg-paper-2 py-24 md:py-32">
+    <section id="contact" className="relative scroll-mt-20 overflow-x-clip bg-paper-2 pt-24 pb-[clamp(13rem,34vw,22rem)] md:pt-32">
       <SectionDots tone="green" />
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <h2 className="mt-3 max-w-3xl font-display text-section font-bold">בואו נצייר משהו ביחד.</h2>
@@ -52,10 +52,13 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="relative bg-blue-night py-16 text-paper">
-      {/* end of the day: the squirrel falls asleep on the edge of the footer */}
-      <div aria-hidden="true" className="absolute -top-[58px] left-[8%] md:-top-[78px] md:left-[14%]">
-        <Squirrel pose="sleep" className="w-28 md:w-40" />
-        <span className="zzz absolute -top-4 left-2 font-display text-sub text-ink-soft">ז ז ז</span>
+      {/* end of the day: the squirrel curls up on the edge of the footer, on a pool of colour */}
+      <div aria-hidden="true" className="pointer-events-none absolute bottom-full left-1/2 w-[min(78vw,30rem)] -translate-x-1/2 translate-y-[3%] md:left-[30%]">
+        <img src="hero/blot-yellow.webp" alt="" className="absolute bottom-[6%] left-[10%] w-[52%] opacity-80 mix-blend-multiply" />
+        <img src="hero/blot-pink.webp" alt="" className="absolute bottom-[10%] right-[8%] w-[32%] opacity-70 mix-blend-multiply" />
+        <Squirrel pose="sleep" className="relative w-full" />
+        <span className="zzz absolute top-[34%] left-[24%] font-display text-sub font-bold text-ink-soft">ז</span>
+        <span className="zzz zzz-2 absolute top-[12%] left-[16%] font-display text-section font-bold text-ink-soft">ז</span>
       </div>
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 md:flex-row md:items-end md:justify-between md:px-8">
         <div>

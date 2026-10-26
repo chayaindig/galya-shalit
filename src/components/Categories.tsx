@@ -1,7 +1,6 @@
 import { categories, works, type CatId } from '../data'
 import { cn } from '../lib/cn'
 import Icon from './Icon'
-import Squirrel from './Squirrel'
 import SectionDots from './SectionDots'
 
 // Five doors into Galya's world. Each door shows a drawing from inside it.
@@ -14,8 +13,6 @@ export default function Categories({ onPick }: { onPick: (c: CatId) => void }) {
   return (
     <section id="series" className="relative scroll-mt-20 overflow-x-clip bg-paper-2 py-24 md:py-32">
       <SectionDots tone="orange" />
-      {/* The squirrel hangs off the top of the section by its tail */}
-      <Squirrel pose="hang" className="absolute -top-2 left-[8%] w-14 md:left-[12%] md:w-20" />
 
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <h2 className="mt-3 max-w-3xl font-display text-section font-bold">חמש דלתות לעולם שלי</h2>

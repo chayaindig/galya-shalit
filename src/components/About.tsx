@@ -1,6 +1,5 @@
 import BlurHighlight from './BlurHighlight'
 import Signature from './Signature'
-import Squirrel from './Squirrel'
 import TiltedCard from './TiltedCard'
 import Icon from './Icon'
 import SectionDots from './SectionDots'
@@ -17,9 +16,8 @@ export default function About() {
     <section id="about" className="relative scroll-mt-20 bg-paper-2 py-24 md:py-32">
       <SectionDots tone="yellow" />
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 md:px-8 lg:grid-cols-12 lg:gap-10">
-        {/* Colored-pencil portrait on a sheet of paper, taped to the wall. The squirrel climbed on top. */}
+        {/* Colored-pencil portrait on a sheet of paper, taped to the wall. */}
         <figure className="relative mx-auto w-full max-w-sm lg:order-2 lg:col-span-5 lg:max-w-none">
-          <Squirrel pose="wave" className="absolute -top-[22%] left-[6%] z-10 w-[34%]" />
           <div className="relative -rotate-2 rounded-sm bg-[#fdfbf7] p-3 shadow-[0_30px_60px_-30px_rgba(35,32,29,0.55)] md:p-4">
             <img
               src="art2/galya-portrait.webp"
