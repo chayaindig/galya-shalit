@@ -35,7 +35,7 @@ export default function About() {
         <div className="lg:col-span-7">
           <h2 className="mt-3 font-display text-section font-bold">אני גליה.</h2>
           <BlurHighlight className="mt-8 max-w-2xl text-sub" viewportOptions={{ once: true, amount: 0.4 }}>
-            אני אמנית. אני מאיירת, מציירת ומצלמת, ומחפשת כל הזמן את הרגע שבו קו פשוט הופך למשהו חי.
+            אני מאיירת, מציירת ומצלמת, ומחפשת כל הזמן את הרגע שבו קו פשוט הופך למשהו חי.
           </BlurHighlight>
           <div className="mt-6 max-w-2xl space-y-4 text-ink-soft">
             <p>
