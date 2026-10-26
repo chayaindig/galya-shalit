@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import SectionDots from './SectionDots'
+import { useLang } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -20,6 +21,7 @@ const drops = [
 ]
 
 export default function Credo() {
+  const { lang, t } = useLang()
   const root = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -46,15 +48,15 @@ export default function Credo() {
       <SectionDots tone="green" />
       <div className="mx-auto max-w-7xl px-4 md:px-8">
 
-        <h2 id="credo-title" className="credo mt-8 font-display leading-[0.95]">
+        <h2 id="credo-title" className={`credo mt-8 font-display leading-[0.95] ${lang === 'en' ? 'credo-en' : ''}`}>
           <span className="credo-line relative block w-fit font-extralight whitespace-nowrap">
-            קו נקי.
+            {t.credo1}
             <svg aria-hidden="true" viewBox="0 0 400 24" preserveAspectRatio="none" className="absolute inset-x-0 -bottom-[0.06em] h-[0.12em] w-full overflow-visible">
               <path className="credo-pen" d="M398 14 C 300 6, 210 20, 120 12 S 20 10, 2 16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" pathLength={1} strokeDasharray="1 1" />
             </svg>
           </span>
           <span className="relative mt-[0.12em] block w-fit whitespace-nowrap md:ms-[0.6em]">
-            <span className="credo-color font-bold">צבע מתפרץ.</span>
+            <span className="credo-color font-bold">{t.credo2}</span>
             {drops.map((d, i) => (
               <span
                 key={i}
@@ -67,7 +69,7 @@ export default function Credo() {
         </h2>
 
         <p className="mt-14 max-w-2xl text-sub text-ink-soft md:ms-auto">
-          זה כל הסיפור שלי במשפט אחד. הקו נותן שקט ודיוק, הצבע נותן חיים, וביחד הם הופכים לחיה, לפרח, ללוגו או לחולצה.
+          {t.credoP}
         </p>
       </div>
     </section>

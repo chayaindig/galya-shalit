@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { watchOrphans } from './lib/noOrphans'
+import { useLang } from './i18n'
 import type { CatId } from './data'
 import Header from './components/Header'
 import Hero from './components/Hero'
@@ -14,14 +15,16 @@ import Shop from './components/Shop'
 import { Contact, Footer, WhatsAppFloat } from './components/Closing'
 
 export default function App() {
+  const { lang, t } = useLang()
   const [filter, setFilter] = useState<CatId>('digital')
 
   useEffect(() => watchOrphans(), [])
 
+  // key={lang}: switching language rebuilds the page, so every scroll animation re-measures in the new direction
   return (
-    <>
+    <div key={lang}>
       <a href="#works" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:right-2 focus:z-[80] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">
-        דילוג לעבודות
+        {t.skip}
       </a>
       <Header />
       <main>
@@ -38,6 +41,6 @@ export default function App() {
       </main>
       <Footer />
       <WhatsAppFloat />
-    </>
+    </div>
   )
 }

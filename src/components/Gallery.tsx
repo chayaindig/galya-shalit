@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { contact, categories, emotions, photoSlots, waLink, works, type CatId, type Work } from '../data'
+import { contact, categories, catText, emotions, photoSlots, waLink, workText, works, type CatId, type Work } from '../data'
+import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
 import CardSpread from './CardSpread'
 import Icon from './Icon'
@@ -16,10 +17,9 @@ import SwipeCarousel from './SwipeCarousel'
 const emotionWorks: Work[] = emotions.map(e => ({
   id: `emo-${e.id}`,
   title: e.id[0].toUpperCase() + e.id.slice(1),
-  en: 'כרטיסיות רגשות',
   cat: 'digital',
   art: e.src,
-  note: 'מתוך סדרת כרטיסיות הרגשות: אחת עשרה תחושות, ילד אחד והמון צבע. כל מילה מצוירת כמו הרגש שהיא מתארת.',
+  note: '',
 }))
 
 const isPhoto = (w: Work) => !!w.cover || w.art.includes('prod-') || w.art.includes('panda-model')
@@ -27,17 +27,18 @@ const isPhoto = (w: Work) => !!w.cover || w.art.includes('prod-') || w.art.inclu
 type Open = { list: Work[]; index: number } | null
 
 export default function Gallery({ filter, setFilter }: { filter: CatId; setFilter: (f: CatId) => void }) {
+  const { lang, t } = useLang()
   const [open, setOpen] = useState<Open>(null)
   const shown = works.filter(w => w.cat === filter)
-  const cat = categories.find(c => c.id === filter)!
+  const cat = catText(categories.find(c => c.id === filter)!, lang)
 
   return (
     <section id="works" className="relative scroll-mt-20 overflow-x-clip py-24 md:py-32">
       <SectionDots tone="blue" />
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <div className="relative flex flex-wrap items-end justify-between gap-6">
-          <h2 className="font-display text-section font-bold">עבודות</h2>
-          <div role="tablist" aria-label="קטגוריות" className="-mx-4 flex max-w-[100vw] gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:px-0">
+          <h2 className="font-display text-section font-bold">{t.worksTitle}</h2>
+          <div role="tablist" aria-label={t.catsLabel} className="-mx-4 flex max-w-[100vw] gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:px-0">
             {categories.map(c => (
               <button
                 key={c.id}
@@ -51,7 +52,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                 )}
               >
                 <span className="size-2 rounded-full" style={{ background: c.color }} />
-                {c.name}
+                {catText(c, lang).name}
               </button>
             ))}
           </div>
@@ -62,8 +63,8 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
         {filter === 'digital' && (
           <div className="mt-10 rounded-3xl bg-paper-2 px-4 pt-8 pb-4 md:px-8">
             <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <h3 className="text-sub font-medium">כרטיסיות רגשות</h3>
-              <p className="text-note text-ink-soft">11 קלפים. העבירו עכבר או הקישו על קלף כדי לראות אותו מקרוב.</p>
+              <h3 className="text-sub font-medium">{t.emoTitle}</h3>
+              <p className="text-note text-ink-soft">{t.emoHint}</p>
             </div>
             <CardSpread
               cards={emotions}
@@ -86,7 +87,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
               <li key={i} className={cn('grid place-items-center rounded-2xl border-2 border-dashed border-ink/20 text-center text-ink-soft', i % 3 === 0 ? 'aspect-[3/4]' : 'aspect-square')}>
                 <span className="flex flex-col items-center gap-3 px-4">
                   <Icon name="camera" className="size-9" />
-                  <span className="text-note">כאן ייכנס צילום של גליה</span>
+                  <span className="text-note">{t.photoSlot}</span>
                 </span>
               </li>
             ))}
@@ -104,7 +105,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                   transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                   className={cn('min-w-0', w.wide && 'col-span-2')}
                 >
-                  <button type="button" onClick={() => setOpen({ list: shown, index: i })} className="group block w-full text-right" aria-label={`לפתוח את ${w.title}`}>
+                  <button type="button" onClick={() => setOpen({ list: shown, index: i })} className="group block w-full text-start" aria-label={t.open(workText(w, lang).title)}>
                     <div
                       className={cn(
                         'relative overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-28px_rgba(35,32,29,0.45)]',
@@ -113,7 +114,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                     >
                       <img
                         src={w.cover || w.art}
-                        alt={w.title}
+                        alt={workText(w, lang).title}
                         loading="lazy"
                         decoding="async"
                         className={cn(
@@ -122,8 +123,8 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                         )}
                       />
                     </div>
-                    <p className="mt-3 font-medium text-balance">{w.title}</p>
-                    {w.en && <p className="truncate text-note text-ink-soft" dir="auto">{w.en}</p>}
+                    <p className="mt-3 font-medium text-balance">{workText(w, lang).title}</p>
+                    {workText(w, lang).sub && <p className="truncate text-note text-ink-soft" dir="auto">{workText(w, lang).sub}</p>}
                   </button>
                 </motion.li>
               ))}
@@ -138,17 +139,17 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
             items={shown}
             getKey={w => w.id}
             render={(w, i) => (
-              <button type="button" onClick={() => setOpen({ list: shown, index: i })} className="block w-full text-right" aria-label={`לפתוח את ${w.title}`}>
+              <button type="button" onClick={() => setOpen({ list: shown, index: i })} className="block w-full text-start" aria-label={t.open(workText(w, lang).title)}>
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-24px_rgba(35,32,29,0.5)]">
                   <img
                     src={w.cover || w.art}
-                    alt={w.title}
+                    alt={workText(w, lang).title}
                     loading="lazy"
                     decoding="async"
                     className={cn('absolute inset-0 size-full', isPhoto(w) ? 'object-cover' : 'object-contain p-[7%] mix-blend-multiply')}
                   />
                 </div>
-                <p className="mt-3 font-medium text-balance">{w.title}</p>
+                <p className="mt-3 font-medium text-balance">{workText(w, lang).title}</p>
               </button>
             )}
           />
@@ -156,11 +157,11 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
 
         {filter === 'products' && (
           <p className="mt-14 text-ink-soft">
-            את החולצות אפשר להזמין{' '}
+            {t.shirtsOrderA}{' '}
             <a href={contact.shopUrl} target="_blank" rel="noopener" className="border-b border-ink/40 font-medium whitespace-nowrap text-ink hover:border-ink">
-              בחנות שלי ב{contact.shopName}
+              {t.shirtsOrderLink(t.shopName)}
             </a>
-            , ועל כל מוצר אחר פשוט כתבו לי.
+            {t.shirtsOrderB}
           </p>
         )}
       </div>
@@ -171,6 +172,8 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
 }
 
 function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
+  const { lang, t } = useLang()
+  const rtl = lang === 'he'
   const closeBtn = useRef<HTMLButtonElement>(null)
   const reduce = useReducedMotion()
   const [dir, setDir] = useState(0)
@@ -192,28 +195,30 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
     closeBtn.current?.focus()
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') close()
-      // RTL: the left arrow moves forward, the right arrow goes back
-      if (e.key === 'ArrowLeft') go(1)
-      if (e.key === 'ArrowRight') go(-1)
+      // the arrow pointing in reading direction moves forward
+      if (e.key === 'ArrowLeft') go(rtl ? 1 : -1)
+      if (e.key === 'ArrowRight') go(rtl ? -1 : 1)
     }
     document.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
       document.removeEventListener('keydown', onKey)
     }
-  }, [open, close, go])
+  }, [open, close, go, rtl])
 
   const work = open?.list[open.index]
-  const cat = work && categories.find(c => c.id === work.cat)!
+  const catObj = work && categories.find(c => c.id === work.cat)!
+  const cat = catObj && { ...catText(catObj, lang), color: catObj.color }
+  const wt = work && (work.id.startsWith('emo-') ? { title: work.title, sub: t.emoTitle, note: t.emoNote } : workText(work, lang))
 
   return createPortal(
     <AnimatePresence>
-      {open && work && cat && (
+      {open && work && cat && wt && (
         <motion.div
           key="viewer"
           role="dialog"
           aria-modal="true"
-          aria-label={work.title}
+          aria-label={wt.title}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -229,7 +234,7 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
                 {open.index + 1} / {count}
               </span>
             </p>
-            <button ref={closeBtn} type="button" onClick={close} aria-label="סגירה" className="grid size-11 place-items-center rounded-full border border-ink/15 bg-paper transition-transform hover:rotate-90">
+            <button ref={closeBtn} type="button" onClick={close} aria-label={t.close} className="grid size-11 place-items-center rounded-full border border-ink/15 bg-paper transition-transform hover:rotate-90">
               <Icon name="close" />
             </button>
           </div>
@@ -240,7 +245,7 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
               <motion.img
                 key={work.id}
                 src={work.art}
-                alt={work.title}
+                alt={wt.title}
                 custom={dir}
                 initial={reduce ? false : { opacity: 0, x: dir * -60 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -250,8 +255,10 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.4}
                 onDragEnd={(_, info) => {
-                  if (info.offset.x < -70) go(1)
-                  else if (info.offset.x > 70) go(-1)
+                  const fwd = rtl ? info.offset.x > 70 : info.offset.x < -70
+                  const bwd = rtl ? info.offset.x < -70 : info.offset.x > 70
+                  if (fwd) go(1)
+                  else if (bwd) go(-1)
                 }}
                 className="max-h-[56svh] w-auto max-w-full cursor-grab touch-pan-y rounded-xl object-contain active:cursor-grabbing md:max-h-[64svh]"
                 draggable={false}
@@ -259,10 +266,10 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
             </AnimatePresence>
             {count > 1 && (
               <>
-                <button type="button" onClick={() => go(-1)} aria-label="העבודה הקודמת" className="absolute top-1/2 right-2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-paper-2 transition-colors hover:bg-line md:right-6 md:size-14">
-                  <Icon name="arrow" />
+                <button type="button" onClick={() => go(-1)} aria-label={t.prev} className="absolute start-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-paper-2 transition-colors hover:bg-line md:start-6 md:size-14">
+                  <Icon name="arrow" back />
                 </button>
-                <button type="button" onClick={() => go(1)} aria-label="העבודה הבאה" className="absolute top-1/2 left-2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-paper-2 transition-colors hover:bg-line md:left-6 md:size-14">
+                <button type="button" onClick={() => go(1)} aria-label={t.next} className="absolute end-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-paper-2 transition-colors hover:bg-line md:end-6 md:size-14">
                   <Icon name="arrow" flip />
                 </button>
               </>
@@ -272,27 +279,27 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
           {/* description and buttons, under the art */}
           <div className="mx-auto w-full max-w-3xl px-4 pt-6 pb-10 md:px-8 md:pb-14">
             <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-              <h3 className="font-display text-section leading-tight font-bold">{work.title}</h3>
-              {work.en && <p className="text-note text-ink-soft" dir="auto">{work.en}</p>}
+              <h3 className="font-display text-section leading-tight font-bold">{wt.title}</h3>
+              {wt.sub && <p className="text-note text-ink-soft" dir="auto">{wt.sub}</p>}
             </div>
-            <p className="mt-3 text-sub text-ink-soft">{work.note}</p>
+            <p className="mt-3 text-sub text-ink-soft">{wt.note}</p>
 
             {work.cover && (
               <figure className="mt-6 flex items-center gap-4 rounded-2xl bg-paper-2 p-3">
-                <img src={work.cover} alt={`${work.title} מודפס על חולצה`} loading="lazy" className="size-20 shrink-0 rounded-xl object-cover object-top" />
-                <figcaption className="text-note text-ink-soft">ככה זה נראה מודפס על חולצה</figcaption>
+                <img src={work.cover} alt={t.onShirtAlt(wt.title)} loading="lazy" className="size-20 shrink-0 rounded-xl object-cover object-top" />
+                <figcaption className="text-note text-ink-soft">{t.onShirt}</figcaption>
               </figure>
             )}
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               {work.shop && (
                 <a href={work.shop} target="_blank" rel="noopener" className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-blue-deep px-5 py-3.5 font-medium text-paper transition-transform hover:-translate-y-0.5">
-                  לקנות מודפס
+                  {t.buyPrint}
                   <Icon name="arrow" flip />
                 </a>
               )}
               <a
-                href={waLink(`היי גליה, ראיתי באתר את "${work.title}" ורציתי לשאול עליו`)}
+                href={waLink(t.waWork(wt.title))}
                 target="_blank"
                 rel="noopener"
                 className={cn(
@@ -301,7 +308,7 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
                 )}
               >
                 <Icon name="whatsapp" />
-                {work.cat === 'logos' ? 'רוצה לוגו כזה לעסק שלי' : 'לשאול את גליה על האיור'}
+                {work.cat === 'logos' ? t.askLogo : t.askWork}
               </a>
             </div>
           </div>

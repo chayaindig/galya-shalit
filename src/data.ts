@@ -10,7 +10,7 @@ export const contact = {
   shopName: 'ההוא עם החולצות',
 }
 
-export const waLink = (text = 'היי גליה, הגעתי מהאתר שלך ורציתי לשאול') =>
+export const waLink = (text: string) =>
   `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(text)}`
 
 export type CatId = 'inspiration' | 'products' | 'digital' | 'logos' | 'photos'
@@ -101,3 +101,71 @@ export const emotions = ['calm', 'angry', 'surprised', 'moved', 'grateful', 'eag
 export const photoSlots = 6
 
 export const printsOn = ['חולצות', 'תיקי בד', 'מדבקות קיר', 'סיכות', 'בקבוקים', 'ספלים', 'מחברות', 'גלויות', 'כריות', 'הדפסים לקיר']
+
+// ---- English ----
+export const catEn: Record<CatId, { name: string; line: string }> = {
+  digital: { name: 'Digital', line: 'The emotion cards, the orange fox and more illustrations born on screen.' },
+  inspiration: { name: 'Sketchbook', line: 'Illustrations from my journal and quick pencil drawings. This is where it all begins.' },
+  products: { name: 'Products', line: 'Shirts, bags, wall decals. Illustrations you can wear and take home.' },
+  logos: { name: 'Logos', line: "One small mark that tells a business's whole story." },
+  photos: { name: 'Photography', line: 'The eye that looks for the small detail.' },
+}
+
+export const workEn: Record<string, { title: string; note: string; sub?: string }> = {
+  'journal-frogs': { title: 'Frogs in the journal', note: "A spread from Galya's journal: frogs leaping between water lilies and reeds." },
+  'journal-tea': { title: 'Tea bags on a walk', note: 'Tea bags that climbed out of the mug and went for a walk across the page.' },
+  apples: { title: 'Two apples', note: 'Coloured pencil, layer upon layer, until you almost want to take a bite.' },
+  shoe: { title: 'An old shoe', note: 'A pencil drawing of a shoe that has walked a long way.' },
+  iris: { title: 'Iris', note: 'An iris in fine lines and dots, without a drop of colour.' },
+  cyclamen: { title: 'Cyclamen', note: 'Cyclamen in coloured pencil, with their speckled leaves.' },
+  blackbird: { title: 'Black bird', note: 'Black that turns out to be many shades, and one orange patch on the wing.' },
+  plover: { title: 'Plover', note: 'A small shore bird on orange legs.' },
+  bustard: { title: 'Houbara bustard', note: 'A delicate pencil drawing, feather by feather.' },
+  'fox-sketch': { title: 'Fox in line', note: 'A sketch of a fox, before it turned orange.' },
+  noplanetb: { title: 'There is no planet B', note: 'Mountains, waves and one clear message, in coloured pencil on brown paper.' },
+  'fox-shirt': { title: 'The orange fox on a shirt', note: 'The digital fox, printed in white on an orange shirt.' },
+  'wall-run': { title: 'Squirrels on the wall', note: 'Wall decals for a movement studio: a squirrel running, leaping and hanging between the machines.' },
+  'wall-wave': { title: 'Squirrel on a bar', note: 'Another squirrel from the wall decal series, training on a bar just like the people there.' },
+  'wall-sleep': { title: 'Squirrel at rest', note: 'Even a squirrel needs a break. A wall decal above a bench.' },
+  macaw: { title: 'Pair of macaws', note: 'Two parrots mid dance, every feather a different colour.' },
+  zenart: { title: 'Zen mushrooms', note: 'A small forest of patterned mushrooms, sinking into a cloud of colour.' },
+  penguins: { title: 'Penguins', note: 'A whole family on one iceberg, each looking a different way.' },
+  gchameleon: { title: 'Stained glass chameleon', note: 'The same beloved chameleon, this time broken into dozens of pieces of coloured glass.' },
+  gseahorse: { title: 'Seahorse', note: 'An orange seahorse hiding in a sea of triangles.' },
+  gmushrooms: { title: 'Geometric mushrooms', note: 'Mushroom caps that break the light, like stained glass in a forest.' },
+  lizard: { title: 'Lizard', note: 'A lizard climbing a column of colour. Best on the back of a shirt.' },
+  flamingo: { title: 'Flamingos', note: 'Four flamingos, one line. The pen never left the paper.' },
+  cats: { title: 'Cats', note: 'A row of cats sitting exactly the way cats sit.' },
+  birds: { title: 'Birds on a wire', note: 'Birds landing on the very line they are made of.' },
+  snail: { title: 'Snails', note: 'An extra slow snail race, in one line.' },
+  '4sheep': { title: 'Four sheep', note: 'A small flock of curly sheep, and one sheep looking right at you.' },
+  sheep: { title: 'Sheep with a question', note: 'One line that tangles and tangles, until a sheep with a question mark appears.' },
+  dottedtree: { title: 'Dotted tree', note: 'A tree and its roots, all built from dots of ink. Half winter, half spring.' },
+  spiraltree: { title: 'Spiral tree', note: 'A tree whose leaves are all tiny spirals.' },
+  bubbles: { title: 'Bubbles', note: 'Hundreds of bubbles flowing out of one black window.' },
+  time: { title: 'Time', note: 'An hourglass where the word time flows instead of sand.' },
+  whale: { title: 'Whale tail', note: 'One moment before the whale dives. The sea is made of lines only.' },
+  rain: { title: 'Rain', note: 'A little girl with an umbrella, under a cloud of curls.' },
+  panda: { title: 'Bamboo grove', note: 'Look closely. Somewhere between the bamboo, a panda is waiting.' },
+  fox: { title: 'The orange fox', note: 'A digital illustration of a white fox on orange, which also became a shirt.' },
+  wakeup: { title: 'Wake up!', note: 'A polar bear on a melting iceberg. A postcard with a call to wake up.' },
+  zebra: { title: 'Zebra crossing', note: 'A zebra crossing, quite literally.' },
+  beetles: { title: 'Beetles', note: 'Four beetles walking from light into dark, and turning over.' },
+  questions: { title: '?!', note: 'Lots of questions on one side, lots of answers on the other.' },
+  thinkglobal: { title: 'Think global, act local', note: 'Drops of one tree, and one message.' },
+  'logo-hamerchav': { title: 'HaMerhav', sub: 'Movement training studio', note: 'A squirrel in one movement for a training studio. The wall decals were born from it too.' },
+  'logo-barakbees': { title: 'Barak Bees', note: 'A bee, a honeycomb and one drop of honey.' },
+  'logo-arka': { title: 'Arka', sub: 'Ancient life skills', note: 'A hand drawn tree of life, and one red bird on the branch.' },
+  'logo-magdala': { title: "Marian's Magdala", note: 'A coffee cup in the shade of willow trees, in soft coloured pencil.' },
+  'logo-yoga': { title: 'Yoga', note: 'A seated figure in one continuous line.' },
+  'logo-cat': { title: 'Stretching cat', note: 'A cat stretching, in just two lines.' },
+  'logo-dogwalker': { title: 'Dog walker & Cat sitter', note: 'A walker with a dog and a cat tagging along, for a dog walking business.' },
+}
+
+/** Title, subtitle and note of a work in the current language */
+export const workText = (w: Work, lang: 'he' | 'en') => {
+  if (lang === 'he') return { title: w.title, sub: w.en, note: w.note }
+  const e = workEn[w.id]
+  return { title: e?.title ?? w.en ?? w.title, sub: e?.sub, note: e?.note ?? w.note }
+}
+export const catText = (c: (typeof categories)[number], lang: 'he' | 'en') => (lang === 'he' ? { name: c.name, line: c.line } : catEn[c.id])

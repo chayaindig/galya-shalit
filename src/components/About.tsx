@@ -1,18 +1,21 @@
 import BlurHighlight from './BlurHighlight'
 import Signature from './Signature'
 import TiltedCard from './TiltedCard'
+import { useLang } from '../i18n'
 import ScrollStack, { ScrollStackItem } from './ScrollStack'
 import Icon from './Icon'
 import SectionDots from './SectionDots'
 
-const crafts = [
-  { name: 'צבעי עפרון', line: 'שכבה על שכבה, בכל פעם בטכניקה אחרת.', img: 'art2/ins-apples.webp', color: '#d6246e' },
-  { name: 'איור דיגיטלי', line: 'המקום שבו קו נקי פוגש צבע בלי גבולות.', img: 'art2/dig-fox.webp', color: '#e8762b' },
-  { name: 'לוגו ומיתוג', line: 'סימן אחד קטן שמספר את כל העסק.', img: 'art2/logo-hamerchav.webp', color: '#d4a017' },
-  { name: 'צילום', line: 'העין שמחפשת את הפרט הקטן לפני שהוא נעלם.', img: 'art2/paper.webp', color: '#3d8cb5', camera: true },
+const craftLook = [
+  { img: 'art2/ins-apples.webp', color: '#d6246e' },
+  { img: 'art2/dig-fox.webp', color: '#e8762b' },
+  { img: 'art2/logo-hamerchav.webp', color: '#d4a017' },
+  { img: 'art2/paper.webp', color: '#3d8cb5', camera: true },
 ]
 
 export default function About() {
+  const { t } = useLang()
+  const crafts = t.crafts.map((c, i) => ({ ...c, ...craftLook[i] }))
   return (
     <section id="about" className="relative scroll-mt-20 bg-paper-2 py-24 md:py-32">
       <SectionDots tone="yellow" />
@@ -22,7 +25,7 @@ export default function About() {
           <div className="relative -rotate-2 rounded-sm bg-[#fdfbf7] p-3 shadow-[0_30px_60px_-30px_rgba(35,32,29,0.55)] md:p-4">
             <img
               src="art2/galya-portrait.webp"
-              alt="גליה שליט, פורטרט בצבעי עפרון"
+              alt={t.portraitAlt}
               loading="lazy"
               width={928}
               height={1152}
@@ -34,24 +37,18 @@ export default function About() {
         </figure>
 
         <div className="lg:col-span-7">
-          <h2 className="mt-3 font-display text-section font-bold">אני גליה.</h2>
+          <h2 className="mt-3 font-display text-section font-bold">{t.aboutTitle}</h2>
           <BlurHighlight className="mt-8 max-w-2xl text-sub" viewportOptions={{ once: true, amount: 0.4 }}>
-            אני מאיירת, מציירת ומצלמת, ומחפשת כל הזמן את הרגע שבו קו פשוט הופך למשהו חי.
+            {t.aboutLead}
           </BlurHighlight>
           <div className="mt-6 max-w-2xl space-y-4 text-ink-soft">
-            <p>
-              גדלתי בשוודיה, חייתי במדינות שונות בעולם, והיום אני חיה ויוצרת בישראל. מכל מקום שגרתי בו ומכל טיול לקחתי איתי השראה: צבעים, נופים, חיות ואנשים. הכל נכנס קודם ליומן הרישום שלי, ומשם מתגלגל לאיורים.
-            </p>
-            <p>
-              אני עובדת בעיקר בצבעי עפרון, בהרבה טכניקות שונות, ובאיור דיגיטלי שנותן לרעיונות עוד מקום לגדול. מה שמחבר את הכל הוא קו נקי שמחזיק את הצורה, וצבע שמתפרץ ממנו החוצה.
-            </p>
-            <p>
-              ההשראה הכי גדולה שלי היא החיות: ציפורים, שועלים, צפרדעים, וסנאי אחד שלא מפסיק לטייל לי באתר.
-            </p>
+            {t.aboutP.map(p => (
+              <p key={p}>{p}</p>
+            ))}
           </div>
 
 
-          <Signature draw="view" className="mt-12 h-16 w-auto text-ink md:h-20" />
+          <Signature draw="view" className="mt-12 h-16 w-auto text-ink md:h-20" title={t.name} />
         </div>
       </div>
       {/* four ways she works, as cards that tilt toward the cursor (React Bits "Tilted Card") */}

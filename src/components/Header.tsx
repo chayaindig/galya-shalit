@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
 import { waLink } from '../data'
+import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
 import Icon from './Icon'
 import Signature from './Signature'
 
-const nav = [
-  { href: '#works', label: 'עבודות' },
-  { href: '#series', label: 'סדרות' },
-  { href: '#about', label: 'עליי' },
-  { href: '#shop', label: 'איפה קונים' },
-  { href: '#contact', label: 'צרו קשר' },
-]
 
 export default function Header() {
+  const { lang, t, setLang } = useLang()
+  const nav = [
+    { href: '#works', label: t.navWorks },
+    { href: '#series', label: t.navSeries },
+    { href: '#about', label: t.navAbout },
+    { href: '#shop', label: t.navShop },
+    { href: '#contact', label: t.navContact },
+  ]
   const [solid, setSolid] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -31,14 +33,14 @@ export default function Header() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:h-20 md:px-8">
-        <a href="#top" className="flex items-center gap-3 text-ink" aria-label="גליה שליט, חזרה להתחלה">
-          <Signature className="h-9 w-auto md:h-11" delay={0.2} />
+        <a href="#top" className="flex items-center gap-3 text-ink" aria-label={t.homeLabel}>
+          <Signature className="h-9 w-auto md:h-11" delay={0.2} title={t.name} />
           <span className="hidden text-note font-medium tracking-[0.18em] text-ink-soft uppercase sm:inline" dir="ltr">
             GalyaArts
           </span>
         </a>
 
-        <nav aria-label="ניווט ראשי" className="hidden lg:block">
+        <nav aria-label={t.navLabel} className="hidden lg:block">
           <ul className="flex items-center gap-8 text-note font-medium">
             {nav.map(n => (
               <li key={n.href}>
@@ -52,14 +54,24 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <a
-            href={waLink()}
+            href={waLink(t.waDefault)}
             target="_blank"
             rel="noopener"
+            aria-label={t.messageMe}
             className="inline-flex items-center gap-2 whitespace-nowrap rounded-full bg-blue-deep px-4 py-2.5 text-note font-medium text-paper transition-transform hover:-translate-y-0.5 md:px-5"
           >
             <Icon name="whatsapp" />
-            לכתוב לי
+            <span className="hidden sm:inline">{t.messageMe}</span>
           </a>
+          <button
+            type="button"
+            onClick={() => setLang(lang === 'he' ? 'en' : 'he')}
+            aria-label={t.switchLangLabel}
+            lang={lang === 'he' ? 'en' : 'he'}
+            className="grid size-10 place-items-center rounded-full border border-ink/25 text-note font-medium transition-colors hover:bg-ink hover:text-paper"
+          >
+            {t.switchLang}
+          </button>
           <button
             type="button"
             className="rounded-full border border-ink/25 px-4 py-2.5 text-note font-medium lg:hidden"
@@ -67,12 +79,12 @@ export default function Header() {
             aria-controls="mobile-nav"
             onClick={() => setOpen(o => !o)}
           >
-            {open ? 'סגירה' : 'תפריט'}
+            {open ? t.close : t.menu}
           </button>
         </div>
       </div>
 
-      <nav id="mobile-nav" aria-label="ניווט ראשי" className={cn('lg:hidden', open ? 'block' : 'hidden')}>
+      <nav id="mobile-nav" aria-label={t.navLabel} className={cn('lg:hidden', open ? 'block' : 'hidden')}>
         <ul className="mx-4 mb-4 divide-y divide-line border-t border-line">
           {nav.map(n => (
             <li key={n.href}>

@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { blooms, chameleonPaths, chameleonViewBox } from '../lib/art-paths'
 import { waLink } from '../data'
+import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
 import Icon from './Icon'
 
@@ -29,9 +30,9 @@ const isTip = (b: { x: number; y: number }) => b.x > 1150 && b.y < 420
 const bodyBlooms = blooms.filter(b => !behindCopy(b) && !isTip(b)).sort((a, b) => a.x - b.x)
 const tipBlooms = blooms.filter(isTip)
 
-const stages = ['קו', 'צבע', 'לשון']
 
 export default function Hero() {
+  const { t } = useLang()
   const section = useRef<HTMLElement>(null)
   const stage = useRef<HTMLDivElement>(null)
   const svg = useRef<SVGSVGElement>(null)
@@ -104,7 +105,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="top" ref={section} className="relative h-[330svh] motion-reduce:h-auto lg:h-[380vh]" aria-label="פתיחה">
+    <section id="top" ref={section} className="relative h-[330svh] motion-reduce:h-auto lg:h-[380vh]" aria-label={t.heroAria}>
       <div ref={stage} className="sticky top-0 h-svh overflow-hidden motion-reduce:relative motion-reduce:min-h-svh">
         <svg
           ref={svg}
@@ -149,39 +150,39 @@ export default function Hero() {
           ref={copy}
           className="absolute inset-x-4 top-[17svh] max-w-xl sm:inset-x-8 lg:top-auto lg:right-[6vw] lg:bottom-[13vh] lg:left-auto lg:w-[min(36rem,40vw)]"
         >
-          <h1 className="font-display text-hero font-extralight tracking-tight">גליה שליט</h1>
+          <h1 className="font-display text-hero font-extralight tracking-tight">{t.name}</h1>
           <p className="mt-6 max-w-md text-sub text-ink-soft">
-            אני מאיירת בצבעי עפרון ובכלים דיגיטליים, ומדפיסה את האיורים על חולצות, תיקים, קירות ומה שרק תרצו.
+            {t.heroText}
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a
-              href={waLink()}
+              href={waLink(t.waDefault)}
               target="_blank"
               rel="noopener"
               className="inline-flex items-center gap-2.5 rounded-full bg-blue-deep px-6 py-3.5 font-medium text-paper shadow-[0_10px_30px_-12px_var(--color-blue-deep)] transition-transform hover:-translate-y-0.5"
             >
               <Icon name="whatsapp" />
-              לכתוב לי בוואטסאפ
+              {t.heroWa}
             </a>
             <a href="#works" className="border-b border-ink/40 pb-0.5 font-medium transition-colors hover:border-ink">
-              לראות עבודות
+              {t.heroWorks}
             </a>
           </div>
         </div>
 
         {/* Process indicator + a visible way out */}
-        <div className="hero-bar absolute inset-x-4 bottom-5 flex items-center justify-between gap-4 ps-16 sm:inset-x-8 md:ps-20 lg:bottom-7">
-          <ol className="flex items-center gap-3 text-note" aria-label="שלבי הציור">
-            {stages.map((s, i) => (
+        <div className="hero-bar absolute inset-x-4 bottom-5 flex items-center justify-between gap-4 pr-16 sm:inset-x-8 md:pr-20 lg:bottom-7">
+          <ol className="flex items-center gap-3 text-note" aria-label={t.stagesLabel}>
+            {t.stages.map((s, i) => (
               <li key={s} className={cn('flex items-center gap-2 transition-colors duration-500', step > i ? 'text-ink' : 'text-ink-soft/60')}>
                 <span className={cn('size-2 rounded-full transition-colors duration-500', step > i ? 'bg-blue' : 'bg-line')} />
                 {s}
               </li>
             ))}
           </ol>
-          <p className="scroll-hint hidden text-note text-ink-soft md:block motion-reduce:hidden">גללו, והזיקית תתמלא בצבע</p>
+          <p className="scroll-hint hidden text-note text-ink-soft md:block motion-reduce:hidden">{t.scrollHint}</p>
           <a href="#story" className="rounded-full border border-ink/25 bg-paper/80 px-4 py-2 text-note font-medium whitespace-nowrap transition-colors hover:bg-paper motion-reduce:hidden">
-            לדלג על הציור
+            {t.skipDrawing}
           </a>
         </div>
       </div>

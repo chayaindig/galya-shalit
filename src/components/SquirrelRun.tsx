@@ -1,6 +1,7 @@
 import { useEffect, useRef, type CSSProperties } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../i18n'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -10,9 +11,10 @@ gsap.registerPlugin(ScrollTrigger)
   Every letter it jumps over leaps up and fills with Galya's colour, the same paint
   that fills "צבע מתפרץ", so by the time it leaves, the whole line is coloured.
 */
-const phrase = 'השראה מגיעה בקפיצות'
 
 export default function SquirrelRun() {
+  const { lang, t } = useLang()
+  const phrase = t.leap
   const band = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -87,13 +89,13 @@ export default function SquirrelRun() {
 
   return (
     <div ref={band} className="relative h-[36svh] overflow-x-clip md:h-[80vh]" aria-hidden="true" style={{ '--sr-w': 'clamp(230px, 42vw, 640px)' } as CSSProperties}>
-      <p className="sr-phrase absolute inset-x-0 top-1/2 mx-auto w-fit -translate-y-1/2 font-display text-[clamp(2.4rem,10vw,10rem)] leading-none font-bold whitespace-nowrap">
+      <p className={`sr-phrase absolute inset-x-0 top-1/2 mx-auto w-fit -translate-y-1/2 font-display leading-none ${lang === 'en' ? 'text-[clamp(1.9rem,8vw,8.5rem)]' : 'text-[clamp(2.4rem,10vw,10rem)]'} font-bold whitespace-nowrap`}>
         {phrase.split(' ').map((word, w) => (
           <span key={w} className="inline-block whitespace-nowrap">
             {[...word].map((ch, c) => (
               <span key={c} className="sr-letter inline-block">{ch}</span>
             ))}
-            {w < 2 && ' '}
+            {w < phrase.split(' ').length - 1 && '\u00a0'}
           </span>
         ))}
       </p>

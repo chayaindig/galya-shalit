@@ -12,7 +12,7 @@ const pairs = {
 export default function SectionDots({ tone = 'pink', className }: { tone?: keyof typeof pairs; className?: string }) {
   const [a, b] = pairs[tone]
   return (
-    <span aria-hidden="true" className={cn('pointer-events-none absolute top-8 right-4 flex items-center gap-1.5 md:top-10 md:right-8', className)}>
+    <span aria-hidden="true" className={cn('pointer-events-none absolute start-4 top-8 flex items-center gap-1.5 md:start-8 md:top-10', className)}>
       <span className="size-3 rounded-full" style={{ background: a }} />
       <span className="size-2 rounded-full" style={{ background: b }} />
     </span>

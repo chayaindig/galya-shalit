@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { contact, works } from '../data'
+import { contact, workText, works } from '../data'
+import { useLang } from '../i18n'
 import Icon from './Icon'
 import SectionDots from './SectionDots'
 
@@ -11,12 +12,14 @@ gsap.registerPlugin(ScrollTrigger)
   "Want to wear it?" as a clothesline: one clean line across the page, and polaroids of
   Galya's shirts pinned to it. Scrolling pulls them along the line, and they swing with your speed.
 */
-const shirts = [
-  { title: 'השועל הכתום', src: 'art2/prod-fox-shirt.webp', href: contact.shopUrl },
-  ...works.filter(w => w.cover && w.shop).map(w => ({ title: w.title, src: w.cover!, href: w.shop! })),
-]
 
 export default function Shop() {
+  const { lang, t } = useLang()
+  const rtl = lang === 'he'
+  const shirts = [
+    { title: t.foxShirt, src: 'art2/prod-fox-shirt.webp', href: contact.shopUrl },
+    ...works.filter(w => w.cover && w.shop).map(w => ({ title: workText(w, lang).title, src: w.cover!, href: w.shop! })),
+  ]
   const root = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -34,9 +37,10 @@ export default function Shop() {
     // desktop: scrolling the page pulls the polaroids along the line
     mm.add('(min-width: 768px)', () => {
       if (reduce) return
-      // RTL: the row starts on the right and overflows to the left, so it slides right
-      gsap.fromTo(track, { x: () => -window.innerWidth * 0.15 }, {
-        x: () => track.scrollWidth - window.innerWidth * 0.85,
+      // the row overflows toward the end of the reading direction, so it slides back toward the start
+      const sign = rtl ? 1 : -1
+      gsap.fromTo(track, { x: () => -sign * window.innerWidth * 0.15 }, {
+        x: () => sign * (track.scrollWidth - window.innerWidth * 0.85),
         ease: 'none',
         scrollTrigger: {
           trigger: root.current,
@@ -52,7 +56,7 @@ export default function Shop() {
     mm.add('(max-width: 767px)', () => {
       let last = rail.scrollLeft
       const onScroll = () => {
-        const d = rail.scrollLeft - last
+        const d = (rail.scrollLeft - last) * (rtl ? 1 : -1)
         last = rail.scrollLeft
         sway(gsap.utils.clamp(-12, 12, d * 0.6))
       }
@@ -60,20 +64,20 @@ export default function Shop() {
       return () => rail.removeEventListener('scroll', onScroll)
     })
     return () => mm.revert()
-  }, [])
+  }, [rtl])
 
   return (
     <section ref={root} id="shop" className="relative scroll-mt-20 overflow-x-clip py-24 md:py-32">
       <SectionDots tone="orange" />
       <div className="mx-auto grid max-w-7xl items-end gap-8 px-4 md:px-8 lg:grid-cols-12">
         <h2 className="font-display text-hero leading-[0.9] font-bold lg:col-span-7">
-          רוצים
+          {t.shopH1}
           <br />
-          <span className="font-extralight">ללבוש את זה?</span>
+          <span className="font-extralight">{t.shopH2}</span>
         </h2>
         <div className="lg:col-span-5">
           <p className="max-w-lg text-sub text-ink-soft">
-            החולצות שלי נמכרות ב״{contact.shopName}״, חנות של אמנים ישראלים. בוחרים איור, בוחרים חולצה, והוא מגיע אליכם הביתה.
+            {t.shopP(t.shopName)}
           </p>
           <a
             href={contact.shopUrl}
@@ -81,7 +85,7 @@ export default function Shop() {
             rel="noopener"
             className="mt-7 inline-flex items-center gap-2.5 rounded-full bg-blue-deep px-6 py-3.5 font-medium text-paper transition-transform hover:-translate-y-0.5"
           >
-            לחנות שלי ב״{contact.shopName}״
+            {t.shopCta(t.shopName)}
             <Icon name="arrow" flip />
           </a>
         </div>
@@ -105,14 +109,14 @@ export default function Shop() {
                 className="block w-40 bg-[#fdfbf7] p-2 pb-3 shadow-[0_18px_30px_-18px_rgba(35,32,29,0.6)] transition-transform hover:-translate-y-1 md:w-56 md:p-2.5 md:pb-4"
                 style={{ rotate: `${(i % 2 ? 1 : -1) * (1 + (i % 3))}deg` }}
               >
-                <img src={s.src} alt={`${s.title} מודפס על חולצה`} loading="lazy" className="aspect-[4/5] w-full object-cover object-top" />
+                <img src={s.src} alt={t.onShirtAlt(s.title)} loading="lazy" className="aspect-[4/5] w-full object-cover object-top" />
                 <span className="mt-2 block text-center font-display text-sub leading-tight font-bold">{s.title}</span>
               </a>
             </li>
           ))}
         </ul>
         </div>
-        <p className="mt-2 text-center text-note text-ink-soft md:hidden">החליקו הצידה כדי לראות עוד חולצות</p>
+        <p className="mt-2 text-center text-note text-ink-soft md:hidden">{t.shopSwipe}</p>
       </div>
     </section>
   )

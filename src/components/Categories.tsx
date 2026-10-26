@@ -1,4 +1,5 @@
-import { categories, works, type CatId } from '../data'
+import { categories, catText, works, type CatId } from '../data'
+import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
 import Icon from './Icon'
 import ScrollStack, { ScrollStackItem } from './ScrollStack'
@@ -38,17 +39,19 @@ function Cover({ c, className }: { c: Cat; className?: string }) {
 }
 
 function Caption({ c }: { c: Cat }) {
+  const { lang, t } = useLang()
+  const ct = catText(c, lang)
   const soon = c.id === 'photos'
   return (
     <>
       <div className="mt-4 flex items-center gap-2">
         <span className="size-2.5 rounded-full" style={{ background: c.color }} />
-        <h3 className="text-sub font-medium">{c.name}</h3>
+        <h3 className="text-sub font-medium">{ct.name}</h3>
       </div>
-      <p className="mt-1 text-note text-ink-soft">{c.line}</p>
+      <p className="mt-1 text-note text-ink-soft">{ct.line}</p>
       <span className="mt-2 inline-flex items-center gap-2 text-note font-medium text-blue-deep">
-        {soon ? 'בקרוב מאוד' : `${countOf(c)} עבודות`}
-        {!soon && <Icon name="arrow" flip className="transition-transform group-hover:-translate-x-1" />}
+        {soon ? t.soon : t.works(countOf(c))}
+        {!soon && <Icon name="arrow" flip className="transition-transform group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />}
       </span>
     </>
   )
@@ -57,6 +60,7 @@ function Caption({ c }: { c: Cat }) {
 // Five doors into Galya's world. Each door shows a drawing from inside it.
 // Desktop: a row of five. Phone: full-width cards that stack on each other as you scroll (React Bits "Scroll Stack").
 export default function Categories({ onPick }: { onPick: (c: CatId) => void }) {
+  const { t } = useLang()
   const pick = (id: CatId) => {
     onPick(id)
     document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' })
@@ -67,12 +71,12 @@ export default function Categories({ onPick }: { onPick: (c: CatId) => void }) {
       <SectionDots tone="orange" />
 
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <h2 className="mt-3 max-w-3xl font-display text-section font-bold">חמש דלתות לעולם שלי</h2>
+        <h2 className="mt-3 max-w-3xl font-display text-section font-bold">{t.doorsTitle}</h2>
 
         <ol className="mt-12 hidden gap-5 md:grid md:grid-cols-3 lg:grid-cols-5">
           {categories.map(c => (
             <li key={c.id} className="min-w-0">
-              <button type="button" onClick={() => pick(c.id)} className="group block w-full text-right">
+              <button type="button" onClick={() => pick(c.id)} className="group block w-full text-start">
                 <Cover c={c} className="aspect-[3/4] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:-translate-y-1.5" />
                 <Caption c={c} />
               </button>
@@ -84,7 +88,7 @@ export default function Categories({ onPick }: { onPick: (c: CatId) => void }) {
           <ScrollStack useWindowScroll smoothScroll={false} stackPosition="12%" itemDistance={36} itemStackDistance={16} itemScale={0.04} baseScale={0.86} dimAmount={0.12} holdDistance={40}>
             {categories.map(c => (
               <ScrollStackItem key={c.id} itemClassName="p-3 pb-5">
-                <button type="button" onClick={() => pick(c.id)} className="group block w-full text-right">
+                <button type="button" onClick={() => pick(c.id)} className="group block w-full text-start">
                   <Cover c={c} className="aspect-[4/3]" />
                   <div className="px-1">
                     <Caption c={c} />

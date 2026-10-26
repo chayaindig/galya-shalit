@@ -272,3 +272,4 @@ body::before {
 .sr-letter.is-wet {
   color: transparent;
 }
+.credo-en { font-size: clamp(3rem, 11.2vw, 11rem); }
