@@ -7,17 +7,18 @@ gsap.registerPlugin(ScrollTrigger)
 /*
   Clean line against bursting colour, played out by Galya's squirrel:
   the line squirrel bounds across the page from one side to the other as you scroll,
-  and four blots of paint chase it, each a little slower, like colour trying to catch the line.
+  and four splashes from Galya's own chameleon painting chase it, each a little slower, like colour trying to catch the line.
 */
 // Letters of the line underneath; each one jumps when the squirrel passes over it
 const phrase = 'השראה מגיעה בקפיצות'
-const pops = ['#d6246e', '#e8762b', '#3d8cb5', '#2f9a6a', '#f2c918']
+// the chameleon's own colours
+const pops = ['#c8024a', '#ef7a06', '#0d6ea3', '#1f9a2a', '#78c21f']
 
 const blots = [
-  { src: 'hero/blot-yellow.webp', size: 0.62, dy: '-8%', lag: 1.0 },
-  { src: 'hero/blot-pink.webp', size: 0.5, dy: '18%', lag: 1.6 },
-  { src: 'hero/blot-blue.webp', size: 0.42, dy: '-22%', lag: 2.2 },
-  { src: 'hero/blot-green.webp', size: 0.34, dy: '24%', lag: 2.8 },
+  { src: 'hero/splash-yellow.webp', size: 0.62, dy: '-8%', lag: 1.0 },
+  { src: 'hero/splash-pink.webp', size: 0.5, dy: '18%', lag: 1.6 },
+  { src: 'hero/splash-blue.webp', size: 0.42, dy: '-22%', lag: 2.2 },
+  { src: 'hero/splash-green.webp', size: 0.34, dy: '24%', lag: 2.8 },
 ]
 
 export default function SquirrelRun() {

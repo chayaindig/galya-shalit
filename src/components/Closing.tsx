@@ -52,10 +52,11 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="relative bg-blue-night py-16 text-paper">
-      {/* end of the day: the squirrel curls up on the edge of the footer, on a pool of colour */}
+      {/* end of the day: the squirrel curls up on the edge of the footer, on splashes from the chameleon painting */}
       <div aria-hidden="true" className="pointer-events-none absolute bottom-full left-1/2 w-[min(78vw,30rem)] -translate-x-1/2 translate-y-[3%] md:left-[30%]">
-        <img src="hero/blot-yellow.webp" alt="" className="absolute bottom-[6%] left-[10%] w-[52%] opacity-80 mix-blend-multiply" />
-        <img src="hero/blot-pink.webp" alt="" className="absolute bottom-[10%] right-[8%] w-[32%] opacity-70 mix-blend-multiply" />
+        <img src="hero/splash-yellow.webp" alt="" className="absolute bottom-[4%] left-[8%] w-[50%] opacity-90 mix-blend-multiply" />
+        <img src="hero/splash-blue.webp" alt="" className="absolute bottom-[30%] left-[42%] w-[26%] opacity-80 mix-blend-multiply" />
+        <img src="hero/splash-pink.webp" alt="" className="absolute bottom-[8%] right-[6%] w-[32%] opacity-85 mix-blend-multiply" />
         <Squirrel pose="sleep" className="relative w-full" />
         <span className="zzz absolute top-[34%] left-[24%] font-display text-sub font-bold text-ink-soft">ז</span>
         <span className="zzz zzz-2 absolute top-[12%] left-[16%] font-display text-section font-bold text-ink-soft">ז</span>
