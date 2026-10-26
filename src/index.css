@@ -19,21 +19,21 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "Leon";
-  src: url("/fonts/Leon-Heavy.woff2") format("woff2");
-  font-weight: 800;
+  font-family: "Pompei";
+  src: url("/fonts/PompeiNarrow_FS-Bold.woff2") format("woff2");
+  font-weight: 700;
   font-display: swap;
 }
 @font-face {
-  font-family: "Leon";
-  src: url("/fonts/Leon-Thin.woff2") format("woff2");
+  font-family: "Pompei";
+  src: url("/fonts/PompeiNarrow_FS-Extralight.woff2") format("woff2");
   font-weight: 200;
   font-display: swap;
 }
 
 @theme {
   --font-sans: "Talent", "Assistant", system-ui, sans-serif;
-  --font-display: "Leon", "Talent", system-ui, sans-serif;
+  --font-display: "Pompei", "Talent", system-ui, sans-serif;
 
   /* Paper, ink, and one touch of blue: the blot the chameleon's tongue reaches for */
   --color-paper: #f7f3ec;
@@ -46,9 +46,9 @@
   --color-blue-night: #163f5c;
 
   /* Five text sizes, nothing else */
-  --text-hero: clamp(2.9rem, 7.4vw, 6.6rem);
+  --text-hero: clamp(3.8rem, 10vw, 8.8rem);
   --text-hero--line-height: 0.95;
-  --text-section: clamp(2.1rem, 4.6vw, 4rem);
+  --text-section: clamp(2.6rem, 5.6vw, 4.8rem);
   --text-section--line-height: 1.05;
   --text-sub: clamp(1.25rem, 1.9vw, 1.6rem);
   --text-sub--line-height: 1.35;
@@ -113,7 +113,8 @@ body::before {
   border-radius: 6px;
 }
 
-/* Icons from the Magnific library, tinted with currentColor */
+/* Icons from the Magnific library, tinted with currentColor (in a layer so size-* utilities win) */
+@layer components {
 .icon {
   display: inline-block;
   width: 1.15em;
@@ -122,6 +123,7 @@ body::before {
   background: currentColor;
   -webkit-mask: var(--icon) center / contain no-repeat;
   mask: var(--icon) center / contain no-repeat;
+}
 }
 
 /* Soft watercolor wash that grows behind a key word */
@@ -206,21 +208,27 @@ body::before {
   stroke-dashoffset: 1.02;
 }
 
-/* Smultronställe: watercolour inside the letters */
-.smu-word {
-  font-size: clamp(2.6rem, 13.6vw, 14rem);
-  letter-spacing: -0.02em;
+/* Credo: "קו נקי. צבע מתפרץ." */
+.credo {
+  font-size: clamp(4rem, 17vw, 15rem);
   color: var(--color-ink);
 }
-.smu-word > span {
+.credo-color {
   background-image: url("/hero/watercolor-texture.webp");
   background-size: 100% auto;
   background-position: 50% 30%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
-.smu-word .smu-drop {
-  -webkit-background-clip: border-box;
-  background-clip: border-box;
+
+/* sleeping squirrel's Zzz */
+.zzz { animation: zzz 3s ease-in-out infinite; }
+@keyframes zzz {
+  0% { opacity: 0; transform: translateY(6px); }
+  40% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-14px); }
 }
+@media (prefers-reduced-motion: reduce) { .zzz { animation: none; } }

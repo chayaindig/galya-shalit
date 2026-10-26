@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react'
 import { watchOrphans } from './lib/noOrphans'
-import type { SeriesId } from './data'
+import type { CatId } from './data'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Story from './components/Story'
-import Smultron from './components/Smultron'
-import Series from './components/Series'
+import Credo from './components/Credo'
+import Categories from './components/Categories'
 import Gallery from './components/Gallery'
 import About from './components/About'
 import Prints from './components/Prints'
 import { Contact, Footer, Shop, WhatsAppFloat } from './components/Closing'
 
 export default function App() {
-  const [filter, setFilter] = useState<SeriesId | 'all'>('all')
+  const [filter, setFilter] = useState<CatId>('inspiration')
 
   useEffect(() => watchOrphans(), [])
 
@@ -25,8 +25,8 @@ export default function App() {
       <main>
         <Hero />
         <Story />
-        <Smultron />
-        <Series onPick={setFilter} />
+        <Credo />
+        <Categories onPick={setFilter} />
         <Gallery filter={filter} setFilter={setFilter} />
         <About />
         <Prints />

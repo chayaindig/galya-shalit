@@ -11,16 +11,16 @@ export default function Story() {
     >
       <div className="mx-auto grid max-w-7xl gap-10 px-4 pt-[22svh] md:px-8 lg:grid-cols-12">
         <p className="text-note font-medium tracking-wide text-paper/75 lg:col-span-3">
-          <span dir="ltr" className="tabular-nums">01</span> · מאיפה זה בא
+          <span dir="ltr" className="tabular-nums">01</span> · ככה זה מתחיל
         </p>
         <div className="lg:col-span-9">
-          <h2 className="font-display text-section font-extrabold">
-            קו שוודי.
+          <h2 className="font-display text-section font-bold">
+            כל איור מתחיל
             <br />
-            <span className="font-extralight">צבע ישראלי.</span>
+            <span className="font-extralight">בקו אחד.</span>
           </h2>
           <p className="mt-8 max-w-2xl text-sub text-paper/90">
-            גדלתי בשוודיה, ושם למדתי לאהוב קו נקי, שקט ומדויק. בישראל גיליתי צבע שלא מבקש רשות. בכל איור שלי שני העולמות נפגשים: קו שחור אחד שמחזיק את הצורה, וצבעי מים שמתפרצים ממנו החוצה.
+            קו נקי ומדויק שמחזיק את הצורה, ואז הצבע מגיע ומתפרץ ממנו החוצה. אני עובדת בעיקר בצבעי עפרון, בהרבה טכניקות שונות, ובכלים של איור דיגיטלי שנותנים ליצירתיות שלי עוד מקום לשחק.
           </p>
         </div>
       </div>

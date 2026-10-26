@@ -1,6 +1,7 @@
 import { contact, waLink } from '../data'
 import Icon from './Icon'
 import Signature from './Signature'
+import Squirrel from './Squirrel'
 
 const shirts = [
   { src: 'art/time-model.webp', alt: 'האיור "זמן" מודפס על חולצה', r: '-rotate-6 translate-y-4' },
@@ -16,9 +17,9 @@ export function Shop() {
           <p className="text-note font-medium tracking-wide text-ink-soft">
             <span dir="ltr" className="tabular-nums">07</span> · איפה קונים
           </p>
-          <h2 className="mt-3 font-display text-section font-extrabold">רוצים ללבוש את זה?</h2>
+          <h2 className="mt-3 font-display text-section font-bold">רוצים ללבוש את זה?</h2>
           <p className="mt-6 max-w-lg text-sub text-ink-soft">
-            ההדפסים שלי נמכרים ב״{contact.shopName}״, חנות של אמנים ישראלים. בוחרים איור, בוחרים חולצה, והוא מגיע אליכם הביתה.
+            החולצות שלי נמכרות ב״{contact.shopName}״, חנות של אמנים ישראלים. בוחרים איור, בוחרים חולצה, והוא מגיע אליכם הביתה. על תיקים, מדבקות קיר ומוצרים אחרים, פשוט כתבו לי.
           </p>
           <a
             href={contact.shopUrl}
@@ -49,12 +50,13 @@ export function Shop() {
 
 export function Contact() {
   return (
-    <section id="contact" className="scroll-mt-20 bg-paper-2 py-24 md:py-32">
+    <section id="contact" className="relative scroll-mt-20 overflow-x-clip bg-paper-2 py-24 md:py-32">
+      <Squirrel pose="stretch" className="absolute top-16 left-4 w-32 md:top-24 md:left-[8%] md:w-48" />
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <p className="text-note font-medium tracking-wide text-ink-soft">
           <span dir="ltr" className="tabular-nums">08</span> · צרו קשר
         </p>
-        <h2 className="mt-3 max-w-3xl font-display text-section font-extrabold">בואו נצייר משהו ביחד.</h2>
+        <h2 className="mt-3 max-w-3xl font-display text-section font-bold">בואו נצייר משהו ביחד.</h2>
         <p className="mt-6 max-w-xl text-sub text-ink-soft">
           איור אישי, מתנה, שיתוף פעולה או סתם שאלה. הכי מהר לתפוס אותי בוואטסאפ.
         </p>
@@ -95,12 +97,17 @@ export function Contact() {
 
 export function Footer() {
   return (
-    <footer className="bg-blue-night py-16 text-paper">
+    <footer className="relative bg-blue-night py-16 text-paper">
+      {/* end of the day: the squirrel falls asleep on the edge of the footer */}
+      <div aria-hidden="true" className="absolute -top-[58px] left-[8%] md:-top-[78px] md:left-[14%]">
+        <Squirrel pose="sleep" className="w-28 md:w-40" />
+        <span className="zzz absolute -top-4 left-2 font-display text-sub text-ink-soft">ז ז ז</span>
+      </div>
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 md:flex-row md:items-end md:justify-between md:px-8">
         <div>
           <Signature draw="view" className="h-20 w-auto md:h-28" />
           <p className="mt-4 text-note text-paper/70">
-            איור, צבעי מים ועפרונות צבעוניים. <span dir="ltr">Sverige</span> · ישראל
+            קו נקי, צבע מתפרץ. איור בצבעי עפרון ואיור דיגיטלי.
           </p>
         </div>
         <div className="flex flex-col gap-2 text-note text-paper/70 md:items-end">

@@ -150,11 +150,11 @@ export default function Hero() {
           className="absolute inset-x-4 top-[17svh] max-w-xl sm:inset-x-8 lg:top-auto lg:right-[6vw] lg:bottom-[13vh] lg:left-auto lg:w-[min(36rem,40vw)]"
         >
           <p className="mb-4 text-note font-medium tracking-wide text-ink-soft">
-            איור · צבעי מים · עפרונות צבעוניים · דיגיטל
+            איור · צבעי עפרון · דיגיטל · לוגואים
           </p>
-          <h1 className="font-display text-hero font-extrabold">גליה שליט</h1>
+          <h1 className="font-display text-hero font-extralight tracking-tight">גליה שליט</h1>
           <p className="mt-5 max-w-md text-sub text-ink-soft">
-            נולדתי לקו השוודי הנקי, והתאהבתי בצבע הישראלי שלא מבקש רשות. האיורים שלי נגמרים על חולצות, סיכות ובקבוקים, ומשם לאן שתרצו.
+            קו נקי, צבע מתפרץ. אני מאיירת בצבעי עפרון ובכלים דיגיטליים, ומדפיסה את האיורים על חולצות, תיקים, קירות ומה שרק תרצו.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a
@@ -183,7 +183,7 @@ export default function Hero() {
             ))}
           </ol>
           <p className="scroll-hint hidden text-note text-ink-soft md:block motion-reduce:hidden">גללו, והזיקית תתמלא בצבע</p>
-          <a href="#story" className="rounded-full border border-ink/25 bg-paper/80 px-4 py-2 text-note font-medium transition-colors hover:bg-paper motion-reduce:hidden">
+          <a href="#story" className="rounded-full border border-ink/25 bg-paper/80 px-4 py-2 text-note font-medium whitespace-nowrap transition-colors hover:bg-paper motion-reduce:hidden">
             לדלג על הציור
           </a>
         </div>
