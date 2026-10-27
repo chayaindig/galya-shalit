@@ -68,9 +68,10 @@ export default function Header() {
             onClick={() => setLang(lang === 'he' ? 'en' : 'he')}
             aria-label={t.switchLangLabel}
             lang={lang === 'he' ? 'en' : 'he'}
-            className="grid size-10 place-items-center rounded-full border border-ink/25 text-note font-medium transition-colors hover:bg-ink hover:text-paper"
+            className="grid size-10 place-items-center rounded-full p-0.5 ring-1 ring-ink/15 transition-transform hover:scale-110"
           >
-            {t.switchLang}
+            {/* the flag of the language you switch to */}
+            <img src={lang === 'he' ? 'icons/flag-us.svg' : 'icons/flag-il.svg'} alt="" className="size-full rounded-full" />
           </button>
           <button
             type="button"

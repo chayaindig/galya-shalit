@@ -251,7 +251,7 @@ body::before {
   position: absolute;
   inset: 0;
   border-radius: 999px;
-  border: 2px solid #1fa855;
+  border: 2px solid var(--color-blue);
   animation: wa-pulse 3.2s ease-out infinite;
 }
 @keyframes wa-pulse {

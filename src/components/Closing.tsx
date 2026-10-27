@@ -17,19 +17,19 @@ export function Contact() {
           {t.contactP}
         </p>
 
-        <ul className="mt-12 grid border-t border-line md:grid-cols-3">
-          <li className="border-b border-line md:border-l">
-            <a href={waLink(t.waDefault)} target="_blank" rel="noopener" className="group flex items-center gap-4 py-6 md:px-6">
-              <span className="grid size-12 place-items-center rounded-full bg-blue-deep text-paper"><Icon name="whatsapp" className="size-5" /></span>
+        <ul className="mt-12 grid border-t border-line lg:grid-cols-3">
+          <li className="border-b border-line lg:border-l">
+            <a href={waLink(t.waDefault)} target="_blank" rel="noopener" className="group flex items-center gap-3 py-6 lg:px-5">
+              <Icon name="whatsapp" className="size-10 shrink-0 text-blue-deep transition-transform group-hover:scale-110" />
               <span>
                 <span className="block text-note text-ink-soft">{t.whatsapp}</span>
                 <span className="font-medium group-hover:text-blue-deep">{t.sendMsg}</span>
               </span>
             </a>
           </li>
-          <li className="border-b border-line md:border-l">
-            <a href={contact.phoneHref} className="group flex items-center gap-4 py-6 md:px-6">
-              <span className="grid size-12 place-items-center rounded-full border border-blue-deep/40 text-blue-deep"><Icon name="phone" className="size-5" /></span>
+          <li className="border-b border-line lg:border-l">
+            <a href={contact.phoneHref} className="group flex items-center gap-3 py-6 lg:px-5">
+              <Icon name="phone" className="size-10 shrink-0 text-blue-deep transition-transform group-hover:scale-110" />
               <span>
                 <span className="block text-note text-ink-soft">{t.phone}</span>
                 <bdi dir="ltr" className="font-medium group-hover:text-blue-deep">{contact.phoneDisplay}</bdi>
@@ -37,11 +37,11 @@ export function Contact() {
             </a>
           </li>
           <li className="border-b border-line">
-            <a href={`mailto:${contact.email}`} className="group flex items-center gap-4 py-6 md:px-6">
-              <span className="grid size-12 place-items-center rounded-full border border-blue-deep/40 text-blue-deep"><Icon name="mail" className="size-5" /></span>
+            <a href={`mailto:${contact.email}`} className="group flex items-center gap-3 py-6 lg:px-5">
+              <Icon name="mail" className="size-10 shrink-0 text-blue-deep transition-transform group-hover:scale-110" />
               <span className="min-w-0">
                 <span className="block text-note text-ink-soft">{t.email}</span>
-                <bdi dir="ltr" className="block truncate font-medium group-hover:text-blue-deep">{contact.email}</bdi>
+                <bdi dir="ltr" className="block font-medium [overflow-wrap:anywhere] group-hover:text-blue-deep">{contact.email}</bdi>
               </span>
             </a>
           </li>
@@ -86,17 +86,17 @@ export function Footer() {
 
 export function WhatsAppFloat() {
   const { t } = useLang()
-  // Floating WhatsApp, bottom right on every screen. WhatsApp green with a paper ring,
-  // so it stays visible on light paper and on the dark footer alike.
+  // Floating WhatsApp, bottom right on every screen: Galya's WhatsApp bubble recoloured in the site's blues,
+  // with a light rim so it stays visible on light paper and on the dark footer alike.
   return (
     <a
       href={waLink(t.waDefault)}
       target="_blank"
       rel="noopener"
       aria-label={t.floatLabel}
-      className="wa-float fixed right-4 bottom-4 z-40 grid size-14 place-items-center rounded-full bg-[#1fa855] text-white ring-4 ring-paper shadow-[0_12px_30px_-8px_rgba(0,0,0,0.45)] transition-transform hover:scale-105 md:right-6 md:bottom-6 md:size-16"
+      className="wa-float fixed right-4 bottom-4 z-40 block size-16 rounded-full drop-shadow-[0_10px_18px_rgba(22,63,92,0.35)] transition-transform hover:scale-105 md:right-6 md:bottom-6 md:size-[4.5rem]"
     >
-      <Icon name="whatsapp" className="size-7 md:size-8" />
+      <img src="icons/whatsapp-color.svg" alt="" className="size-full" />
     </a>
   )
 }
