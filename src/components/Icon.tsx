@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 import { cn } from '../lib/cn'
 
 // Icons from Galya's Magnific/Flaticon library (public/icons), tinted with currentColor.
-type Name = 'whatsapp' | 'phone' | 'mail' | 'arrow' | 'close' | 'camera'
+type Name = 'whatsapp' | 'whatsapp-circle' | 'phone' | 'mail' | 'arrow' | 'close' | 'camera'
 
 // flip: points "forward" in reading direction (left in Hebrew, right in English).
 // back: points "backward" (right in Hebrew, left in English).

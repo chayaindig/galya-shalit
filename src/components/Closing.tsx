@@ -20,7 +20,7 @@ export function Contact() {
         <ul className="mt-12 grid border-t border-line lg:grid-cols-3">
           <li className="border-b border-line lg:border-l">
             <a href={waLink(t.waDefault)} target="_blank" rel="noopener" className="group flex items-center gap-3 py-6 lg:px-5">
-              <Icon name="whatsapp" className="size-10 shrink-0 text-blue-deep transition-transform group-hover:scale-110" />
+              <Icon name="whatsapp-circle" className="-m-1 size-12 shrink-0 text-blue-deep transition-transform group-hover:scale-110" />
               <span>
                 <span className="block text-note text-ink-soft">{t.whatsapp}</span>
                 <span className="font-medium group-hover:text-blue-deep">{t.sendMsg}</span>
