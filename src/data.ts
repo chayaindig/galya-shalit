@@ -1,11 +1,11 @@
 // Everything that will change lives here: contact details, links, works.
-// TODO from Galya: real email and her photography.
+// TODO from Galya: her photography.
 
 export const contact = {
   whatsapp: '972545755511',
   phoneDisplay: '054-575-5511',
   phoneHref: 'tel:+972545755511',
-  email: 'hello@galyaarts.co.il',
+  email: 'galyashalit@gmail.com',
   shopUrl: 'https://www.h-i-h.co.il/vendors/galya-shalit/',
   shopName: 'ההוא עם החולצות',
 }
