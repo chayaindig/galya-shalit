@@ -22,7 +22,7 @@ export const categories: { id: CatId; name: string; en: string; line: string; co
   { id: 'inspiration', name: 'רישומים', en: 'Sketches', line: 'איורים מהיומן ורישומים מהירים בעיפרון. מכאן הכל מתחיל.', cover: 'art2/door-sketches.webp', color: '#2f9a6a' },
   { id: 'books', name: 'איור ספרים', en: 'Books', line: 'איורים לספרי ילדים ופורטרטים בעיפרון שנולדו בתוך ספרים.', cover: 'art2/door-books.webp', color: '#7b4fa8' },
   { id: 'products', name: 'מוצרים', en: 'Prints', line: 'חולצות, תיקי בד ובקבוקים. איורים שאפשר ללבוש ולקחת הביתה.', cover: 'art2/prod-fox-shirt.webp', color: '#e8762b' },
-  { id: 'logos', name: 'לוגואים', en: 'Logos', line: 'סימן אחד קטן שמספר את כל הסיפור של עסק.', cover: 'art2/door-logos.webp', color: '#d4a017' },
+  { id: 'logos', name: 'לוגואים', en: 'Logos', line: 'סימן אחד קטן שמספר את כל הסיפור של עסק.', cover: 'art2/logo-hamerchav-mock.webp', color: '#d4a017' },
   { id: 'photos', name: 'צילומים', en: 'Photography', line: 'העין שמחפשת את הפרט הקטן: חיפושית על פרח, חילזון על עלה, אור של ערב על המים.', cover: 'art2/door-photos.webp', color: '#5e5850' },
 ]
 
