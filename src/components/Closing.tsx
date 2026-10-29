@@ -55,14 +55,14 @@ export function Footer() {
   const { t } = useLang()
   return (
     <footer className="relative bg-blue-night py-16 text-paper">
-      {/* end of the day: the squirrel curls up on the edge of the footer, on splashes from the chameleon painting */}
-      <div aria-hidden="true" className="pointer-events-none absolute bottom-full left-1/2 w-[min(78vw,30rem)] -translate-x-1/2 translate-y-[3%] md:left-[30%]">
-        <img src="hero/splash-green.webp" alt="" className="absolute bottom-[4%] left-[8%] w-[50%] opacity-85 mix-blend-multiply" />
-        <img src="hero/splash-blue.webp" alt="" className="absolute bottom-[30%] left-[42%] w-[26%] opacity-80 mix-blend-multiply" />
-        <img src="hero/splash-pink.webp" alt="" className="absolute bottom-[8%] right-[6%] w-[32%] opacity-85 mix-blend-multiply" />
-        <Squirrel pose="sleep" src="lizard/rest.svg" className="relative w-full" />
-        <span className="zzz absolute top-[8%] right-[10%] font-display text-sub font-bold text-ink-soft" dir="ltr">z</span>
-        <span className="zzz zzz-2 absolute -top-[14%] right-[2%] font-display text-section font-bold text-ink-soft" dir="ltr">Z</span>
+      {/* end of the day: Galya's lizard sleeps on the edge of the footer, on a bed of splashes from the chameleon painting */}
+      <div aria-hidden="true" className="pointer-events-none absolute bottom-full left-1/2 w-[min(84vw,34rem)] -translate-x-1/2 translate-y-[4%] md:left-[30%]">
+        <img src="hero/splash-pink.webp" alt="" className="absolute bottom-[8%] -left-[4%] w-[30%] opacity-80 mix-blend-multiply" />
+        <img src="hero/splash-green.webp" alt="" className="absolute bottom-[6%] left-[18%] w-[52%] opacity-85 mix-blend-multiply" />
+        <img src="hero/splash-blue.webp" alt="" className="absolute bottom-[10%] -right-[4%] w-[32%] opacity-80 mix-blend-multiply" />
+        <Squirrel pose="sleep" className="relative w-full" />
+        <span className="zzz absolute -top-[6%] right-[6%] font-display text-sub font-bold text-ink-soft" dir="ltr">z</span>
+        <span className="zzz zzz-2 absolute -top-[40%] right-[0%] font-display text-section font-bold text-ink-soft" dir="ltr">Z</span>
       </div>
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 md:flex-row md:items-end md:justify-between md:px-8">
         <div>
