@@ -6,8 +6,8 @@ import { useLang } from '../i18n'
 gsap.registerPlugin(ScrollTrigger)
 
 /*
-  Clean line against bursting colour, played out by Galya's cat:
-  the line cat (drawn from her stretching-cat logo) bounds across the page from one side to the other as you scroll.
+  Clean line against bursting colour, played out by Galya's lizard:
+  the line lizard Galya drew for the site scurries across the page from one side to the other as you scroll.
   Every letter it leaps over leaps up and fills with Galya's colour, the same paint
   that fills "צבע מתפרץ", so by the time it leaves, the whole line is coloured.
 */
@@ -62,7 +62,7 @@ export default function SquirrelRun() {
         })
       }
 
-      // the cat bounds: five hops across the page
+      // the lizard scurries: five hops across the page
       const hop = gsap.quickSetter(hopper, 'y', 'px')
       const tilt = gsap.quickSetter(hopper, 'rotate', 'deg')
       gsap.fromTo(runner, { x: () => window.innerWidth + 40 }, {
@@ -77,8 +77,9 @@ export default function SquirrelRun() {
           onRefresh: measure,
           onUpdate: self => {
             const t = self.progress * Math.PI * 5
-            hop(-Math.abs(Math.sin(t)) * runner.offsetHeight * 0.35)
-            tilt(Math.cos(t) * 6)
+            hop(-Math.abs(Math.sin(t)) * runner.offsetHeight * 0.22)
+            // a lizard scurries: small quick wiggle as it runs
+            tilt(Math.sin(t * 3) * 5)
             kick()
           },
         },
@@ -88,7 +89,7 @@ export default function SquirrelRun() {
   }, [])
 
   return (
-    <div ref={band} className="relative h-[36svh] overflow-x-clip md:h-[80vh]" aria-hidden="true" style={{ '--sr-w': 'clamp(260px, 52vw, 780px)' } as CSSProperties}>
+    <div ref={band} className="relative h-[36svh] overflow-x-clip md:h-[80vh]" aria-hidden="true" style={{ '--sr-w': 'clamp(280px, 56vw, 820px)' } as CSSProperties}>
       <p className={`sr-phrase absolute inset-x-0 top-1/2 mx-auto w-fit -translate-y-1/2 font-display leading-none ${lang === 'en' ? 'text-[clamp(1.9rem,8vw,8.5rem)]' : 'text-[clamp(2.4rem,10vw,10rem)]'} font-bold whitespace-nowrap`}>
         {phrase.split(' ').map((word, w) => (
           <span key={w} className="inline-block whitespace-nowrap">
@@ -102,7 +103,7 @@ export default function SquirrelRun() {
 
       <div className="sr-runner absolute top-1/2 left-0 -translate-y-1/2 motion-reduce:left-1/2 motion-reduce:-translate-x-1/2" style={{ width: 'var(--sr-w)' }}>
         <div className="sr-hop" style={{ transformOrigin: '50% 100%' }}>
-          <img src="cats/run.svg" alt="" className="w-full" draggable={false} />
+          <img src="lizard/run.svg" alt="" className="w-full" draggable={false} />
         </div>
       </div>
     </div>

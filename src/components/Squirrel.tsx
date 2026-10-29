@@ -2,7 +2,7 @@ import { motion, useReducedMotion, type TargetAndTransition, type Transition } f
 import { cn } from '../lib/cn'
 
 /*
-  Galya's cat (new poses drawn from her stretching-cat logo, in the same calligraphic line) lives on the site.
+  Galya's lizard (drawn by her for the site, in her calligraphic line) lives on the site.
   Each pose has its own little bit of life when it scrolls into view.
 */
 export type Pose = 'hang' | 'run' | 'dive' | 'wave' | 'sleep' | 'stretch'
@@ -20,12 +20,12 @@ const life: Record<Pose, { initial: TargetAndTransition; animate: TargetAndTrans
   stretch: { initial: { scaleX: 0.7, opacity: 0 }, animate: { scaleX: [0.7, 1.08, 1], opacity: 1 }, transition: { duration: 1.2, ease: 'easeOut' }, origin: '100% 100%' },
 }
 
-export default function Squirrel({ pose, className, flip }: { pose: Pose; className?: string; flip?: boolean }) {
+export default function Squirrel({ pose, className, flip, src }: { pose: Pose; className?: string; flip?: boolean; src?: string }) {
   const reduce = useReducedMotion()
   const l = life[pose]
   return (
     <motion.img
-      src={`cats/${pose}.svg`}
+      src={src ?? `lizard/${pose}.svg`}
       alt=""
       aria-hidden="true"
       draggable={false}

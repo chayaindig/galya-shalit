@@ -17,8 +17,8 @@ export type CatId = 'inspiration' | 'products' | 'digital' | 'books' | 'logos' |
 
 // Five doors into Galya's world. Each category shows a drawing from inside it.
 export const categories: { id: CatId; name: string; en: string; line: string; cover: string; color: string }[] = [
-  { id: 'digital', name: 'דיגיטלי', en: 'Digital', line: 'כרטיסיות הרגשות, השועל הכתום ועוד איורים שנולדו על המסך.', cover: 'art2/emo-calm.webp', color: '#3d8cb5' },
-  { id: 'inspiration', name: 'השראה', en: 'Sketchbook', line: 'איורים מהיומן ורישומים מהירים בעיפרון. מכאן הכל מתחיל.', cover: 'art2/ins-journal-frogs.webp', color: '#2f9a6a' },
+  { id: 'digital', name: 'פרויקטים', en: 'Projects', line: 'כרטיסיות הרגשות, השועל הכתום ועוד איורים שנולדו על המסך.', cover: 'art2/emo-calm.webp', color: '#3d8cb5' },
+  { id: 'inspiration', name: 'רישומים', en: 'Sketches', line: 'איורים מהיומן ורישומים מהירים בעיפרון. מכאן הכל מתחיל.', cover: 'art2/ins-journal-frogs.webp', color: '#2f9a6a' },
   { id: 'books', name: 'איור ספרים', en: 'Books', line: 'איורים לספרי ילדים ופורטרטים בעיפרון שנולדו בתוך ספרים.', cover: 'art2/book-chameleons-branch.webp', color: '#7b4fa8' },
   { id: 'products', name: 'מוצרים', en: 'Prints', line: 'חולצות, תיקים, מדבקות קיר. איורים שאפשר ללבוש ולקחת הביתה.', cover: 'art2/prod-fox-shirt.webp', color: '#e8762b' },
   { id: 'logos', name: 'לוגואים', en: 'Logos', line: 'סימן אחד קטן שמספר את כל הסיפור של עסק.', cover: 'art2/logo-barakbees.webp', color: '#d4a017' },
@@ -111,8 +111,8 @@ export const printsOn = ['חולצות', 'תיקי בד', 'מדבקות קיר',
 
 // ---- English ----
 export const catEn: Record<CatId, { name: string; line: string }> = {
-  digital: { name: 'Digital', line: 'The emotion cards, the orange fox and more illustrations born on screen.' },
-  inspiration: { name: 'Sketchbook', line: 'Illustrations from my journal and quick pencil drawings. This is where it all begins.' },
+  digital: { name: 'Projects', line: 'The emotion cards, the orange fox and more illustrations born on screen.' },
+  inspiration: { name: 'Sketches', line: 'Illustrations from my journal and quick pencil drawings. This is where it all begins.' },
   products: { name: 'Products', line: 'Shirts, bags, wall decals. Illustrations you can wear and take home.' },
   logos: { name: 'Logos', line: "One small mark that tells a business's whole story." },
   books: { name: 'Books', line: "Illustrations for children's books and pencil portraits born inside books." },

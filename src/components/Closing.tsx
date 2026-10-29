@@ -60,9 +60,9 @@ export function Footer() {
         <img src="hero/splash-green.webp" alt="" className="absolute bottom-[4%] left-[8%] w-[50%] opacity-85 mix-blend-multiply" />
         <img src="hero/splash-blue.webp" alt="" className="absolute bottom-[30%] left-[42%] w-[26%] opacity-80 mix-blend-multiply" />
         <img src="hero/splash-pink.webp" alt="" className="absolute bottom-[8%] right-[6%] w-[32%] opacity-85 mix-blend-multiply" />
-        <Squirrel pose="sleep" className="relative w-full" />
-        <span className="zzz absolute top-[34%] left-[24%] font-display text-sub font-bold text-ink-soft" dir="ltr">z</span>
-        <span className="zzz zzz-2 absolute top-[12%] left-[16%] font-display text-section font-bold text-ink-soft" dir="ltr">Z</span>
+        <Squirrel pose="sleep" src="lizard/rest.svg" className="relative w-full" />
+        <span className="zzz absolute top-[8%] right-[10%] font-display text-sub font-bold text-ink-soft" dir="ltr">z</span>
+        <span className="zzz zzz-2 absolute -top-[14%] right-[2%] font-display text-section font-bold text-ink-soft" dir="ltr">Z</span>
       </div>
       <div className="mx-auto flex max-w-7xl flex-col gap-10 px-4 md:flex-row md:items-end md:justify-between md:px-8">
         <div>
