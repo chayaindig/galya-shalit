@@ -24,23 +24,67 @@ const emotionWorks: Work[] = emotions.map(e => ({
 
 const isPhoto = (w: Work) => !!w.cover || w.cat === 'photos' || w.art.includes('prod-') || w.art.includes('panda-model') || w.art.includes('-mock')
 
-/** Photography hangs on a white gallery wall in the grid; the viewer shows the photo alone */
-function WallFrame({ w, alt, hover }: { w: Work; alt: string; hover?: boolean }) {
+/** Photography hangs in a real gallery room: two photos per wall, each in its own frame. The viewer shows the photo alone. */
+const galleryWalls = [
+  {
+    bg: 'art2/gallery-wall-wood.webp',
+    top: '20%', h: '50%',
+    frames: [
+      { id: 'photo-ladybug', left: '27%', frame: 'border-[3px] md:border-[6px] border-[#1d1b19] bg-white', mat: 13 },
+      { id: 'photo-snail', left: '52%', frame: 'border-[4px] md:border-[9px] border-[#b98a59] [border-style:ridge] bg-[#f8f4ec]', mat: 9 },
+    ],
+  },
+  {
+    bg: 'art2/gallery-wall-concrete.webp',
+    top: '27%', h: '42%',
+    frames: [
+      { id: 'photo-kayak', left: '30%', frame: 'border-[4px] md:border-[8px] border-[#f4f2ee] outline outline-1 outline-black/10', mat: 0 },
+      { id: 'photo-bicycle', left: '53%', frame: 'border-[5px] md:border-[10px] border-[#4a3426] [border-style:ridge] bg-[#c9a76a]', mat: 3 },
+    ],
+  },
+]
+
+function GalleryWalls({ list, onOpen }: { list: Work[]; onOpen: (index: number) => void }) {
+  const { lang, t } = useLang()
   return (
-    <div className="absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_0%,#ffffff_0%,#faf9f6_55%,#f0eee9_100%)]">
-      {/* wire and nail */}
-      <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-x-0 top-0 h-[22%] w-full">
-        <path d="M50 18 L31 100 M50 18 L69 100" stroke="#8d8579" strokeWidth="0.35" fill="none" vectorEffect="non-scaling-stroke" />
-      </svg>
-      <span aria-hidden="true" className="absolute top-[3.2%] left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-[#6d665c] shadow-[0_1px_1px_rgba(0,0,0,0.3)]" />
-      <div
-        className={cn(
-          'absolute top-[19%] left-1/2 aspect-[3/4] w-[58%] -translate-x-1/2 border-[5px] border-[#2a2622] bg-white p-[7%] shadow-[0_22px_30px_-14px_rgba(35,32,29,0.45),0_6px_10px_-6px_rgba(35,32,29,0.35)] transition-transform duration-700 ease-[var(--ease-out-soft)]',
-          hover && 'group-hover:-translate-y-1',
-        )}
-      >
-        <img src={w.art} alt={alt} loading="lazy" decoding="async" className="size-full object-cover shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)]" />
-      </div>
+    <div className="mt-12 grid gap-6 md:gap-10">
+      {galleryWalls.map(wall => (
+        <div key={wall.bg} className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[0_1px_0_var(--color-line),0_18px_40px_-28px_rgba(35,32,29,0.45)] md:aspect-[16/9]">
+          {/* the scene is always 16:9; on phones it is cropped at the sides */}
+          <div className="absolute inset-y-0 -left-[16.667%] w-[133.333%] md:left-0 md:w-full">
+            <img src={wall.bg} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" />
+            {wall.frames.map(f => {
+              const i = list.findIndex(w => w.id === f.id)
+              if (i < 0) return null
+              const w = list[i]
+              const title = workText(w, lang).title
+              return (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => onOpen(i)}
+                  aria-label={t.open(title)}
+                  style={{ left: f.left, top: wall.top, height: wall.h }}
+                  className={cn(
+                    'absolute aspect-[3/4] shadow-[8px_14px_18px_-8px_rgba(20,18,16,0.45),2px_3px_5px_-2px_rgba(20,18,16,0.4)] transition-transform duration-500 ease-[var(--ease-out-soft)] hover:-translate-y-1',
+                    f.frame,
+                  )}
+                >
+                  {/* mat: same visual width on all sides (the frame is 3:4) */}
+                  <img
+                    src={w.art}
+                    alt={title}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ left: `${f.mat}%`, top: `${f.mat * 0.75}%`, width: `${100 - 2 * f.mat}%`, height: `${100 - 1.5 * f.mat}%` }}
+                    className="absolute object-cover"
+                  />
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
@@ -102,7 +146,9 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
           </div>
         )}
 
-          <ul className="mt-12 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 md:grid xl:grid-cols-4">
+        {filter === 'photos' && <GalleryWalls list={shown} onOpen={i => setOpen({ list: shown, index: i })} />}
+
+          <ul className={cn('mt-12 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 xl:grid-cols-4', filter !== 'photos' && 'md:grid')}>
             <AnimatePresence mode="popLayout">
               {shown.map((w, i) => (
                 <motion.li
@@ -121,7 +167,6 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                         w.wide ? 'aspect-[2/1]' : 'aspect-[4/5]',
                       )}
                     >
-                      {w.cat === 'photos' ? <WallFrame w={w} alt={workText(w, lang).title} hover /> : (
                       <img
                         src={w.cover || w.art}
                         alt={workText(w, lang).title}
@@ -132,7 +177,6 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                           isPhoto(w) ? 'object-cover' : 'object-contain p-[8%] mix-blend-multiply',
                         )}
                       />
-                      )}
                     </div>
                     <p className="mt-3 font-medium text-balance">{workText(w, lang).title}</p>
                     {workText(w, lang).sub && <p className="truncate text-note text-ink-soft" dir="auto">{workText(w, lang).sub}</p>}
@@ -142,7 +186,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
             </AnimatePresence>
           </ul>
 
-        {(
+        {filter !== 'photos' && (
           <SwipeCarousel
             key={filter}
             className="mt-10 md:hidden"
@@ -151,7 +195,6 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
             render={(w, i) => (
               <button type="button" onClick={() => setOpen({ list: shown, index: i })} className="block w-full text-start" aria-label={t.open(workText(w, lang).title)}>
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-24px_rgba(35,32,29,0.5)]">
-                  {w.cat === 'photos' ? <WallFrame w={w} alt={workText(w, lang).title} /> : (
                   <img
                     src={w.cover || w.art}
                     alt={workText(w, lang).title}
@@ -159,7 +202,6 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                     decoding="async"
                     className={cn('absolute inset-0 size-full', isPhoto(w) ? 'object-cover' : 'object-contain p-[7%] mix-blend-multiply')}
                   />
-                  )}
                 </div>
                 <p className="mt-3 font-medium text-balance">{workText(w, lang).title}</p>
               </button>
