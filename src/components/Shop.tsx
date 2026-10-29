@@ -77,17 +77,25 @@ export default function Shop() {
         </h2>
         <div className="lg:col-span-5">
           <p className="max-w-lg text-sub text-ink-soft">
-            {t.shopP(t.shopName)}
+            {t.shopP(t.shopName, t.shop2Name)}
           </p>
-          <a
-            href={contact.shopUrl}
-            target="_blank"
-            rel="noopener"
-            className="mt-7 inline-flex items-center gap-2.5 rounded-full bg-blue-deep px-6 py-3.5 font-medium text-paper transition-transform hover:-translate-y-0.5"
-          >
-            {t.shopCta(t.shopName)}
-            <Icon name="arrow" flip />
-          </a>
+          <div className="mt-7 flex flex-wrap gap-3">
+            {[
+              { href: contact.shopUrl, name: t.shopName },
+              { href: contact.shop2Url, name: t.shop2Name },
+            ].map(s => (
+              <a
+                key={s.href}
+                href={s.href}
+                target="_blank"
+                rel="noopener"
+                className="inline-flex items-center gap-2.5 rounded-full bg-blue-deep px-6 py-3.5 font-medium whitespace-nowrap text-paper transition-transform hover:-translate-y-0.5"
+              >
+                {t.shopCta(s.name)}
+                <Icon name="arrow" flip />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
 

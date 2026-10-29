@@ -8,6 +8,7 @@ export const contact = {
   email: 'galyashalit@gmail.com',
   shopUrl: 'https://www.h-i-h.co.il/vendors/galya-shalit/',
   shopName: 'ההוא עם החולצות',
+  shop2Url: 'https://www.t-shirt.co.il/category/art-%D7%92%D7%9C%D7%99%D7%94-%D7%A9%D7%9C%D7%99%D7%98',
 }
 
 export const waLink = (text: string) =>

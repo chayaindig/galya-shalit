@@ -147,6 +147,10 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
             {t.shirtsOrderA}{' '}
             <a href={contact.shopUrl} target="_blank" rel="noopener" className="border-b border-ink/40 font-medium whitespace-nowrap text-ink hover:border-ink">
               {t.shirtsOrderLink(t.shopName)}
+            </a>{' '}
+            {t.shirtsOrderAnd}
+            <a href={contact.shop2Url} target="_blank" rel="noopener" className="border-b border-ink/40 font-medium whitespace-nowrap text-ink hover:border-ink">
+              {t.shirtsOrderLink(t.shop2Name)}
             </a>
             {t.shirtsOrderB}
           </p>
