@@ -22,7 +22,28 @@ const emotionWorks: Work[] = emotions.map(e => ({
   note: '',
 }))
 
-const isPhoto = (w: Work) => !!w.cover || w.cat === 'photos' || w.art.includes('prod-') || w.art.includes('panda-model')
+const isPhoto = (w: Work) => !!w.cover || w.cat === 'photos' || w.art.includes('prod-') || w.art.includes('panda-model') || w.art.includes('-mock')
+
+/** Photography hangs on a white gallery wall in the grid; the viewer shows the photo alone */
+function WallFrame({ w, alt, hover }: { w: Work; alt: string; hover?: boolean }) {
+  return (
+    <div className="absolute inset-0 bg-[radial-gradient(120%_70%_at_50%_0%,#ffffff_0%,#faf9f6_55%,#f0eee9_100%)]">
+      {/* wire and nail */}
+      <svg aria-hidden="true" viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-x-0 top-0 h-[22%] w-full">
+        <path d="M50 18 L31 100 M50 18 L69 100" stroke="#8d8579" strokeWidth="0.35" fill="none" vectorEffect="non-scaling-stroke" />
+      </svg>
+      <span aria-hidden="true" className="absolute top-[3.2%] left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-[#6d665c] shadow-[0_1px_1px_rgba(0,0,0,0.3)]" />
+      <div
+        className={cn(
+          'absolute top-[19%] left-1/2 aspect-[3/4] w-[58%] -translate-x-1/2 border-[5px] border-[#2a2622] bg-white p-[7%] shadow-[0_22px_30px_-14px_rgba(35,32,29,0.45),0_6px_10px_-6px_rgba(35,32,29,0.35)] transition-transform duration-700 ease-[var(--ease-out-soft)]',
+          hover && 'group-hover:-translate-y-1',
+        )}
+      >
+        <img src={w.art} alt={alt} loading="lazy" decoding="async" className="size-full object-cover shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)]" />
+      </div>
+    </div>
+  )
+}
 
 type Open = { list: Work[]; index: number } | null
 
@@ -100,6 +121,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                         w.wide ? 'aspect-[2/1]' : 'aspect-[4/5]',
                       )}
                     >
+                      {w.cat === 'photos' ? <WallFrame w={w} alt={workText(w, lang).title} hover /> : (
                       <img
                         src={w.cover || w.art}
                         alt={workText(w, lang).title}
@@ -110,6 +132,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                           isPhoto(w) ? 'object-cover' : 'object-contain p-[8%] mix-blend-multiply',
                         )}
                       />
+                      )}
                     </div>
                     <p className="mt-3 font-medium text-balance">{workText(w, lang).title}</p>
                     {workText(w, lang).sub && <p className="truncate text-note text-ink-soft" dir="auto">{workText(w, lang).sub}</p>}
@@ -128,6 +151,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
             render={(w, i) => (
               <button type="button" onClick={() => setOpen({ list: shown, index: i })} className="block w-full text-start" aria-label={t.open(workText(w, lang).title)}>
                 <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-24px_rgba(35,32,29,0.5)]">
+                  {w.cat === 'photos' ? <WallFrame w={w} alt={workText(w, lang).title} /> : (
                   <img
                     src={w.cover || w.art}
                     alt={workText(w, lang).title}
@@ -135,6 +159,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
                     decoding="async"
                     className={cn('absolute inset-0 size-full', isPhoto(w) ? 'object-cover' : 'object-contain p-[7%] mix-blend-multiply')}
                   />
+                  )}
                 </div>
                 <p className="mt-3 font-medium text-balance">{workText(w, lang).title}</p>
               </button>
