@@ -30,8 +30,7 @@ function Cover({ c, className }: { c: Cat; className?: string }) {
           alt=""
           loading="lazy"
           className={cn(
-            'absolute inset-0 size-full transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-105',
-            c.id === 'logos' ? 'object-contain p-[14%] mix-blend-multiply' : 'object-cover',
+            'absolute inset-0 size-full object-cover transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-105',
           )}
         />
       )}

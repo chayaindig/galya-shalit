@@ -16,14 +16,14 @@ export const waLink = (text: string) =>
 
 export type CatId = 'inspiration' | 'products' | 'digital' | 'books' | 'logos' | 'photos'
 
-// Five doors into Galya's world. Each category shows a drawing from inside it.
+// Six doors into Galya's world. Each door is a real-life scene of the work inside it.
 export const categories: { id: CatId; name: string; en: string; line: string; cover: string; color: string }[] = [
-  { id: 'digital', name: 'פרויקטים', en: 'Projects', line: 'כרטיסיות הרגשות, השועל הכתום ועוד איורים שנולדו על המסך.', cover: 'art2/emo-calm.webp', color: '#3d8cb5' },
-  { id: 'inspiration', name: 'רישומים', en: 'Sketches', line: 'איורים מהיומן ורישומים מהירים בעיפרון. מכאן הכל מתחיל.', cover: 'art2/ins-journal-frogs.webp', color: '#2f9a6a' },
-  { id: 'books', name: 'איור ספרים', en: 'Books', line: 'איורים לספרי ילדים ופורטרטים בעיפרון שנולדו בתוך ספרים.', cover: 'art2/book-chameleons-branch.webp', color: '#7b4fa8' },
+  { id: 'digital', name: 'פרויקטים', en: 'Projects', line: 'כרטיסיות הרגשות, השועל הכתום ועוד איורים שנולדו על המסך.', cover: 'art2/door-projects.webp', color: '#3d8cb5' },
+  { id: 'inspiration', name: 'רישומים', en: 'Sketches', line: 'איורים מהיומן ורישומים מהירים בעיפרון. מכאן הכל מתחיל.', cover: 'art2/door-sketches.webp', color: '#2f9a6a' },
+  { id: 'books', name: 'איור ספרים', en: 'Books', line: 'איורים לספרי ילדים ופורטרטים בעיפרון שנולדו בתוך ספרים.', cover: 'art2/door-books.webp', color: '#7b4fa8' },
   { id: 'products', name: 'מוצרים', en: 'Prints', line: 'חולצות, תיקי בד ובקבוקים. איורים שאפשר ללבוש ולקחת הביתה.', cover: 'art2/prod-fox-shirt.webp', color: '#e8762b' },
-  { id: 'logos', name: 'לוגואים', en: 'Logos', line: 'סימן אחד קטן שמספר את כל הסיפור של עסק.', cover: 'art2/logo-barakbees.webp', color: '#d4a017' },
-  { id: 'photos', name: 'צילומים', en: 'Photography', line: 'העין שמחפשת את הפרט הקטן: חיפושית על פרח, חילזון על עלה, אור של ערב על המים.', cover: 'art2/photo-ladybug.webp', color: '#5e5850' },
+  { id: 'logos', name: 'לוגואים', en: 'Logos', line: 'סימן אחד קטן שמספר את כל הסיפור של עסק.', cover: 'art2/door-logos.webp', color: '#d4a017' },
+  { id: 'photos', name: 'צילומים', en: 'Photography', line: 'העין שמחפשת את הפרט הקטן: חיפושית על פרח, חילזון על עלה, אור של ערב על המים.', cover: 'art2/door-photos.webp', color: '#5e5850' },
 ]
 
 export type Work = {
@@ -72,18 +72,18 @@ export const works: Work[] = [
   { id: 'gseahorse', title: 'סוסון ים', en: 'Geometrical Sea', cat: 'products', art: 'art/gseahorse-web.webp', cover: 'art/gseahorse-model.webp', shop: P + 'geometrical_sea/', note: 'סוסון ים כתום שמתחבא בתוך ים של משולשים.' },
   { id: 'gmushrooms', title: 'פטריות גיאומטריות', en: 'Geometric Mushrooms', cat: 'products', art: 'art/gmushrooms-web.webp', cover: 'art/gmushrooms-model.webp', shop: P + 'geometric_mushrooms/', note: 'כובעי פטריות שנשברים לאור, כמו ויטראז׳ בתוך יער.' },
   { id: 'lizard', title: 'לטאה', en: 'Lizard', cat: 'products', art: 'art/lizard-web.webp', cover: 'art/lizard-model.webp', shop: P + 'lizard/', note: 'לטאה שמטפסת על עמוד של צבע. הכי טובה על הגב של חולצה.' },
-  { id: 'flamingo', title: 'פלמינגו', en: 'Oneline Flamingo', cat: 'products', art: 'art/flamingo-web.webp', shop: P + 'oneline_flamingo/', note: 'ארבעה פלמינגו, קו אחד. העט לא התרומם מהדף אפילו פעם אחת.', wide: true },
-  { id: 'cats', title: 'חתולים', en: 'Oneline Cats', cat: 'products', art: 'art/cats-web.webp', shop: P + 'oneline_cats/', note: 'שורה של חתולים שיושבים בדיוק כמו שחתולים יושבים.', wide: true },
-  { id: 'birds', title: 'ציפורים על חוט', en: 'Oneline Birds', cat: 'products', art: 'art/birds-web.webp', shop: P + 'oneline_birds/', note: 'ציפורים שנחות על הקו שהן עצמן עשויות ממנו.', wide: true },
-  { id: 'snail', title: 'חלזונות', en: 'Oneline Snail', cat: 'products', art: 'art/snail-web.webp', shop: P + 'oneline_snail/', note: 'מירוץ חלזונות איטי במיוחד, בקו אחד.', wide: true },
-  { id: '4sheep', title: 'ארבע כבשים', en: 'Oneline 4 Sheep', cat: 'products', art: 'art/4sheep-web.webp', shop: P + 'oneline-4sheep/', note: 'עדר קטן של כבשים מתולתלות, וכבשה אחת שמסתכלת אלייך.', wide: true },
-  { id: 'sheep', title: 'כבשה עם שאלה', en: 'Oneline Sheep', cat: 'products', art: 'art/sheep-web.webp', shop: P + 'oneline_sheep/', note: 'קו אחד שמסתבך ומסתבך, ובסוף מתגלה כבשה עם סימן שאלה.' },
+  { id: 'flamingo', title: 'פלמינגו', en: 'Oneline Flamingo', cat: 'digital', art: 'art/flamingo-web.webp', shop: P + 'oneline_flamingo/', note: 'ארבעה פלמינגו, קו אחד. העט לא התרומם מהדף אפילו פעם אחת.', wide: true },
+  { id: 'cats', title: 'חתולים', en: 'Oneline Cats', cat: 'digital', art: 'art/cats-web.webp', shop: P + 'oneline_cats/', note: 'שורה של חתולים שיושבים בדיוק כמו שחתולים יושבים.', wide: true },
+  { id: 'birds', title: 'ציפורים על חוט', en: 'Oneline Birds', cat: 'digital', art: 'art/birds-web.webp', shop: P + 'oneline_birds/', note: 'ציפורים שנחות על הקו שהן עצמן עשויות ממנו.', wide: true },
+  { id: 'snail', title: 'חלזונות', en: 'Oneline Snail', cat: 'digital', art: 'art/snail-web.webp', shop: P + 'oneline_snail/', note: 'מירוץ חלזונות איטי במיוחד, בקו אחד.', wide: true },
+  { id: '4sheep', title: 'ארבע כבשים', en: 'Oneline 4 Sheep', cat: 'digital', art: 'art/4sheep-web.webp', shop: P + 'oneline-4sheep/', note: 'עדר קטן של כבשים מתולתלות, וכבשה אחת שמסתכלת אלייך.', wide: true },
+  { id: 'sheep', title: 'כבשה עם שאלה', en: 'Oneline Sheep', cat: 'digital', art: 'art/sheep-web.webp', shop: P + 'oneline_sheep/', note: 'קו אחד שמסתבך ומסתבך, ובסוף מתגלה כבשה עם סימן שאלה.' },
   { id: 'dottedtree', title: 'עץ מנוקד', en: 'Dotted Tree', cat: 'products', art: 'art/dottedtree-web.webp', cover: 'art/dottedtree-model.webp', shop: P + 'dottedtree/', note: 'עץ ושורשיו, בנויים כולם מנקודות דיו. חצי חורף, חצי אביב.' },
-  { id: 'spiraltree', title: 'עץ ספירלות', en: 'Spiral Tree', cat: 'products', art: 'art/spiraltree-web.webp', shop: P + 'spiraltree/', note: 'עץ שכל העלים שלו הם ספירלות קטנות.' },
+  { id: 'spiraltree', title: 'עץ ספירלות', en: 'Spiral Tree', cat: 'digital', art: 'art/spiraltree-web.webp', shop: P + 'spiraltree/', note: 'עץ שכל העלים שלו הם ספירלות קטנות.' },
   { id: 'bubbles', title: 'בועות', en: 'Bubbles', cat: 'products', art: 'art/bubbles-web.webp', cover: 'art/bubbles-model.webp', shop: P + 'bubbles/', note: 'מאות בועות שזורמות החוצה מתוך חלון אחד שחור.' },
   { id: 'time', title: 'זמן', en: 'Time', cat: 'products', art: 'art/time-web.webp', cover: 'art/time-model.webp', shop: P + 'time/', note: 'שעון חול שבמקום חול זורמת בו המילה time.' },
   { id: 'whale', title: 'זנב של לוויתן', en: 'Whale Tail', cat: 'products', art: 'art/whale-web.webp', cover: 'art/whale-model.webp', shop: P + '%d7%97%d7%95%d7%9c%d7%a6%d7%94-%d7%9e%d7%95%d7%93%d7%a4%d7%a1%d7%aa-whale_tail/', note: 'רגע אחד לפני שהלוויתן צולל. הים עשוי מקווים בלבד.' },
-  { id: 'rain', title: 'גשם', en: 'Oneline Rain', cat: 'products', art: 'art/rain-web.webp', shop: P + 'oneline_rain/', note: 'ילדה קטנה עם מטרייה, מתחת לענן של תלתלים.' },
+  { id: 'rain', title: 'גשם', en: 'Oneline Rain', cat: 'digital', art: 'art/rain-web.webp', shop: P + 'oneline_rain/', note: 'ילדה קטנה עם מטרייה, מתחת לענן של תלתלים.' },
   { id: 'panda', title: 'יער במבוק', en: 'Panda Grove', cat: 'products', art: 'art/panda-model2.webp', cover: 'art/panda-model.webp', shop: P + '%d7%97%d7%95%d7%9c%d7%a6%d7%94-%d7%a2%d7%9d-%d7%94%d7%93%d7%a4%d7%a1%d7%94-%d7%a9%d7%9c-%d7%a4%d7%a0%d7%93%d7%94-panda_grove/', note: 'צריך להסתכל טוב. איפשהו בין הבמבוקים מחכה פנדה.' },
   { id: 'fox', title: 'השועל הכתום', cat: 'digital', art: 'art2/dig-fox.webp', note: 'איור דיגיטלי של שועל לבן על כתום, שהפך גם לחולצה.' },
   { id: 'wakeup', title: 'Wake up!', cat: 'digital', art: 'art2/dig-wakeup.webp', note: 'דוב קוטב על קרחון שנמס. גלויה עם קריאה להתעורר.' },
@@ -98,9 +98,9 @@ export const works: Work[] = [
   { id: 'logo-barakbees', title: 'Barak Bees', cat: 'logos', art: 'art2/logo-barakbees-mock.webp', note: 'דבורה, חלת דבש וטיפה אחת של דבש.' },
   { id: 'logo-arka', title: 'ארקא', en: 'לימוד מיומנויות חיים קדומות', cat: 'logos', art: 'art2/logo-arka-mock.webp', note: 'עץ חיים מצויר ביד, וציפור אדומה אחת על הענף.' },
   { id: 'logo-magdala', title: 'העגלה של מריאן', cat: 'logos', art: 'art2/logo-marian-mock.webp', note: 'ספל קפה בצל עצי ערבה, בצבעי עפרון רכים.' },
-  { id: 'logo-yoga', title: 'יוגה', cat: 'logos', art: 'art2/logo-yoga.webp', note: 'דמות בישיבה מזרחית בקו אחד רציף.' },
-  { id: 'logo-cat', title: 'חתול נמתח', cat: 'logos', art: 'art2/logo-cat.webp', note: 'מתיחה של חתול בשני קווים בלבד.' },
-  { id: 'logo-dogwalker', title: 'Dog walker & Cat sitter', cat: 'logos', art: 'art2/logo-dogwalker.webp', note: 'מטיילת עם כלב וחתול שמצטרף, לעסק של טיולי כלבים.', wide: true },
+  { id: 'logo-yoga', title: 'יוגה', cat: 'logos', art: 'art2/logo-yoga-mock.webp', note: 'דמות בישיבה מזרחית בקו אחד רציף.' },
+  { id: 'logo-cat', title: 'חתול נמתח', cat: 'logos', art: 'art2/logo-cat-mock.webp', note: 'מתיחה של חתול בשני קווים בלבד.' },
+  { id: 'logo-dogwalker', title: 'Dog walker & Cat sitter', cat: 'logos', art: 'art2/logo-dogwalker-mock.webp', note: 'מטיילת עם כלב וחתול שמצטרף, לעסק של טיולי כלבים.' },
   { id: 'book-branch', title: 'זיקיות על ענף', cat: 'books', art: 'art2/book-chameleons-branch.webp', note: 'מתוך ספר ילדים: שלוש זיקיות מתנדנדות על ענף, ואחת כבר תלויה הפוך.', wide: true },
   { id: 'book-rabbit', title: 'זיקיות וארנב', cat: 'books', art: 'art2/book-chameleons-rabbit.webp', note: 'מתוך ספר ילדים: הזיקיות מגלות שמישהו עוקב אחריהן מלמטה.', wide: true },
   { id: 'book-einstein', title: 'איינשטיין', cat: 'books', art: 'art2/book-einstein.webp', note: 'פורטרט בעיפרון שנולד כאיור לספר.' },
