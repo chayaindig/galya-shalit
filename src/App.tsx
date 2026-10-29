@@ -4,7 +4,6 @@ import { useLang } from './i18n'
 import type { CatId } from './data'
 import Header from './components/Header'
 import Hero from './components/Hero'
-import Story from './components/Story'
 import Credo from './components/Credo'
 import Categories from './components/Categories'
 import SquirrelRun from './components/SquirrelRun'
@@ -29,14 +28,13 @@ export default function App() {
       <Header />
       <main>
         <Hero />
-        <Story />
         <Credo />
         <Categories onPick={setFilter} />
         <SquirrelRun />
         <Gallery filter={filter} setFilter={setFilter} />
-        <About />
         <Prints />
         <Shop />
+        <About />
         <Contact />
       </main>
       <Footer />

@@ -211,7 +211,7 @@ body::before {
 /* Credo: "קו נקי. צבע מתפרץ." */
 .credo {
   font-size: clamp(4rem, 17vw, 15rem);
-  color: var(--color-ink);
+  color: var(--color-paper);
 }
 .credo-color {
   background-image: url("/hero/watercolor-texture.webp");

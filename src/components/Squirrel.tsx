@@ -2,7 +2,7 @@ import { motion, useReducedMotion, type TargetAndTransition, type Transition } f
 import { cn } from '../lib/cn'
 
 /*
-  Galya's squirrel (from her wall decals for "המרחב") lives on the site.
+  Galya's cat (new poses drawn from her stretching-cat logo, in the same calligraphic line) lives on the site.
   Each pose has its own little bit of life when it scrolls into view.
 */
 export type Pose = 'hang' | 'run' | 'dive' | 'wave' | 'sleep' | 'stretch'
@@ -25,7 +25,7 @@ export default function Squirrel({ pose, className, flip }: { pose: Pose; classN
   const l = life[pose]
   return (
     <motion.img
-      src={`squirrels/${pose}.svg`}
+      src={`cats/${pose}.svg`}
       alt=""
       aria-hidden="true"
       draggable={false}

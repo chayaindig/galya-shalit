@@ -44,7 +44,14 @@ export default function Credo() {
   }, [])
 
   return (
-    <section ref={root} className="relative overflow-x-clip py-24 md:py-36" aria-labelledby="credo-title">
+    // Picks up exactly where the blue blot flooded the hero, then washes back to paper at the bottom.
+    <section
+      ref={root}
+      id="story"
+      className="relative overflow-x-clip pt-[20svh] pb-[30svh] text-paper"
+      aria-labelledby="credo-title"
+      style={{ background: 'linear-gradient(to bottom, var(--color-blue) 0%, var(--color-blue-night) 30%, var(--color-blue-night) 74%, var(--color-paper) 100%)' }}
+    >
       <SectionDots tone="green" />
       <div className="mx-auto max-w-7xl px-4 md:px-8">
 
@@ -68,9 +75,10 @@ export default function Credo() {
           </span>
         </h2>
 
-        <p className="mt-14 max-w-2xl text-sub text-ink-soft md:ms-auto">
-          {t.credoP}
-        </p>
+        <div className="mt-16 max-w-2xl md:ms-auto">
+          <h3 className="font-display text-section leading-tight font-bold">{t.lineTitle}</h3>
+          <p className="mt-5 text-sub text-paper/85">{t.lineP}</p>
+        </div>
       </div>
     </section>
   )

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { contact, categories, catText, emotions, photoSlots, waLink, workText, works, type CatId, type Work } from '../data'
+import { contact, categories, catText, emotions, waLink, workText, works, type CatId, type Work } from '../data'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
 import CardSpread from './CardSpread'
@@ -22,7 +22,7 @@ const emotionWorks: Work[] = emotions.map(e => ({
   note: '',
 }))
 
-const isPhoto = (w: Work) => !!w.cover || w.art.includes('prod-') || w.art.includes('panda-model')
+const isPhoto = (w: Work) => !!w.cover || w.cat === 'photos' || w.art.includes('prod-') || w.art.includes('panda-model')
 
 type Open = { list: Work[]; index: number } | null
 
@@ -81,18 +81,6 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
           </div>
         )}
 
-        {filter === 'photos' ? (
-          <ul className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
-            {Array.from({ length: photoSlots }, (_, i) => (
-              <li key={i} className={cn('grid place-items-center rounded-2xl border-2 border-dashed border-ink/20 text-center text-ink-soft', i % 3 === 0 ? 'aspect-[3/4]' : 'aspect-square')}>
-                <span className="flex flex-col items-center gap-3 px-4">
-                  <Icon name="camera" className="size-9" />
-                  <span className="text-note">{t.photoSlot}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        ) : (
           <ul className="mt-12 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 md:grid xl:grid-cols-4">
             <AnimatePresence mode="popLayout">
               {shown.map((w, i) => (
@@ -130,9 +118,8 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
               ))}
             </AnimatePresence>
           </ul>
-        )}
 
-        {filter !== 'photos' && (
+        {(
           <SwipeCarousel
             key={filter}
             className="mt-10 md:hidden"

@@ -13,15 +13,16 @@ export const contact = {
 export const waLink = (text: string) =>
   `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(text)}`
 
-export type CatId = 'inspiration' | 'products' | 'digital' | 'logos' | 'photos'
+export type CatId = 'inspiration' | 'products' | 'digital' | 'books' | 'logos' | 'photos'
 
 // Five doors into Galya's world. Each category shows a drawing from inside it.
 export const categories: { id: CatId; name: string; en: string; line: string; cover: string; color: string }[] = [
   { id: 'digital', name: 'דיגיטלי', en: 'Digital', line: 'כרטיסיות הרגשות, השועל הכתום ועוד איורים שנולדו על המסך.', cover: 'art2/emo-calm.webp', color: '#3d8cb5' },
   { id: 'inspiration', name: 'השראה', en: 'Sketchbook', line: 'איורים מהיומן ורישומים מהירים בעיפרון. מכאן הכל מתחיל.', cover: 'art2/ins-journal-frogs.webp', color: '#2f9a6a' },
+  { id: 'books', name: 'איור ספרים', en: 'Books', line: 'איורים לספרי ילדים ופורטרטים בעיפרון שנולדו בתוך ספרים.', cover: 'art2/book-chameleons-branch.webp', color: '#7b4fa8' },
   { id: 'products', name: 'מוצרים', en: 'Prints', line: 'חולצות, תיקים, מדבקות קיר. איורים שאפשר ללבוש ולקחת הביתה.', cover: 'art2/prod-fox-shirt.webp', color: '#e8762b' },
   { id: 'logos', name: 'לוגואים', en: 'Logos', line: 'סימן אחד קטן שמספר את כל הסיפור של עסק.', cover: 'art2/logo-barakbees.webp', color: '#d4a017' },
-  { id: 'photos', name: 'צילומים', en: 'Photography', line: 'העין שמחפשת את הפרט הקטן.', cover: '', color: '#5e5850' },
+  { id: 'photos', name: 'צילומים', en: 'Photography', line: 'העין שמחפשת את הפרט הקטן: חיפושית על פרח, חילזון על עלה, אור של ערב על המים.', cover: 'art2/photo-ladybug.webp', color: '#5e5850' },
 ]
 
 export type Work = {
@@ -88,6 +89,14 @@ export const works: Work[] = [
   { id: 'logo-yoga', title: 'יוגה', cat: 'logos', art: 'art2/logo-yoga.webp', note: 'דמות בישיבה מזרחית בקו אחד רציף.' },
   { id: 'logo-cat', title: 'חתול נמתח', cat: 'logos', art: 'art2/logo-cat.webp', note: 'מתיחה של חתול בשני קווים בלבד.' },
   { id: 'logo-dogwalker', title: 'Dog walker & Cat sitter', cat: 'logos', art: 'art2/logo-dogwalker.webp', note: 'מטיילת עם כלב וחתול שמצטרף, לעסק של טיולי כלבים.', wide: true },
+  { id: 'book-branch', title: 'זיקיות על ענף', cat: 'books', art: 'art2/book-chameleons-branch.webp', note: 'מתוך ספר ילדים: שלוש זיקיות מתנדנדות על ענף, ואחת כבר תלויה הפוך.', wide: true },
+  { id: 'book-rabbit', title: 'זיקיות וארנב', cat: 'books', art: 'art2/book-chameleons-rabbit.webp', note: 'מתוך ספר ילדים: הזיקיות מגלות שמישהו עוקב אחריהן מלמטה.', wide: true },
+  { id: 'book-einstein', title: 'איינשטיין', cat: 'books', art: 'art2/book-einstein.webp', note: 'פורטרט בעיפרון שנולד כאיור לספר.' },
+  { id: 'book-churchill', title: "צ'רצ'יל", cat: 'books', art: 'art2/book-churchill.webp', note: 'פורטרט בעיפרון שנולד כאיור לספר.' },
+  { id: 'photo-ladybug', title: 'חיפושית על פרח', cat: 'photos', art: 'art2/photo-ladybug.webp', note: 'פרת משה רבנו מטפסת על גבעול, מתחת לכיפה סגולה של פרח.' },
+  { id: 'photo-snail', title: 'חילזון בדשא', cat: 'photos', art: 'art2/photo-snail.webp', note: 'חילזון קטן שמטפס לאט בין עלי דשא ירוקים.' },
+  { id: 'photo-kayak', title: 'קיאק בערב', cat: 'photos', art: 'art2/photo-kayak.webp', note: 'שמש נמוכה, מים שקטים, ושני קיאקים שגולשים לתוך הערב.' },
+  { id: 'photo-bicycle', title: 'אופניים וחלון', cat: 'photos', art: 'art2/photo-bicycle.webp', note: 'רוכבת חולפת מתחת לחלון, ובזכוכית משתקפת שורה של בתים צבעוניים.' },
 ]
 
 // The emotion card series, shown as a fanned deck in the digital category
@@ -97,8 +106,6 @@ export const emotions = ['calm', 'angry', 'surprised', 'moved', 'grateful', 'eag
   alt: `כרטיסיית רגשות: ${e}`,
 }))
 
-// Placeholders for the photography category, until Galya's photos arrive
-export const photoSlots = 6
 
 export const printsOn = ['חולצות', 'תיקי בד', 'מדבקות קיר', 'סיכות', 'בקבוקים', 'ספלים', 'מחברות', 'גלויות', 'כריות', 'הדפסים לקיר']
 
@@ -108,7 +115,8 @@ export const catEn: Record<CatId, { name: string; line: string }> = {
   inspiration: { name: 'Sketchbook', line: 'Illustrations from my journal and quick pencil drawings. This is where it all begins.' },
   products: { name: 'Products', line: 'Shirts, bags, wall decals. Illustrations you can wear and take home.' },
   logos: { name: 'Logos', line: "One small mark that tells a business's whole story." },
-  photos: { name: 'Photography', line: 'The eye that looks for the small detail.' },
+  books: { name: 'Books', line: "Illustrations for children's books and pencil portraits born inside books." },
+  photos: { name: 'Photography', line: 'The eye that finds the small detail: a beetle on a flower, a snail on a leaf, evening light on the water.' },
 }
 
 export const workEn: Record<string, { title: string; note: string; sub?: string }> = {
@@ -160,6 +168,14 @@ export const workEn: Record<string, { title: string; note: string; sub?: string 
   'logo-yoga': { title: 'Yoga', note: 'A seated figure in one continuous line.' },
   'logo-cat': { title: 'Stretching cat', note: 'A cat stretching, in just two lines.' },
   'logo-dogwalker': { title: 'Dog walker & Cat sitter', note: 'A walker with a dog and a cat tagging along, for a dog walking business.' },
+  'book-branch': { title: 'Chameleons on a branch', note: "From a children's book: three chameleons swinging on a branch, one already hanging upside down." },
+  'book-rabbit': { title: 'Chameleons and a rabbit', note: "From a children's book: the chameleons find out someone is watching them from below." },
+  'book-einstein': { title: 'Einstein', note: 'A pencil portrait, drawn as an illustration for a book.' },
+  'book-churchill': { title: 'Churchill', note: 'A pencil portrait, drawn as an illustration for a book.' },
+  'photo-ladybug': { title: 'Ladybird on a flower', note: 'A ladybird climbing a stem, under a purple dome of petals.' },
+  'photo-snail': { title: 'Snail in the grass', note: 'A small snail slowly climbing between green blades of grass.' },
+  'photo-kayak': { title: 'Kayak at dusk', note: 'Low sun, still water, and two kayaks gliding into the evening.' },
+  'photo-bicycle': { title: 'Bicycle and window', note: 'A cyclist passes under a window, and a row of colourful houses is reflected in the glass.' },
 }
 
 /** Title, subtitle and note of a work in the current language */

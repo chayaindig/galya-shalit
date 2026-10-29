@@ -8,9 +8,10 @@ import SectionDots from './SectionDots'
 type Cat = (typeof categories)[number]
 
 const countOf = (c: Cat) => works.filter(w => w.cat === c.id).length + (c.id === 'digital' ? 11 : 0)
+const isSoon = (c: Cat) => !c.cover
 
 function Cover({ c, className }: { c: Cat; className?: string }) {
-  const soon = c.id === 'photos'
+  const soon = isSoon(c)
   return (
     <div
       className={cn(
@@ -41,7 +42,7 @@ function Cover({ c, className }: { c: Cat; className?: string }) {
 function Caption({ c }: { c: Cat }) {
   const { lang, t } = useLang()
   const ct = catText(c, lang)
-  const soon = c.id === 'photos'
+  const soon = isSoon(c)
   return (
     <>
       <div className="mt-4 flex items-center gap-2">
@@ -58,7 +59,7 @@ function Caption({ c }: { c: Cat }) {
 }
 
 // Five doors into Galya's world. Each door shows a drawing from inside it.
-// Desktop: a row of five. Phone: full-width cards that stack on each other as you scroll (React Bits "Scroll Stack").
+// Desktop: a row of six. Phone: full-width cards that stack on each other as you scroll (React Bits "Scroll Stack").
 export default function Categories({ onPick }: { onPick: (c: CatId) => void }) {
   const { t } = useLang()
   const pick = (id: CatId) => {
@@ -73,7 +74,7 @@ export default function Categories({ onPick }: { onPick: (c: CatId) => void }) {
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <h2 className="mt-3 max-w-3xl font-display text-section font-bold">{t.doorsTitle}</h2>
 
-        <ol className="mt-12 hidden gap-5 md:grid md:grid-cols-3 lg:grid-cols-5">
+        <ol className="mt-12 hidden gap-5 md:grid md:grid-cols-3 xl:grid-cols-6">
           {categories.map(c => (
             <li key={c.id} className="min-w-0">
               <button type="button" onClick={() => pick(c.id)} className="group block w-full text-start">

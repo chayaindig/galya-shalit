@@ -6,11 +6,11 @@ import ScrollStack, { ScrollStackItem } from './ScrollStack'
 import Icon from './Icon'
 import SectionDots from './SectionDots'
 
-const craftLook = [
+const craftLook: { img: string; color: string; camera?: boolean }[] = [
   { img: 'art2/ins-apples.webp', color: '#d6246e' },
   { img: 'art2/dig-fox.webp', color: '#e8762b' },
   { img: 'art2/logo-hamerchav.webp', color: '#d4a017' },
-  { img: 'art2/paper.webp', color: '#3d8cb5', camera: true },
+  { img: 'art2/photo-ladybug.webp', color: '#3d8cb5' },
 ]
 
 export default function About() {
