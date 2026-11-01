@@ -41,7 +41,7 @@ export type Work = {
   project?: ProjectId
 }
 
-export type ProjectId = 'studio' | 'ecocards' | 'oneline' | 'foxpn' | 'ecoconf' | 'pnprint' | 'kozo' | 'haish'
+export type ProjectId = 'studio' | 'ecocards' | 'oneline' | 'foxpn' | 'ecoconf' | 'pnprint' | 'kozo' | 'haish' | 'nature' | 'journal' | 'insp'
 
 // Projects inside a category (Projects and Books), shown one block per project in this order. 'ecocards' is the emotion card deck.
 export const projects: { id: ProjectId; cat: CatId; name: string; en: string; cover: string }[] = [
@@ -51,6 +51,9 @@ export const projects: { id: ProjectId; cat: CatId; name: string; en: string; co
   { id: 'foxpn', cat: 'digital', cover: 'fox', name: 'פוזיטיב נגטיב: פרויקט השראה', en: 'Positive negative: an inspiration project' },
   { id: 'ecoconf', cat: 'digital', cover: 'wakeup', name: 'העלאת מודעות לכנס של EcoPeace Middle East', en: 'Awareness art for the EcoPeace Middle East conference' },
   { id: 'pnprint', cat: 'digital', cover: 'beetles', name: 'פוזיטיב נגטיב: הדפסות לפי דרישה', en: 'Positive negative: print on demand' },
+  { id: 'nature', cat: 'digital', cover: 'cyclamen', name: 'איורים לרשות הטבע והגנים', en: 'Illustrations for the Israel Nature and Parks Authority' },
+  { id: 'journal', cat: 'inspiration', cover: 'journal-frogs', name: 'איורים מהיומן', en: 'From my journal' },
+  { id: 'insp', cat: 'inspiration', cover: 'apples', name: 'איורים להשראה', en: 'Drawings for inspiration' },
   { id: 'kozo', cat: 'books', cover: 'book-branch', name: 'איור לספר ״מה קרה לקוזו״ מאת תמר אשר שי', en: 'Illustrations for "What Happened to Kozo" by Tamar Asher Shai' },
   { id: 'haish', cat: 'books', cover: 'book-einstein', name: 'איור לספר ״מי היה האיש שהיה״ מאת אבי קצמן', en: 'Illustrations for "Who Was the Man Who Was" by Avi Katzman' },
 ]
@@ -58,16 +61,16 @@ export const projects: { id: ProjectId; cat: CatId; name: string; en: string; co
 const P = 'https://www.h-i-h.co.il/product/'
 
 export const works: Work[] = [
-  { id: 'journal-frogs', title: 'צפרדעים ביומן', cat: 'inspiration', art: 'art2/ins-journal-frogs.webp', note: 'כפולה מהיומן של גליה: צפרדעים שקופצות בין עלי מים וסוף.', wide: true },
-  { id: 'journal-tea', title: 'שקיקי תה בטיול', cat: 'inspiration', art: 'art2/ins-journal-tea.webp', note: 'שקיקי תה שיצאו מהספל ויוצאים לטייל על הדף.', wide: true },
-  { id: 'apples', title: 'שני תפוחים', cat: 'inspiration', art: 'art2/ins-apples.webp', note: 'צבעי עפרון, שכבה על שכבה, עד שהתפוח כמעט נגיס.' },
-  { id: 'shoe', title: 'נעל ישנה', cat: 'inspiration', art: 'art2/ins-shoe.webp', note: 'רישום בעיפרון של נעל שעברה הרבה דרך.' },
-  { id: 'iris', title: 'אירוס', cat: 'inspiration', art: 'art2/ins-iris.webp', note: 'אירוס בקווים דקים ונקודות, בלי טיפת צבע.' },
-  { id: 'cyclamen', title: 'רקפות', cat: 'inspiration', art: 'art2/ins-cyclamen.webp', note: 'רקפות בצבעי עפרון, עם העלים המנומרים שלהן.' },
-  { id: 'blackbird', title: 'ציפור שחורה', cat: 'inspiration', art: 'art2/ins-blackbird.webp', note: 'שחור שמתגלה כהרבה גוונים, וכתם כתום אחד בכנף.' },
-  { id: 'plover', title: 'חופמי', cat: 'inspiration', art: 'art2/ins-plover.webp', note: 'ציפור חוף קטנה על רגליים כתומות.' },
-  { id: 'bustard', title: 'חובארה', cat: 'inspiration', art: 'art2/ins-bustard.webp', note: 'רישום עיפרון עדין, נוצה אחרי נוצה.' },
-  { id: 'fox-sketch', title: 'שועל בקו', cat: 'inspiration', art: 'art2/ins-fox-sketch.webp', note: 'סקיצה של שועל, לפני שהוא הפך לכתום.' },
+  { id: 'journal-frogs', title: 'צפרדעים ביומן', cat: 'inspiration', art: 'art2/ins-journal-frogs.webp', note: 'כפולה מהיומן של גליה: צפרדעים שקופצות בין עלי מים וסוף.', wide: true, project: 'journal' },
+  { id: 'journal-tea', title: 'שקיקי תה בטיול', cat: 'inspiration', art: 'art2/ins-journal-tea.webp', note: 'שקיקי תה שיצאו מהספל ויוצאים לטייל על הדף.', wide: true, project: 'journal' },
+  { id: 'apples', title: 'שני תפוחים', cat: 'inspiration', art: 'art2/ins-apples.webp', note: 'צבעי עפרון, שכבה על שכבה, עד שהתפוח כמעט נגיס.', project: 'insp' },
+  { id: 'shoe', title: 'נעל ישנה', cat: 'inspiration', art: 'art2/ins-shoe.webp', note: 'רישום בעיפרון של נעל שעברה הרבה דרך.', project: 'insp' },
+  { id: 'iris', title: 'אירוס', cat: 'digital', art: 'art2/ins-iris.webp', note: 'אירוס בקווים דקים ונקודות, בלי טיפת צבע.', project: 'nature' },
+  { id: 'cyclamen', title: 'רקפות', cat: 'digital', art: 'art2/ins-cyclamen.webp', note: 'רקפות בצבעי עפרון, עם העלים המנומרים שלהן.', project: 'nature' },
+  { id: 'blackbird', title: 'ציפור שחורה', cat: 'digital', art: 'art2/ins-blackbird.webp', note: 'שחור שמתגלה כהרבה גוונים, וכתם כתום אחד בכנף.', project: 'nature' },
+  { id: 'plover', title: 'חופמי', cat: 'digital', art: 'art2/ins-plover.webp', note: 'ציפור חוף קטנה על רגליים כתומות.', project: 'nature' },
+  { id: 'bustard', title: 'חובארה', cat: 'digital', art: 'art2/ins-bustard.webp', note: 'רישום עיפרון עדין, נוצה אחרי נוצה.', project: 'nature' },
+  { id: 'fox-sketch', title: 'שועל בקו', cat: 'digital', art: 'art2/ins-fox-sketch.webp', note: 'שועל בעיפרון, קו אחרי קו.', project: 'nature' },
   { id: 'noplanetb', title: 'There is no planet B', cat: 'digital', art: 'art2/dig-noplanetb.webp', note: 'הרים, גלים ומסר אחד ברור, בצבעי עפרון על נייר חום.', project: 'ecoconf' },
   { id: 'fox-shirt', title: 'השועל הכתום על חולצה', cat: 'products', art: 'art2/prod-fox-shirt.webp', note: 'השועל הדיגיטלי, מודפס בלבן על חולצה כתומה.', project: 'foxpn' },
   { id: 'bag-seahorse', title: 'סוסון ים על תיק', cat: 'products', art: 'art2/prod-bag-1.webp', note: 'סוסון הים הכתום מהוויטראז׳, על תיק בד שאפשר לקחת לים.' },
@@ -157,7 +160,7 @@ export const workEn: Record<string, { title: string; note: string; sub?: string 
   blackbird: { title: 'Black bird', note: 'Black that turns out to be many shades, and one orange patch on the wing.' },
   plover: { title: 'Plover', note: 'A small shore bird on orange legs.' },
   bustard: { title: 'Houbara bustard', note: 'A delicate pencil drawing, feather by feather.' },
-  'fox-sketch': { title: 'Fox in line', note: 'A sketch of a fox, before it turned orange.' },
+  'fox-sketch': { title: 'Fox in line', note: 'A fox in pencil, line after line.' },
   noplanetb: { title: 'There is no planet B', note: 'Mountains, waves and one clear message, in coloured pencil on brown paper.' },
   'fox-shirt': { title: 'The orange fox on a shirt', note: 'The digital fox, printed in white on an orange shirt.' },
   'bag-seahorse': { title: 'Seahorse tote', note: 'The orange stained glass seahorse, on a canvas bag you can take to the beach.' },
