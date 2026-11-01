@@ -92,12 +92,12 @@ function GalleryWalls({ list, onOpen }: { list: Work[]; onOpen: (index: number) 
 
 type Open = { list: Work[]; index: number } | null
 
-// Projects: one block per project, its name on top. Desktop: a grid (the emotion cards as a fanned deck). Phone: a side carousel per project.
-function ProjectGroups({ onOpen }: { onOpen: (list: Work[], index: number) => void }) {
+// Categories split into projects (Projects, Books): one block per project, its name on top. Desktop: a grid (the emotion cards as a fanned deck). Phone: a side carousel per project.
+function ProjectGroups({ cat, onOpen }: { cat: CatId; onOpen: (list: Work[], index: number) => void }) {
   const { lang, t } = useLang()
   return (
     <div className="mt-10 space-y-16 md:space-y-24">
-      {projects.map(p => {
+      {projects.filter(p => p.cat === cat).map(p => {
         const deck = p.id === 'ecocards'
         const all = deck ? emotionWorks : works.filter(w => w.project === p.id)
         const cover = all.find(w => w.id === p.cover) ?? all[0]
@@ -210,6 +210,7 @@ function CategorySheet({ cat, onClose, setOpen }: { cat: CatId | null; onClose: 
   const c = cat && categories.find(x => x.id === cat)!
   const shown = cat ? works.filter(w => w.cat === cat) : []
   const text = c && catText(c, lang)
+  const grouped = !!cat && projects.some(p => p.cat === cat)
 
   return createPortal(
     <AnimatePresence>
@@ -240,11 +241,11 @@ function CategorySheet({ cat, onClose, setOpen }: { cat: CatId | null; onClose: 
           <div className="mx-auto max-w-7xl px-4 pt-8 pb-24 md:px-8 md:pt-10">
             <p className="max-w-2xl text-ink-soft">{text.line}</p>
 
-            {cat === 'digital' && <ProjectGroups onOpen={(list, index) => setOpen({ list, index })} />}
+            {grouped && <ProjectGroups cat={cat} onOpen={(list, index) => setOpen({ list, index })} />}
 
             {cat === 'photos' && <GalleryWalls list={shown} onOpen={i => setOpen({ list: shown, index: i })} />}
 
-            {cat !== 'photos' && cat !== 'digital' && (
+            {cat !== 'photos' && !grouped && (
               <>
                 <ul className="mt-12 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 md:grid xl:grid-cols-4">
                   {shown.map((w, i) => (

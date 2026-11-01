@@ -1,4 +1,4 @@
-import { categories, catText, emotions, works, type CatId } from '../data'
+import { categories, catText, emotions, projects, works, type CatId } from '../data'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
 import Icon from './Icon'
@@ -6,8 +6,12 @@ import ScrollStack, { ScrollStackItem } from './ScrollStack'
 
 type Cat = (typeof categories)[number]
 
-// Projects counts every work that belongs to a project, plus the emotion cards
-const countOf = (c: Cat) => (c.id === 'digital' ? works.filter(w => w.project).length + emotions.length : works.filter(w => w.cat === c.id).length)
+// A category split into projects counts every work in its projects (plus the emotion cards in Projects)
+const countOf = (c: Cat) => {
+  const own = projects.filter(p => p.cat === c.id).map(p => p.id)
+  if (!own.length) return works.filter(w => w.cat === c.id).length
+  return works.filter(w => w.project && own.includes(w.project)).length + (own.includes('ecocards') ? emotions.length : 0)
+}
 const isSoon = (c: Cat) => !c.cover
 
 function Cover({ c, className }: { c: Cat; className?: string }) {

@@ -20,7 +20,7 @@ export type CatId = 'inspiration' | 'products' | 'digital' | 'books' | 'logos' |
 export const categories: { id: CatId; name: string; en: string; line: string; cover: string; color: string }[] = [
   { id: 'digital', name: 'פרויקטים', en: 'Projects', line: 'עבודות ללקוחות ופרויקטים שלי, כל פרויקט בנפרד.', cover: 'art2/door-projects.webp', color: '#3d8cb5' },
   { id: 'inspiration', name: 'רישומים', en: 'Sketches', line: 'איורים מהיומן ורישומים מהירים בעיפרון. מכאן הכל מתחיל.', cover: 'art2/door-sketches.webp', color: '#2f9a6a' },
-  { id: 'books', name: 'איור ספרים', en: 'Books', line: 'איורים לספרי ילדים ופורטרטים בעיפרון שנולדו בתוך ספרים.', cover: 'art2/door-books.webp', color: '#7b4fa8' },
+  { id: 'books', name: 'איור ספרים', en: 'Books', line: 'איורים צבעוניים לספר ילדים ופורטרטים בעיפרון לספר עיון.', cover: 'art2/door-books.webp', color: '#7b4fa8' },
   { id: 'products', name: 'מוצרים', en: 'Prints', line: 'חולצות, תיקי בד ובקבוקים. איורים שאפשר ללבוש ולקחת הביתה.', cover: 'art2/prod-fox-shirt.webp', color: '#e8762b' },
   { id: 'logos', name: 'לוגואים', en: 'Logos', line: 'סימן אחד קטן שמספר את כל הסיפור של עסק.', cover: 'art2/logo-hamerchav-mock.webp', color: '#d4a017' },
   { id: 'photos', name: 'צילומים', en: 'Photography', line: 'העין שמחפשת את הפרט הקטן: חיפושית על פרח, חילזון על עלה, אור של ערב על המים.', cover: 'art2/door-photos.webp', color: '#5e5850' },
@@ -41,16 +41,18 @@ export type Work = {
   project?: ProjectId
 }
 
-export type ProjectId = 'studio' | 'ecocards' | 'oneline' | 'foxpn' | 'ecoconf' | 'pnprint'
+export type ProjectId = 'studio' | 'ecocards' | 'oneline' | 'foxpn' | 'ecoconf' | 'pnprint' | 'kozo' | 'haish'
 
-// The Projects tab shows one main image per project (cover = a work id); a click opens all its works. 'ecocards' is the emotion card deck.
-export const projects: { id: ProjectId; name: string; en: string; cover: string }[] = [
-  { id: 'studio', cover: 'wall-run', name: 'מדבקות קיר לסטודיו המרחב', en: 'Wall decals for HaMerhav studio' },
-  { id: 'ecocards', cover: 'emo-calm', name: 'קלפי רגשות ל־EcoPeace Middle East', en: 'Emotion cards for EcoPeace Middle East' },
-  { id: 'oneline', cover: 'flamingo', name: 'קו אחד: הדפסות לפי דרישה על מוצרים', en: 'One line: print on demand' },
-  { id: 'foxpn', cover: 'fox', name: 'פוזיטיב נגטיב: פרויקט השראה', en: 'Positive negative: an inspiration project' },
-  { id: 'ecoconf', cover: 'wakeup', name: 'העלאת מודעות לכנס של EcoPeace Middle East', en: 'Awareness art for the EcoPeace Middle East conference' },
-  { id: 'pnprint', cover: 'beetles', name: 'פוזיטיב נגטיב: הדפסות לפי דרישה', en: 'Positive negative: print on demand' },
+// Projects inside a category (Projects and Books), shown one block per project in this order. 'ecocards' is the emotion card deck.
+export const projects: { id: ProjectId; cat: CatId; name: string; en: string; cover: string }[] = [
+  { id: 'studio', cat: 'digital', cover: 'wall-run', name: 'מדבקות קיר לסטודיו המרחב', en: 'Wall decals for HaMerhav studio' },
+  { id: 'ecocards', cat: 'digital', cover: 'emo-calm', name: 'קלפי רגשות ל־EcoPeace Middle East', en: 'Emotion cards for EcoPeace Middle East' },
+  { id: 'oneline', cat: 'digital', cover: 'flamingo', name: 'קו אחד: הדפסות לפי דרישה על מוצרים', en: 'One line: print on demand' },
+  { id: 'foxpn', cat: 'digital', cover: 'fox', name: 'פוזיטיב נגטיב: פרויקט השראה', en: 'Positive negative: an inspiration project' },
+  { id: 'ecoconf', cat: 'digital', cover: 'wakeup', name: 'העלאת מודעות לכנס של EcoPeace Middle East', en: 'Awareness art for the EcoPeace Middle East conference' },
+  { id: 'pnprint', cat: 'digital', cover: 'beetles', name: 'פוזיטיב נגטיב: הדפסות לפי דרישה', en: 'Positive negative: print on demand' },
+  { id: 'kozo', cat: 'books', cover: 'book-branch', name: 'איור לספר ״מה קרה לקוזו״ מאת תמר אשר שי', en: 'Illustrations for "What Happened to Kozo" by Tamar Asher Shai' },
+  { id: 'haish', cat: 'books', cover: 'book-einstein', name: 'איור לספר ״מי היה האיש שהיה״ מאת אבי קצמן', en: 'Illustrations for "Who Was the Man Who Was" by Avi Katzman' },
 ]
 
 const P = 'https://www.h-i-h.co.il/product/'
@@ -115,10 +117,10 @@ export const works: Work[] = [
   { id: 'logo-yoga', title: 'יוגה', cat: 'logos', art: 'art2/logo-yoga-mock.webp', note: 'דמות בישיבה מזרחית בקו אחד רציף.' },
   { id: 'logo-cat', title: 'חתול נמתח', cat: 'logos', art: 'art2/logo-cat-mock.webp', note: 'מתיחה של חתול בשני קווים בלבד.' },
   { id: 'logo-dogwalker', title: 'Dog walker & Cat sitter', cat: 'logos', art: 'art2/logo-dogwalker-mock.webp', note: 'מטיילת עם כלב וחתול שמצטרף, לעסק של טיולי כלבים.' },
-  { id: 'book-branch', title: 'זיקיות על ענף', cat: 'books', art: 'art2/book-chameleons-branch.webp', note: 'מתוך ספר ילדים: שלוש זיקיות מתנדנדות על ענף, ואחת כבר תלויה הפוך.', wide: true },
-  { id: 'book-rabbit', title: 'זיקיות וארנב', cat: 'books', art: 'art2/book-chameleons-rabbit.webp', note: 'מתוך ספר ילדים: הזיקיות מגלות שמישהו עוקב אחריהן מלמטה.', wide: true },
-  { id: 'book-einstein', title: 'איינשטיין', cat: 'books', art: 'art2/book-einstein.webp', note: 'פורטרט בעיפרון שנולד כאיור לספר.' },
-  { id: 'book-churchill', title: "צ'רצ'יל", cat: 'books', art: 'art2/book-churchill.webp', note: 'פורטרט בעיפרון שנולד כאיור לספר.' },
+  { id: 'book-branch', title: 'זיקיות על ענף', cat: 'books', art: 'art2/book-chameleons-branch.webp', note: 'מתוך ספר ילדים: שלוש זיקיות מתנדנדות על ענף, ואחת כבר תלויה הפוך.', wide: true, project: 'kozo' },
+  { id: 'book-rabbit', title: 'זיקיות וארנב', cat: 'books', art: 'art2/book-chameleons-rabbit.webp', note: 'מתוך ספר ילדים: הזיקיות מגלות שמישהו עוקב אחריהן מלמטה.', wide: true, project: 'kozo' },
+  { id: 'book-einstein', title: 'איינשטיין', cat: 'books', art: 'art2/book-einstein.webp', note: 'פורטרט בעיפרון שנולד כאיור לספר.', project: 'haish' },
+  { id: 'book-churchill', title: "צ'רצ'יל", cat: 'books', art: 'art2/book-churchill.webp', note: 'פורטרט בעיפרון שנולד כאיור לספר.', project: 'haish' },
   { id: 'photo-ladybug', title: 'חיפושית על פרח', cat: 'photos', art: 'art2/photo-ladybug.webp', note: 'פרת משה רבנו מטפסת על גבעול, מתחת לכיפה סגולה של פרח.' },
   { id: 'photo-snail', title: 'חילזון בדשא', cat: 'photos', art: 'art2/photo-snail.webp', note: 'חילזון קטן שמטפס לאט בין עלי דשא ירוקים.' },
   { id: 'photo-kayak', title: 'קיאק בערב', cat: 'photos', art: 'art2/photo-kayak.webp', note: 'שמש נמוכה, מים שקטים, ושני קיאקים שגולשים לתוך הערב.' },
@@ -141,7 +143,7 @@ export const catEn: Record<CatId, { name: string; line: string }> = {
   inspiration: { name: 'Sketches', line: 'Illustrations from my journal and quick pencil drawings. This is where it all begins.' },
   products: { name: 'Products', line: 'Shirts, tote bags and bottles. Illustrations you can wear and take home.' },
   logos: { name: 'Logos', line: "One small mark that tells a business's whole story." },
-  books: { name: 'Books', line: "Illustrations for children's books and pencil portraits born inside books." },
+  books: { name: 'Books', line: "Colour illustrations for a children's book and pencil portraits for a non-fiction book." },
   photos: { name: 'Photography', line: 'The eye that finds the small detail: a beetle on a flower, a snail on a leaf, evening light on the water.' },
 }
 
