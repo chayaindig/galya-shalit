@@ -34,13 +34,13 @@ export default function Header() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:h-20 md:px-8">
         <a href="#top" className="flex items-center gap-3 text-ink" aria-label={t.homeLabel}>
           <Signature className="h-9 w-auto md:h-11" delay={0.2} title={t.name} />
-          <span className="hidden text-note font-medium tracking-[0.18em] text-ink-soft uppercase sm:inline" dir="ltr">
+          <span className="hidden font-display text-[1.4rem] leading-none font-extralight tracking-wide text-ink sm:inline" dir="ltr">
             GalyaArts
           </span>
         </a>
 
         <nav aria-label={t.navLabel} className="hidden lg:block">
-          <ul className="flex items-center gap-8 text-note font-medium">
+          <ul className="flex items-center gap-8 text-[0.95rem]">
             {nav.map(n => (
               <li key={n.href}>
                 <a href={n.href} className="relative py-2 text-ink-soft transition-colors hover:text-ink after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-right after:scale-x-0 after:bg-ink after:transition-transform hover:after:scale-x-100">
