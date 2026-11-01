@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { watchOrphans } from './lib/noOrphans'
 import { useLang } from './i18n'
-import type { CatId } from './data'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Credo from './components/Credo'
@@ -14,7 +13,6 @@ import { Contact, Footer, WhatsAppFloat } from './components/Closing'
 
 export default function App() {
   const { lang, t } = useLang()
-  const [filter, setFilter] = useState<CatId>('digital')
 
   useEffect(() => watchOrphans(), [])
 
@@ -29,7 +27,7 @@ export default function App() {
         <Hero />
         <Credo />
         <SquirrelRun />
-        <Gallery filter={filter} setFilter={setFilter} />
+        <Gallery />
         <Prints />
         <Shop />
         <About />

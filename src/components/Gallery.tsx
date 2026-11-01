@@ -4,6 +4,8 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { contact, categories, catText, emotions, projects, waLink, workText, works, type CatId, type Work } from '../data'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
+import CardSpread from './CardSpread'
+import Categories from './Categories'
 import Icon from './Icon'
 import SectionDots from './SectionDots'
 import SwipeCarousel from './SwipeCarousel'
@@ -90,166 +92,189 @@ function GalleryWalls({ list, onOpen }: { list: Work[]; onOpen: (index: number) 
 
 type Open = { list: Work[]; index: number } | null
 
-// Projects tab: one main image per project; a click opens the viewer with all of that project's works
+// Projects: one block per project, its name on top. Desktop: a grid (the emotion cards as a fanned deck). Phone: a side carousel per project.
 function ProjectGroups({ onOpen }: { onOpen: (list: Work[], index: number) => void }) {
   const { lang, t } = useLang()
   return (
-    <ul className="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="mt-10 space-y-16 md:space-y-24">
       {projects.map(p => {
-        const all = p.id === 'ecocards' ? emotionWorks : works.filter(w => w.project === p.id)
+        const deck = p.id === 'ecocards'
+        const all = deck ? emotionWorks : works.filter(w => w.project === p.id)
         const cover = all.find(w => w.id === p.cover) ?? all[0]
-        // the main image opens first, the rest follow
         const list = [cover, ...all.filter(w => w !== cover)]
-        const name = lang === 'he' ? p.name : p.en
         return (
-          <li key={p.id} className="min-w-0">
-            <button type="button" onClick={() => onOpen(list, 0)} className="group block w-full text-start" aria-label={t.open(name)}>
-              <div className="relative aspect-[4/5]">
-                {/* the sheets underneath say there is more inside */}
-                <span aria-hidden="true" className="absolute inset-0 rotate-[3deg] rounded-2xl bg-[#f3eee4] shadow-[0_1px_0_var(--color-line)] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:rotate-[6deg]" />
-                <span aria-hidden="true" className="absolute inset-0 -rotate-[2deg] rounded-2xl bg-[#f8f4ec] shadow-[0_1px_0_var(--color-line)] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:-rotate-[4deg]" />
-                <div className="absolute inset-0 overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-28px_rgba(35,32,29,0.45)]">
-                  <img
-                    src={cover.cover || cover.art}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    className={cn(
-                      'absolute inset-0 size-full transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]',
-                      isPhoto(cover) ? 'object-cover' : 'object-contain p-[8%] mix-blend-multiply',
-                    )}
-                  />
-                </div>
-              </div>
-              <h3 className="mt-5 font-display text-sub font-bold text-balance">{name}</h3>
-              <span className="mt-1 inline-flex items-center gap-2 text-note font-medium text-blue-deep">
-                {t.works(list.length)}
-                <Icon name="arrow" flip className="transition-transform group-hover:-translate-x-1 ltr:group-hover:translate-x-1" />
-              </span>
-            </button>
-          </li>
+          <section key={p.id} aria-labelledby={`proj-${p.id}`}>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-line pt-6">
+              <h3 id={`proj-${p.id}`} className="font-display text-sub font-bold md:text-[2rem] md:leading-tight">{lang === 'he' ? p.name : p.en}</h3>
+              <p className="text-note text-ink-soft">{t.works(list.length)}</p>
+            </div>
+            {deck ? (
+              <CardSpread
+                cards={emotions}
+                cardWidth={260}
+                cardHeight={183}
+                cardRadius={10}
+                radius={760}
+                arc={58}
+                shadow={0.22}
+                lift={34}
+                className="mt-6 hidden h-[360px] md:block"
+                onSelect={i => onOpen(emotionWorks, i)}
+              />
+            ) : (
+              <ul className="mt-8 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 md:grid xl:grid-cols-4">
+                {list.map((w, i) => (
+                  <li key={w.id} className={cn('min-w-0', w.wide && 'col-span-2')}>
+                    <Tile w={w} onClick={() => onOpen(list, i)} />
+                  </li>
+                ))}
+              </ul>
+            )}
+            <SwipeCarousel className="mt-6 md:hidden" items={list} getKey={w => w.id} render={(w, i) => <Tile w={w} mobile onClick={() => onOpen(list, i)} />} />
+          </section>
         )
       })}
-    </ul>
+    </div>
   )
 }
 
-export default function Gallery({ filter, setFilter }: { filter: CatId; setFilter: (f: CatId) => void }) {
+function Tile({ w, onClick, mobile }: { w: Work; onClick: () => void; mobile?: boolean }) {
   const { lang, t } = useLang()
+  const wt = w.id.startsWith('emo-') ? { title: w.title, sub: undefined } : workText(w, lang)
+  return (
+    <button type="button" onClick={onClick} className="group block w-full text-start" aria-label={t.open(wt.title)}>
+      <div
+        className={cn(
+          'relative overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-28px_rgba(35,32,29,0.45)]',
+          w.wide && !mobile ? 'aspect-[2/1]' : 'aspect-[4/5]',
+        )}
+      >
+        <img
+          src={w.cover || w.art}
+          alt={wt.title}
+          loading="lazy"
+          decoding="async"
+          className={cn(
+            'absolute inset-0 size-full transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]',
+            isPhoto(w) ? 'object-cover' : 'object-contain p-[8%] mix-blend-multiply',
+          )}
+        />
+      </div>
+      <p className="mt-3 font-medium text-balance">{wt.title}</p>
+      {wt.sub && <p className="truncate text-note text-ink-soft" dir="auto">{wt.sub}</p>}
+    </button>
+  )
+}
+
+// The six doors; a door opens its category in a full-window sheet, right here, without leaving the section
+export default function Gallery() {
+  const { t } = useLang()
+  const [cat, setCat] = useState<CatId | null>(null)
   const [open, setOpen] = useState<Open>(null)
-  const shown = works.filter(w => w.cat === filter)
-  const cat = catText(categories.find(c => c.id === filter)!, lang)
 
   return (
     <section id="works" className="relative scroll-mt-20 overflow-x-clip py-24 md:py-32">
       <SectionDots tone="blue" />
       <div className="mx-auto max-w-7xl px-4 md:px-8">
-        <div className="relative flex flex-wrap items-end justify-between gap-6">
-          <h2 className="font-display text-section font-bold">{t.worksTitle}</h2>
-          <div role="tablist" aria-label={t.catsLabel} className="-mx-4 flex max-w-[100vw] gap-2 overflow-x-auto px-4 pb-1 md:mx-0 md:flex-wrap md:px-0">
-            {categories.map(c => (
-              <button
-                key={c.id}
-                type="button"
-                role="tab"
-                aria-selected={filter === c.id}
-                onClick={() => setFilter(c.id)}
-                className={cn(
-                  'inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-note font-medium whitespace-nowrap transition-colors',
-                  filter === c.id ? 'border-ink bg-ink text-paper' : 'border-ink/20 hover:border-ink/50',
-                )}
-              >
-                <span className="size-2 rounded-full" style={{ background: c.color }} />
-                {catText(c, lang).name}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <p className="mt-8 max-w-2xl text-ink-soft">{cat.line}</p>
-
-        {filter === 'digital' && <ProjectGroups onOpen={(list, index) => setOpen({ list, index })} />}
-
-        {filter === 'photos' && <GalleryWalls list={shown} onOpen={i => setOpen({ list: shown, index: i })} />}
-
-          <ul className={cn('mt-12 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 xl:grid-cols-4', filter !== 'photos' && filter !== 'digital' && 'md:grid')}>
-            <AnimatePresence mode="popLayout">
-              {shown.map((w, i) => (
-                <motion.li
-                  key={w.id}
-                  layout
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  className={cn('min-w-0', w.wide && 'col-span-2')}
-                >
-                  <button type="button" onClick={() => setOpen({ list: shown, index: i })} className="group block w-full text-start" aria-label={t.open(workText(w, lang).title)}>
-                    <div
-                      className={cn(
-                        'relative overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-28px_rgba(35,32,29,0.45)]',
-                        w.wide ? 'aspect-[2/1]' : 'aspect-[4/5]',
-                      )}
-                    >
-                      <img
-                        src={w.cover || w.art}
-                        alt={workText(w, lang).title}
-                        loading="lazy"
-                        decoding="async"
-                        className={cn(
-                          'absolute inset-0 size-full transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]',
-                          isPhoto(w) ? 'object-cover' : 'object-contain p-[8%] mix-blend-multiply',
-                        )}
-                      />
-                    </div>
-                    <p className="mt-3 font-medium text-balance">{workText(w, lang).title}</p>
-                    {workText(w, lang).sub && <p className="truncate text-note text-ink-soft" dir="auto">{workText(w, lang).sub}</p>}
-                  </button>
-                </motion.li>
-              ))}
-            </AnimatePresence>
-          </ul>
-
-        {filter !== 'photos' && filter !== 'digital' && (
-          <SwipeCarousel
-            key={filter}
-            className="mt-10 md:hidden"
-            items={shown}
-            getKey={w => w.id}
-            render={(w, i) => (
-              <button type="button" onClick={() => setOpen({ list: shown, index: i })} className="block w-full text-start" aria-label={t.open(workText(w, lang).title)}>
-                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-24px_rgba(35,32,29,0.5)]">
-                  <img
-                    src={w.cover || w.art}
-                    alt={workText(w, lang).title}
-                    loading="lazy"
-                    decoding="async"
-                    className={cn('absolute inset-0 size-full', isPhoto(w) ? 'object-cover' : 'object-contain p-[7%] mix-blend-multiply')}
-                  />
-                </div>
-                <p className="mt-3 font-medium text-balance">{workText(w, lang).title}</p>
-              </button>
-            )}
-          />
-        )}
-
-        {filter === 'products' && (
-          <p className="mt-14 text-ink-soft">
-            {t.shirtsOrderA}{' '}
-            <a href={contact.shopUrl} target="_blank" rel="noopener" className="border-b border-ink/40 font-medium whitespace-nowrap text-ink hover:border-ink">
-              {t.shirtsOrderLink(t.shopName)}
-            </a>{' '}
-            {t.shirtsOrderAnd}
-            <a href={contact.shop2Url} target="_blank" rel="noopener" className="border-b border-ink/40 font-medium whitespace-nowrap text-ink hover:border-ink">
-              {t.shirtsOrderLink(t.shop2Name)}
-            </a>
-            {t.shirtsOrderB}
-          </p>
-        )}
+        <h2 className="font-display text-section font-bold">{t.doorsTitle}</h2>
+        <p className="mt-3 text-sub text-ink-soft">{t.worksSub}</p>
+        <Categories onPick={setCat} />
       </div>
-
+      <CategorySheet cat={cat} onClose={() => setCat(null)} setOpen={setOpen} />
       <Viewer open={open} setOpen={setOpen} />
     </section>
+  )
+}
+
+function CategorySheet({ cat, onClose, setOpen }: { cat: CatId | null; onClose: () => void; setOpen: (o: Open) => void }) {
+  const { lang, t } = useLang()
+  const reduce = useReducedMotion()
+  const closeBtn = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (!cat) return
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    closeBtn.current?.focus()
+    const onKey = (e: KeyboardEvent) => {
+      // the work viewer sits on top and handles its own Escape
+      if (e.key === 'Escape' && !document.querySelector('[data-viewer]')) onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = prev
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [cat, onClose])
+
+  const c = cat && categories.find(x => x.id === cat)!
+  const shown = cat ? works.filter(w => w.cat === cat) : []
+  const text = c && catText(c, lang)
+
+  return createPortal(
+    <AnimatePresence>
+      {c && text && (
+        <motion.div
+          key={c.id}
+          role="dialog"
+          aria-modal="true"
+          aria-label={text.name}
+          initial={reduce ? { opacity: 0 } : { opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduce ? { opacity: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-0 z-[65] overflow-x-clip overflow-y-auto overscroll-contain bg-paper"
+        >
+          <div className="sticky top-0 z-10 border-b border-line bg-paper/95 backdrop-blur">
+            <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-8">
+              <div className="flex items-center gap-3">
+                <span className="size-3 rounded-full" style={{ background: c.color }} />
+                <h2 className="font-display text-sub font-bold md:text-[2rem]">{text.name}</h2>
+              </div>
+              <button ref={closeBtn} type="button" onClick={onClose} aria-label={t.close} className="grid size-11 place-items-center rounded-full bg-paper-2 transition-colors hover:bg-line md:size-12">
+                <Icon name="close" />
+              </button>
+            </div>
+          </div>
+
+          <div className="mx-auto max-w-7xl px-4 pt-8 pb-24 md:px-8 md:pt-10">
+            <p className="max-w-2xl text-ink-soft">{text.line}</p>
+
+            {cat === 'digital' && <ProjectGroups onOpen={(list, index) => setOpen({ list, index })} />}
+
+            {cat === 'photos' && <GalleryWalls list={shown} onOpen={i => setOpen({ list: shown, index: i })} />}
+
+            {cat !== 'photos' && cat !== 'digital' && (
+              <>
+                <ul className="mt-12 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 md:grid xl:grid-cols-4">
+                  {shown.map((w, i) => (
+                    <li key={w.id} className={cn('min-w-0', w.wide && 'col-span-2')}>
+                      <Tile w={w} onClick={() => setOpen({ list: shown, index: i })} />
+                    </li>
+                  ))}
+                </ul>
+                <SwipeCarousel className="mt-10 md:hidden" items={shown} getKey={w => w.id} render={(w, i) => <Tile w={w} mobile onClick={() => setOpen({ list: shown, index: i })} />} />
+              </>
+            )}
+
+            {cat === 'products' && (
+              <p className="mt-14 text-ink-soft">
+                {t.shirtsOrderA}{' '}
+                <a href={contact.shopUrl} target="_blank" rel="noopener" className="border-b border-ink/40 font-medium whitespace-nowrap text-ink hover:border-ink">
+                  {t.shirtsOrderLink(t.shopName)}
+                </a>{' '}
+                {t.shirtsOrderAnd}
+                <a href={contact.shop2Url} target="_blank" rel="noopener" className="border-b border-ink/40 font-medium whitespace-nowrap text-ink hover:border-ink">
+                  {t.shirtsOrderLink(t.shop2Name)}
+                </a>
+                {t.shirtsOrderB}
+              </p>
+            )}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body,
   )
 }
 
@@ -273,6 +298,8 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
 
   useEffect(() => {
     if (!open) return
+    // the category sheet may already lock the page; give back whatever was there
+    const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     closeBtn.current?.focus()
     const onKey = (e: KeyboardEvent) => {
@@ -283,7 +310,7 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
     }
     document.addEventListener('keydown', onKey)
     return () => {
-      document.body.style.overflow = ''
+      document.body.style.overflow = prev
       document.removeEventListener('keydown', onKey)
     }
   }, [open, close, go, rtl])
@@ -305,6 +332,7 @@ function Viewer({ open, setOpen }: { open: Open; setOpen: (o: Open) => void }) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
+          data-viewer
           className="fixed inset-0 z-[70] flex flex-col overflow-y-auto bg-paper"
         >
           {/* top bar */}
