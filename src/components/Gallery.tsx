@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { contact, categories, catText, emotions, projects, waLink, workText, works, type CatId, type Work } from '../data'
+import { contact, categories, catText, emotions, inProject, projects, waLink, workText, works, type CatId, type Work } from '../data'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
 import CardSpread from './CardSpread'
@@ -99,7 +99,19 @@ function ProjectGroups({ cat, onOpen }: { cat: CatId; onOpen: (list: Work[], ind
     <div className="mt-10 space-y-16 md:space-y-24">
       {projects.filter(p => p.cat === cat).map(p => {
         const deck = p.id === 'ecocards'
-        const all = deck ? emotionWorks : works.filter(w => w.project === p.id)
+        const all = deck ? emotionWorks : works.filter(w => inProject(w, p.id))
+        // a project with nothing in it yet keeps its place with a "coming soon" frame
+        if (!all.length)
+          return (
+            <section key={p.id} aria-labelledby={`proj-${p.id}`}>
+              <div className="border-t border-line pt-6">
+                <h3 id={`proj-${p.id}`} className="font-display text-sub font-bold md:text-[2rem] md:leading-tight">{lang === 'he' ? p.name : p.en}</h3>
+              </div>
+              <div className="mt-6 grid aspect-[4/5] w-full max-w-72 place-items-center rounded-2xl border-2 border-dashed border-ink/25 text-ink-soft">
+                <span className="text-note font-medium">{t.soon}</span>
+              </div>
+            </section>
+          )
         const cover = all.find(w => w.id === p.cover) ?? all[0]
         const list = [cover, ...all.filter(w => w !== cover)]
         return (

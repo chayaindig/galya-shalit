@@ -1,4 +1,4 @@
-import { categories, catText, emotions, projects, works, type CatId } from '../data'
+import { categories, catText, emotions, inProject, projects, works, type CatId } from '../data'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
 import Icon from './Icon'
@@ -10,7 +10,7 @@ type Cat = (typeof categories)[number]
 const countOf = (c: Cat) => {
   const own = projects.filter(p => p.cat === c.id).map(p => p.id)
   if (!own.length) return works.filter(w => w.cat === c.id).length
-  return works.filter(w => w.project && own.includes(w.project)).length + (own.includes('ecocards') ? emotions.length : 0)
+  return works.filter(w => own.some(id => inProject(w, id))).length + (own.includes('ecocards') ? emotions.length : 0)
 }
 const isSoon = (c: Cat) => !c.cover
 

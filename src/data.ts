@@ -38,10 +38,10 @@ export type Work = {
   note: string
   wide?: boolean
   /** Which client or personal project a Projects work belongs to */
-  project?: ProjectId
+  project?: ProjectId | ProjectId[]
 }
 
-export type ProjectId = 'studio' | 'ecocards' | 'oneline' | 'foxpn' | 'ecoconf' | 'pnprint' | 'kozo' | 'haish' | 'nature' | 'journal' | 'insp'
+export type ProjectId = 'studio' | 'ecocards' | 'oneline' | 'foxpn' | 'ecoconf' | 'pnprint' | 'kozo' | 'haish' | 'nature' | 'journal' | 'insp' | 'bottles' | 'shirts' | 'bags' | 'stickers'
 
 // Projects inside a category (Projects and Books), shown one block per project in this order. 'ecocards' is the emotion card deck.
 export const projects: { id: ProjectId; cat: CatId; name: string; en: string; cover: string }[] = [
@@ -54,6 +54,10 @@ export const projects: { id: ProjectId; cat: CatId; name: string; en: string; co
   { id: 'nature', cat: 'digital', cover: 'cyclamen', name: 'איורים לרשות הטבע והגנים', en: 'Illustrations for the Israel Nature and Parks Authority' },
   { id: 'journal', cat: 'inspiration', cover: 'journal-frogs', name: 'איורים מהיומן', en: 'From my journal' },
   { id: 'insp', cat: 'inspiration', cover: 'apples', name: 'איורים להשראה', en: 'Drawings for inspiration' },
+  { id: 'bottles', cat: 'products', cover: 'bottle-mandala', name: 'בקבוקים', en: 'Bottles' },
+  { id: 'shirts', cat: 'products', cover: 'fox-shirt', name: 'חולצות', en: 'Shirts' },
+  { id: 'bags', cat: 'products', cover: 'bag-seahorse', name: 'תיקים', en: 'Tote bags' },
+  { id: 'stickers', cat: 'products', cover: '', name: 'מדבקות', en: 'Stickers' },
   { id: 'kozo', cat: 'books', cover: 'book-branch', name: 'איור לספר ״מה קרה לקוזו״ מאת תמר אשר שי', en: 'Illustrations for "What Happened to Kozo" by Tamar Asher Shai' },
   { id: 'haish', cat: 'books', cover: 'book-einstein', name: 'איור לספר ״מי היה האיש שהיה״ מאת אבי קצמן', en: 'Illustrations for "Who Was the Man Who Was" by Avi Katzman' },
 ]
@@ -72,38 +76,38 @@ export const works: Work[] = [
   { id: 'bustard', title: 'חובארה', cat: 'digital', art: 'art2/ins-bustard.webp', note: 'רישום עיפרון עדין, נוצה אחרי נוצה.', project: 'nature' },
   { id: 'fox-sketch', title: 'שועל בקו', cat: 'digital', art: 'art2/ins-fox-sketch.webp', note: 'שועל בעיפרון, קו אחרי קו.', project: 'nature' },
   { id: 'noplanetb', title: 'There is no planet B', cat: 'digital', art: 'art2/dig-noplanetb.webp', note: 'הרים, גלים ומסר אחד ברור, בצבעי עפרון על נייר חום.', project: 'ecoconf' },
-  { id: 'fox-shirt', title: 'השועל הכתום על חולצה', cat: 'products', art: 'art2/prod-fox-shirt.webp', note: 'השועל הדיגיטלי, מודפס בלבן על חולצה כתומה.', project: 'foxpn' },
-  { id: 'bag-seahorse', title: 'סוסון ים על תיק', cat: 'products', art: 'art2/prod-bag-1.webp', note: 'סוסון הים הכתום מהוויטראז׳, על תיק בד שאפשר לקחת לים.' },
-  { id: 'bag-bubbles', title: 'בועות על תיק', cat: 'products', art: 'art2/prod-bag-2.webp', note: 'מאות בועות שזורמות מתוך חלון שחור, עכשיו על תיק בד.' },
-  { id: 'bag-rain', title: 'גשם על תיק', cat: 'products', art: 'art2/prod-bag-3.webp', note: 'הילדה עם המטרייה מתחת לענן התלתלים, בקו אחד על תיק בד.' },
-  { id: 'bag-fox', title: 'שועל בוויטראז׳ על תיק', cat: 'products', art: 'art2/prod-bag-4.webp', note: 'השועל הכתום, יושב בתוך חלון של זכוכית צבעונית.' },
-  { id: 'bag-cat', title: 'חתול מתמתח על תיק', cat: 'products', art: 'art2/prod-bag-5.webp', note: 'חתול כתום שמתמתח בפינה של התיק, כאילו זה המקום שלו.' },
-  { id: 'bag-whale', title: 'לוויתן על תיק', cat: 'products', art: 'art2/prod-bag-6.webp', note: 'זנב הלוויתן רגע לפני הצלילה, ים של קווים על תיק בד.' },
-  { id: 'bottle-mandala', title: 'מנדלה על בקבוק', cat: 'products', art: 'art2/prod-bottle-1.webp', note: 'מנדלה בדיו שחור עם עלה אדום אחד, עוטפת את תחתית הבקבוק.' },
-  { id: 'bottle-sheep', title: 'כבשים על בקבוק', cat: 'products', art: 'art2/prod-bottle-2.webp', note: 'הכבשים המתולתלות בקו אחד, רועות סביב הבקבוק.' },
-  { id: 'bottle-penguins', title: 'פינגווינים על בקבוק', cat: 'products', art: 'art2/prod-bottle-3.webp', note: 'משפחת הפינגווינים על הקרחון, מקיפה את הבקבוק בשורה.' },
-  { id: 'bottle-cats', title: 'חתולים על בקבוק', cat: 'products', art: 'art2/prod-bottle-4.webp', note: 'שלושה חתולים בקו אחד, יושבים בשקט בתחתית הבקבוק.' },
-  { id: 'bottle-chameleon', title: 'זיקית על בקבוק', cat: 'products', art: 'art2/prod-bottle-5.webp', note: 'הזיקית בכל צבעי הקשת, מטפסת על בקבוק לבן.' },
-  { id: 'macaw', title: 'זוג מקאו', en: 'Macaw', cat: 'products', art: 'art/macaw-web.webp', cover: 'art/macaw-model.webp', shop: P + 'macaw/', note: 'שני תוכים באמצע ריקוד, כל נוצה בצבע אחר.' },
-  { id: 'zenart', title: 'פטריות זן', en: 'Zenart Mushrooms', cat: 'products', art: 'art/zenart-web.webp', cover: 'art/zenart-model.webp', shop: P + 'zenart-mushrooms/', note: 'יער קטן של פטריות מצוירות בדוגמאות, שקועות בענן של צבע.' },
-  { id: 'penguins', title: 'פינגווינים', en: 'Penguins', cat: 'products', art: 'art/penguins-web.webp', cover: 'art/penguins-model.webp', shop: P + 'penguins/', note: 'משפחה שלמה על קרחון אחד. כל אחד מסתכל לכיוון אחר.', wide: true },
-  { id: 'gchameleon', title: 'זיקית בוויטראז׳', en: 'Geometric Chameleon', cat: 'products', art: 'art/gchameleon-web.webp', cover: 'art/gchameleon-model.webp', shop: P + 'geometric_chaemelon/', note: 'אותה זיקית אהובה, הפעם מפורקת לעשרות פיסות זכוכית צבעונית.' },
-  { id: 'gseahorse', title: 'סוסון ים', en: 'Geometrical Sea', cat: 'products', art: 'art/gseahorse-web.webp', cover: 'art/gseahorse-model.webp', shop: P + 'geometrical_sea/', note: 'סוסון ים כתום שמתחבא בתוך ים של משולשים.' },
-  { id: 'gmushrooms', title: 'פטריות גיאומטריות', en: 'Geometric Mushrooms', cat: 'products', art: 'art/gmushrooms-web.webp', cover: 'art/gmushrooms-model.webp', shop: P + 'geometric_mushrooms/', note: 'כובעי פטריות שנשברים לאור, כמו ויטראז׳ בתוך יער.' },
-  { id: 'lizard', title: 'לטאה', en: 'Lizard', cat: 'products', art: 'art/lizard-web.webp', cover: 'art/lizard-model.webp', shop: P + 'lizard/', note: 'לטאה שמטפסת על עמוד של צבע. הכי טובה על הגב של חולצה.' },
+  { id: 'fox-shirt', title: 'השועל הכתום על חולצה', cat: 'products', art: 'art2/prod-fox-shirt.webp', note: 'השועל הדיגיטלי, מודפס בלבן על חולצה כתומה.', project: ['foxpn', 'shirts'] },
+  { id: 'bag-seahorse', title: 'סוסון ים על תיק', cat: 'products', art: 'art2/prod-bag-1.webp', note: 'סוסון הים הכתום מהוויטראז׳, על תיק בד שאפשר לקחת לים.', project: 'bags' },
+  { id: 'bag-bubbles', title: 'בועות על תיק', cat: 'products', art: 'art2/prod-bag-2.webp', note: 'מאות בועות שזורמות מתוך חלון שחור, עכשיו על תיק בד.', project: 'bags' },
+  { id: 'bag-rain', title: 'גשם על תיק', cat: 'products', art: 'art2/prod-bag-3.webp', note: 'הילדה עם המטרייה מתחת לענן התלתלים, בקו אחד על תיק בד.', project: 'bags' },
+  { id: 'bag-fox', title: 'שועל בוויטראז׳ על תיק', cat: 'products', art: 'art2/prod-bag-4.webp', note: 'השועל הכתום, יושב בתוך חלון של זכוכית צבעונית.', project: 'bags' },
+  { id: 'bag-cat', title: 'חתול מתמתח על תיק', cat: 'products', art: 'art2/prod-bag-5.webp', note: 'חתול כתום שמתמתח בפינה של התיק, כאילו זה המקום שלו.', project: 'bags' },
+  { id: 'bag-whale', title: 'לוויתן על תיק', cat: 'products', art: 'art2/prod-bag-6.webp', note: 'זנב הלוויתן רגע לפני הצלילה, ים של קווים על תיק בד.', project: 'bags' },
+  { id: 'bottle-mandala', title: 'מנדלה על בקבוק', cat: 'products', art: 'art2/prod-bottle-1.webp', note: 'מנדלה בדיו שחור עם עלה אדום אחד, עוטפת את תחתית הבקבוק.', project: 'bottles' },
+  { id: 'bottle-sheep', title: 'כבשים על בקבוק', cat: 'products', art: 'art2/prod-bottle-2.webp', note: 'הכבשים המתולתלות בקו אחד, רועות סביב הבקבוק.', project: 'bottles' },
+  { id: 'bottle-penguins', title: 'פינגווינים על בקבוק', cat: 'products', art: 'art2/prod-bottle-3.webp', note: 'משפחת הפינגווינים על הקרחון, מקיפה את הבקבוק בשורה.', project: 'bottles' },
+  { id: 'bottle-cats', title: 'חתולים על בקבוק', cat: 'products', art: 'art2/prod-bottle-4.webp', note: 'שלושה חתולים בקו אחד, יושבים בשקט בתחתית הבקבוק.', project: 'bottles' },
+  { id: 'bottle-chameleon', title: 'זיקית על בקבוק', cat: 'products', art: 'art2/prod-bottle-5.webp', note: 'הזיקית בכל צבעי הקשת, מטפסת על בקבוק לבן.', project: 'bottles' },
+  { id: 'macaw', title: 'זוג מקאו', en: 'Macaw', cat: 'products', art: 'art/macaw-web.webp', cover: 'art/macaw-model.webp', shop: P + 'macaw/', note: 'שני תוכים באמצע ריקוד, כל נוצה בצבע אחר.', project: 'shirts' },
+  { id: 'zenart', title: 'פטריות זן', en: 'Zenart Mushrooms', cat: 'products', art: 'art/zenart-web.webp', cover: 'art/zenart-model.webp', shop: P + 'zenart-mushrooms/', note: 'יער קטן של פטריות מצוירות בדוגמאות, שקועות בענן של צבע.', project: 'shirts' },
+  { id: 'penguins', title: 'פינגווינים', en: 'Penguins', cat: 'products', art: 'art/penguins-web.webp', cover: 'art/penguins-model.webp', shop: P + 'penguins/', note: 'משפחה שלמה על קרחון אחד. כל אחד מסתכל לכיוון אחר.', wide: true, project: 'shirts' },
+  { id: 'gchameleon', title: 'זיקית בוויטראז׳', en: 'Geometric Chameleon', cat: 'products', art: 'art/gchameleon-web.webp', cover: 'art/gchameleon-model.webp', shop: P + 'geometric_chaemelon/', note: 'אותה זיקית אהובה, הפעם מפורקת לעשרות פיסות זכוכית צבעונית.', project: 'shirts' },
+  { id: 'gseahorse', title: 'סוסון ים', en: 'Geometrical Sea', cat: 'products', art: 'art/gseahorse-web.webp', cover: 'art/gseahorse-model.webp', shop: P + 'geometrical_sea/', note: 'סוסון ים כתום שמתחבא בתוך ים של משולשים.', project: 'shirts' },
+  { id: 'gmushrooms', title: 'פטריות גיאומטריות', en: 'Geometric Mushrooms', cat: 'products', art: 'art/gmushrooms-web.webp', cover: 'art/gmushrooms-model.webp', shop: P + 'geometric_mushrooms/', note: 'כובעי פטריות שנשברים לאור, כמו ויטראז׳ בתוך יער.', project: 'shirts' },
+  { id: 'lizard', title: 'לטאה', en: 'Lizard', cat: 'products', art: 'art/lizard-web.webp', cover: 'art/lizard-model.webp', shop: P + 'lizard/', note: 'לטאה שמטפסת על עמוד של צבע. הכי טובה על הגב של חולצה.', project: 'shirts' },
   { id: 'flamingo', title: 'פלמינגו', en: 'Oneline Flamingo', cat: 'digital', art: 'art/flamingo-web.webp', shop: P + 'oneline_flamingo/', note: 'ארבעה פלמינגו, קו אחד. העט לא התרומם מהדף אפילו פעם אחת.', wide: true, project: 'oneline' },
   { id: 'cats', title: 'חתולים', en: 'Oneline Cats', cat: 'digital', art: 'art/cats-web.webp', shop: P + 'oneline_cats/', note: 'שורה של חתולים שיושבים בדיוק כמו שחתולים יושבים.', wide: true, project: 'oneline' },
   { id: 'birds', title: 'ציפורים על חוט', en: 'Oneline Birds', cat: 'digital', art: 'art/birds-web.webp', shop: P + 'oneline_birds/', note: 'ציפורים שנחות על הקו שהן עצמן עשויות ממנו.', wide: true, project: 'oneline' },
   { id: 'snail', title: 'חלזונות', en: 'Oneline Snail', cat: 'digital', art: 'art/snail-web.webp', shop: P + 'oneline_snail/', note: 'מירוץ חלזונות איטי במיוחד, בקו אחד.', wide: true, project: 'oneline' },
   { id: '4sheep', title: 'ארבע כבשים', en: 'Oneline 4 Sheep', cat: 'digital', art: 'art/4sheep-web.webp', shop: P + 'oneline-4sheep/', note: 'עדר קטן של כבשים מתולתלות, וכבשה אחת שמסתכלת אלייך.', wide: true, project: 'oneline' },
   { id: 'sheep', title: 'כבשה עם שאלה', en: 'Oneline Sheep', cat: 'digital', art: 'art/sheep-web.webp', shop: P + 'oneline_sheep/', note: 'קו אחד שמסתבך ומסתבך, ובסוף מתגלה כבשה עם סימן שאלה.', project: 'oneline' },
-  { id: 'dottedtree', title: 'עץ מנוקד', en: 'Dotted Tree', cat: 'products', art: 'art/dottedtree-web.webp', cover: 'art/dottedtree-model.webp', shop: P + 'dottedtree/', note: 'עץ ושורשיו, בנויים כולם מנקודות דיו. חצי חורף, חצי אביב.' },
+  { id: 'dottedtree', title: 'עץ מנוקד', en: 'Dotted Tree', cat: 'products', art: 'art/dottedtree-web.webp', cover: 'art/dottedtree-model.webp', shop: P + 'dottedtree/', note: 'עץ ושורשיו, בנויים כולם מנקודות דיו. חצי חורף, חצי אביב.', project: 'shirts' },
   { id: 'spiraltree', title: 'עץ ספירלות', en: 'Spiral Tree', cat: 'digital', art: 'art/spiraltree-web.webp', shop: P + 'spiraltree/', note: 'עץ שכל העלים שלו הם ספירלות קטנות.', project: 'oneline' },
-  { id: 'bubbles', title: 'בועות', en: 'Bubbles', cat: 'products', art: 'art/bubbles-web.webp', cover: 'art/bubbles-model.webp', shop: P + 'bubbles/', note: 'מאות בועות שזורמות החוצה מתוך חלון אחד שחור.' },
-  { id: 'time', title: 'זמן', en: 'Time', cat: 'products', art: 'art/time-web.webp', cover: 'art/time-model.webp', shop: P + 'time/', note: 'שעון חול שבמקום חול זורמת בו המילה time.' },
-  { id: 'whale', title: 'זנב של לוויתן', en: 'Whale Tail', cat: 'products', art: 'art/whale-web.webp', cover: 'art/whale-model.webp', shop: P + '%d7%97%d7%95%d7%9c%d7%a6%d7%94-%d7%9e%d7%95%d7%93%d7%a4%d7%a1%d7%aa-whale_tail/', note: 'רגע אחד לפני שהלוויתן צולל. הים עשוי מקווים בלבד.' },
+  { id: 'bubbles', title: 'בועות', en: 'Bubbles', cat: 'products', art: 'art/bubbles-web.webp', cover: 'art/bubbles-model.webp', shop: P + 'bubbles/', note: 'מאות בועות שזורמות החוצה מתוך חלון אחד שחור.', project: 'shirts' },
+  { id: 'time', title: 'זמן', en: 'Time', cat: 'products', art: 'art/time-web.webp', cover: 'art/time-model.webp', shop: P + 'time/', note: 'שעון חול שבמקום חול זורמת בו המילה time.', project: 'shirts' },
+  { id: 'whale', title: 'זנב של לוויתן', en: 'Whale Tail', cat: 'products', art: 'art/whale-web.webp', cover: 'art/whale-model.webp', shop: P + '%d7%97%d7%95%d7%9c%d7%a6%d7%94-%d7%9e%d7%95%d7%93%d7%a4%d7%a1%d7%aa-whale_tail/', note: 'רגע אחד לפני שהלוויתן צולל. הים עשוי מקווים בלבד.', project: 'shirts' },
   { id: 'rain', title: 'גשם', en: 'Oneline Rain', cat: 'digital', art: 'art/rain-web.webp', shop: P + 'oneline_rain/', note: 'ילדה קטנה עם מטרייה, מתחת לענן של תלתלים.', project: 'oneline' },
-  { id: 'panda', title: 'יער במבוק', en: 'Panda Grove', cat: 'products', art: 'art/panda-model2.webp', cover: 'art/panda-model.webp', shop: P + '%d7%97%d7%95%d7%9c%d7%a6%d7%94-%d7%a2%d7%9d-%d7%94%d7%93%d7%a4%d7%a1%d7%94-%d7%a9%d7%9c-%d7%a4%d7%a0%d7%93%d7%94-panda_grove/', note: 'צריך להסתכל טוב. איפשהו בין הבמבוקים מחכה פנדה.' },
+  { id: 'panda', title: 'יער במבוק', en: 'Panda Grove', cat: 'products', art: 'art/panda-model2.webp', cover: 'art/panda-model.webp', shop: P + '%d7%97%d7%95%d7%9c%d7%a6%d7%94-%d7%a2%d7%9d-%d7%94%d7%93%d7%a4%d7%a1%d7%94-%d7%a9%d7%9c-%d7%a4%d7%a0%d7%93%d7%94-panda_grove/', note: 'צריך להסתכל טוב. איפשהו בין הבמבוקים מחכה פנדה.', project: 'shirts' },
   { id: 'fox', title: 'השועל הכתום', cat: 'digital', art: 'art2/dig-fox.webp', note: 'איור דיגיטלי של שועל לבן על כתום, שהפך גם לחולצה.', project: 'foxpn' },
   { id: 'wakeup', title: 'Wake up!', cat: 'digital', art: 'art2/dig-wakeup.webp', note: 'דוב קוטב על קרחון שנמס. גלויה עם קריאה להתעורר.', project: 'ecoconf' },
   { id: 'zebra', title: 'Zebra crossing', cat: 'digital', art: 'art2/dig-zebra.webp', note: 'מעבר חצייה, פשוטו כמשמעו.', project: 'pnprint' },
@@ -221,6 +225,9 @@ export const workEn: Record<string, { title: string; note: string; sub?: string 
 }
 
 /** Title, subtitle and note of a work in the current language */
+// A work can sit in more than one project (the fox shirt is in the fox project and in Shirts)
+export const inProject = (w: Work, id: ProjectId) => [w.project].flat().includes(id)
+
 export const workText = (w: Work, lang: 'he' | 'en') => {
   if (lang === 'he') return { title: w.title, sub: w.en, note: w.note }
   const e = workEn[w.id]
