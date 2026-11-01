@@ -271,6 +271,21 @@ function CategorySheet({ cat, onClose, setOpen }: { cat: CatId | null; onClose: 
                 {t.shirtsOrderB}
               </p>
             )}
+
+            {/* end of the category: back to the six doors */}
+            <div className="mt-20 flex justify-center border-t border-line pt-10">
+              <button
+                type="button"
+                onClick={() => {
+                  onClose()
+                  document.getElementById('works')?.scrollIntoView({ behavior: 'instant' })
+                }}
+                className="inline-flex items-center gap-2.5 rounded-full bg-blue-deep px-6 py-3.5 font-medium text-paper transition-transform hover:-translate-y-0.5"
+              >
+                <Icon name="arrow" back />
+                {t.backToDoors}
+              </button>
+            </div>
           </div>
         </motion.div>
       )}
