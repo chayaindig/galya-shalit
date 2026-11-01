@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { contact, categories, catText, emotions, waLink, workText, works, type CatId, type Work } from '../data'
+import { contact, categories, catText, emotions, projects, waLink, workText, works, type CatId, type Work } from '../data'
 import { useLang } from '../i18n'
 import { cn } from '../lib/cn'
 import CardSpread from './CardSpread'
@@ -12,7 +12,7 @@ import SwipeCarousel from './SwipeCarousel'
 /*
   Works by category. A card opens a full-window viewer: the art large, the story and buttons below,
   and arrows (or swipe, or the keyboard) to move between the works of the same category.
-  The digital category opens with the emotion cards as a fanned deck (React Bits Pro "Card Spread").
+  The Projects tab is shown project by project; the EcoPeace emotion cards are a fanned deck (React Bits Pro "Card Spread").
 */
 const emotionWorks: Work[] = emotions.map(e => ({
   id: `emo-${e.id}`,
@@ -91,6 +91,84 @@ function GalleryWalls({ list, onOpen }: { list: Work[]; onOpen: (index: number) 
 
 type Open = { list: Work[]; index: number } | null
 
+// Projects tab: one block per project, its name on top and its works below
+function ProjectGroups({ onOpen }: { onOpen: (list: Work[], index: number) => void }) {
+  const { lang, t } = useLang()
+  return (
+    <div className="mt-12 space-y-16 md:space-y-24">
+      {projects.map(p => {
+        const list = works.filter(w => w.project === p.id)
+        const deck = p.id === 'ecocards'
+        return (
+          <section key={p.id} aria-labelledby={`proj-${p.id}`}>
+            <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 border-t border-line pt-6">
+              <h3 id={`proj-${p.id}`} className="font-display text-sub font-bold md:text-[2rem] md:leading-tight">{lang === 'he' ? p.name : p.en}</h3>
+              <p className="text-note text-ink-soft">{deck ? t.emoHint : t.works(list.length)}</p>
+            </div>
+            {deck ? (
+              <CardSpread
+                cards={emotions}
+                cardWidth={260}
+                cardHeight={183}
+                cardRadius={10}
+                radius={760}
+                arc={58}
+                shadow={0.22}
+                lift={34}
+                className="mt-6 h-[220px] md:h-[360px]"
+                onSelect={i => onOpen(emotionWorks, i)}
+              />
+            ) : (
+              <>
+                <ul className="mt-8 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 md:grid xl:grid-cols-4">
+                  {list.map((w, i) => (
+                    <li key={w.id} className={cn('min-w-0', w.wide && 'col-span-2')}>
+                      <Tile w={w} onClick={() => onOpen(list, i)} />
+                    </li>
+                  ))}
+                </ul>
+                <SwipeCarousel
+                  className="mt-6 md:hidden"
+                  items={list}
+                  getKey={w => w.id}
+                  render={(w, i) => <Tile w={w} mobile onClick={() => onOpen(list, i)} />}
+                />
+              </>
+            )}
+          </section>
+        )
+      })}
+    </div>
+  )
+}
+
+function Tile({ w, onClick, mobile }: { w: Work; onClick: () => void; mobile?: boolean }) {
+  const { lang, t } = useLang()
+  const title = workText(w, lang).title
+  return (
+    <button type="button" onClick={onClick} className="group block w-full text-start" aria-label={t.open(title)}>
+      <div
+        className={cn(
+          'relative overflow-hidden rounded-2xl bg-[#fdfbf7] shadow-[0_1px_0_var(--color-line),0_18px_40px_-28px_rgba(35,32,29,0.45)]',
+          w.wide && !mobile ? 'aspect-[2/1]' : 'aspect-[4/5]',
+        )}
+      >
+        <img
+          src={w.cover || w.art}
+          alt={title}
+          loading="lazy"
+          decoding="async"
+          className={cn(
+            'absolute inset-0 size-full transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]',
+            isPhoto(w) ? 'object-cover' : 'object-contain p-[8%] mix-blend-multiply',
+          )}
+        />
+      </div>
+      <p className="mt-3 font-medium text-balance">{title}</p>
+    </button>
+  )
+}
+
 export default function Gallery({ filter, setFilter }: { filter: CatId; setFilter: (f: CatId) => void }) {
   const { lang, t } = useLang()
   const [open, setOpen] = useState<Open>(null)
@@ -125,30 +203,11 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
 
         <p className="mt-8 max-w-2xl text-ink-soft">{cat.line}</p>
 
-        {filter === 'digital' && (
-          <div className="mt-10 rounded-3xl bg-paper-2 px-4 pt-8 pb-4 md:px-8">
-            <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <h3 className="text-sub font-medium">{t.emoTitle}</h3>
-              <p className="text-note text-ink-soft">{t.emoHint}</p>
-            </div>
-            <CardSpread
-              cards={emotions}
-              cardWidth={260}
-              cardHeight={183}
-              cardRadius={10}
-              radius={760}
-              arc={58}
-              shadow={0.22}
-              lift={34}
-              className="h-[220px] md:h-[360px]"
-              onSelect={i => setOpen({ list: emotionWorks, index: i })}
-            />
-          </div>
-        )}
+        {filter === 'digital' && <ProjectGroups onOpen={(list, index) => setOpen({ list, index })} />}
 
         {filter === 'photos' && <GalleryWalls list={shown} onOpen={i => setOpen({ list: shown, index: i })} />}
 
-          <ul className={cn('mt-12 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 xl:grid-cols-4', filter !== 'photos' && 'md:grid')}>
+          <ul className={cn('mt-12 hidden grid-flow-dense grid-cols-3 gap-x-6 gap-y-10 xl:grid-cols-4', filter !== 'photos' && filter !== 'digital' && 'md:grid')}>
             <AnimatePresence mode="popLayout">
               {shown.map((w, i) => (
                 <motion.li
@@ -186,7 +245,7 @@ export default function Gallery({ filter, setFilter }: { filter: CatId; setFilte
             </AnimatePresence>
           </ul>
 
-        {filter !== 'photos' && (
+        {filter !== 'photos' && filter !== 'digital' && (
           <SwipeCarousel
             key={filter}
             className="mt-10 md:hidden"
