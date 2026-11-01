@@ -43,14 +43,14 @@ export type Work = {
 
 export type ProjectId = 'studio' | 'ecocards' | 'oneline' | 'foxpn' | 'ecoconf' | 'pnprint'
 
-// The Projects tab is shown project by project, in this order. 'ecocards' is the emotion card deck.
-export const projects: { id: ProjectId; name: string; en: string }[] = [
-  { id: 'studio', name: 'מדבקות קיר לסטודיו המרחב', en: 'Wall decals for HaMerhav studio' },
-  { id: 'ecocards', name: 'קלפי רגשות ל־EcoPeace Middle East', en: 'Emotion cards for EcoPeace Middle East' },
-  { id: 'oneline', name: 'קו אחד: הדפסות לפי דרישה על מוצרים', en: 'One line: print on demand' },
-  { id: 'foxpn', name: 'פוזיטיב נגטיב: פרויקט השראה', en: 'Positive negative: an inspiration project' },
-  { id: 'ecoconf', name: 'העלאת מודעות לכנס של EcoPeace Middle East', en: 'Awareness art for the EcoPeace Middle East conference' },
-  { id: 'pnprint', name: 'פוזיטיב נגטיב: הדפסות לפי דרישה', en: 'Positive negative: print on demand' },
+// The Projects tab shows one main image per project (cover = a work id); a click opens all its works. 'ecocards' is the emotion card deck.
+export const projects: { id: ProjectId; name: string; en: string; cover: string }[] = [
+  { id: 'studio', cover: 'wall-run', name: 'מדבקות קיר לסטודיו המרחב', en: 'Wall decals for HaMerhav studio' },
+  { id: 'ecocards', cover: 'emo-calm', name: 'קלפי רגשות ל־EcoPeace Middle East', en: 'Emotion cards for EcoPeace Middle East' },
+  { id: 'oneline', cover: 'flamingo', name: 'קו אחד: הדפסות לפי דרישה על מוצרים', en: 'One line: print on demand' },
+  { id: 'foxpn', cover: 'fox', name: 'פוזיטיב נגטיב: פרויקט השראה', en: 'Positive negative: an inspiration project' },
+  { id: 'ecoconf', cover: 'wakeup', name: 'העלאת מודעות לכנס של EcoPeace Middle East', en: 'Awareness art for the EcoPeace Middle East conference' },
+  { id: 'pnprint', cover: 'beetles', name: 'פוזיטיב נגטיב: הדפסות לפי דרישה', en: 'Positive negative: print on demand' },
 ]
 
 const P = 'https://www.h-i-h.co.il/product/'
@@ -67,7 +67,7 @@ export const works: Work[] = [
   { id: 'bustard', title: 'חובארה', cat: 'inspiration', art: 'art2/ins-bustard.webp', note: 'רישום עיפרון עדין, נוצה אחרי נוצה.' },
   { id: 'fox-sketch', title: 'שועל בקו', cat: 'inspiration', art: 'art2/ins-fox-sketch.webp', note: 'סקיצה של שועל, לפני שהוא הפך לכתום.' },
   { id: 'noplanetb', title: 'There is no planet B', cat: 'digital', art: 'art2/dig-noplanetb.webp', note: 'הרים, גלים ומסר אחד ברור, בצבעי עפרון על נייר חום.', project: 'ecoconf' },
-  { id: 'fox-shirt', title: 'השועל הכתום על חולצה', cat: 'products', art: 'art2/prod-fox-shirt.webp', note: 'השועל הדיגיטלי, מודפס בלבן על חולצה כתומה.' },
+  { id: 'fox-shirt', title: 'השועל הכתום על חולצה', cat: 'products', art: 'art2/prod-fox-shirt.webp', note: 'השועל הדיגיטלי, מודפס בלבן על חולצה כתומה.', project: 'foxpn' },
   { id: 'bag-seahorse', title: 'סוסון ים על תיק', cat: 'products', art: 'art2/prod-bag-1.webp', note: 'סוסון הים הכתום מהוויטראז׳, על תיק בד שאפשר לקחת לים.' },
   { id: 'bag-bubbles', title: 'בועות על תיק', cat: 'products', art: 'art2/prod-bag-2.webp', note: 'מאות בועות שזורמות מתוך חלון שחור, עכשיו על תיק בד.' },
   { id: 'bag-rain', title: 'גשם על תיק', cat: 'products', art: 'art2/prod-bag-3.webp', note: 'הילדה עם המטרייה מתחת לענן התלתלים, בקו אחד על תיק בד.' },
