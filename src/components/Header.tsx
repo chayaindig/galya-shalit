@@ -10,7 +10,6 @@ export default function Header() {
   const { lang, t, setLang } = useLang()
   const nav = [
     { href: '#works', label: t.navWorks },
-    { href: '#series', label: t.navSeries },
     { href: '#about', label: t.navAbout },
     { href: '#shop', label: t.navShop },
     { href: '#contact', label: t.navContact },

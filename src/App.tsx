@@ -5,7 +5,6 @@ import type { CatId } from './data'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Credo from './components/Credo'
-import Categories from './components/Categories'
 import SquirrelRun from './components/SquirrelRun'
 import Gallery from './components/Gallery'
 import About from './components/About'
@@ -29,7 +28,6 @@ export default function App() {
       <main>
         <Hero />
         <Credo />
-        <Categories onPick={setFilter} />
         <SquirrelRun />
         <Gallery filter={filter} setFilter={setFilter} />
         <Prints />
